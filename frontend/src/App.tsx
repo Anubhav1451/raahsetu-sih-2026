@@ -33,6 +33,7 @@ import {
   getConnectivity,
   getFleetVehicles,
   getDeliveries,
+  createDelivery,
   updateDelivery,
   sendFleetPosition,
   getNetwork,
@@ -171,6 +172,11 @@ export default function App() {
   const [deliveryStatusDraft, setDeliveryStatusDraft] = useState<Record<string, DeliveryJob["status"]>>({});
   const [deliveryBusy, setDeliveryBusy] = useState<string | null>(null);
   const [deliveryMessage, setDeliveryMessage] = useState("");
+  const [operatorRegion, setOperatorRegion] = useState("");
+  const [showDeliveryForm, setShowDeliveryForm] = useState(false);
+  const [deliveryCreateBusy, setDeliveryCreateBusy] = useState(false);
+  const [deliveryCreateMessage, setDeliveryCreateMessage] = useState("");
+  const [deliveryForm, setDeliveryForm] = useState({ vehicle_id: "", commodity: "", origin_name: "", destination_name: "", eta_at: "" });
   const [fleetSelectedVehicle, setFleetSelectedVehicle] = useState("");
   const [locationMessage, setLocationMessage] = useState("");
   const [locationBusy, setLocationBusy] = useState(false);
@@ -232,7 +238,7 @@ export default function App() {
   }, [regionCode]);
   useEffect(() => {
     let cancelled = false;
-    setAlerts([]); setConnectivity([]); setFleetVehicles([]); setDeliveries([]); setDeliveryStatusDraft({}); setDeliveryMessage(""); setFleetSelectedVehicle("");
+    setAlerts([]); setConnectivity([]); setFleetVehicles([]); setDeliveries([]); setDeliveryStatusDraft({}); setDeliveryMessage(""); setDeliveryCreateMessage(""); setFleetSelectedVehicle("");
     setOperationsErrors({}); setOperationsUpdated(null); setOperationsBusy(false);
     if (!session?.access_token || !showOperations) return;
     setOperationsBusy(true);
@@ -246,6 +252,7 @@ export default function App() {
         else errors.connectivity = "Regional reports are unavailable. Refresh to retry.";
         if (vehicleResult.status === "fulfilled") {
           setFleetVehicles(vehicleResult.value); setFleetSelectedVehicle(vehicleResult.value[0]?.id || "");
+          setDeliveryForm((form) => ({ ...form, vehicle_id: form.vehicle_id || vehicleResult.value[0]?.id || "" }));
         } else errors.fleet = "Assigned vehicles could not be loaded. Refresh to retry.";
         if (deliveryResult.status === "fulfilled") {
           setDeliveries(deliveryResult.value);
@@ -272,6 +279,31 @@ export default function App() {
       setDeliveryMessage(cause instanceof Error ? cause.message : "Delivery update failed. Please retry.");
     } finally { setDeliveryBusy(null); }
   };
+  const submitDelivery = async (event: FormEvent) => {
+    event.preventDefault();
+    if (!session?.access_token || deliveryCreateBusy) return;
+    if (!deliveryForm.vehicle_id || !deliveryForm.commodity.trim() || !deliveryForm.origin_name.trim() || !deliveryForm.destination_name.trim()) {
+      setDeliveryCreateMessage("Vehicle, commodity, origin and destination are required.");
+      return;
+    }
+    setDeliveryCreateBusy(true); setDeliveryCreateMessage("");
+    try {
+      const created = await createDelivery(session.access_token, {
+        vehicle_id: deliveryForm.vehicle_id,
+        region_code: operatorRegion || fleetVehicles.find((vehicle) => vehicle.id === deliveryForm.vehicle_id)?.region_code || "assam",
+        commodity: deliveryForm.commodity.trim(),
+        origin_name: deliveryForm.origin_name.trim(),
+        destination_name: deliveryForm.destination_name.trim(),
+        eta_at: deliveryForm.eta_at ? new Date(deliveryForm.eta_at).toISOString() : null,
+      });
+      setDeliveries((items) => [created, ...items]);
+      setDeliveryStatusDraft((items) => ({ ...items, [created.id]: created.status }));
+      setDeliveryForm((form) => ({ ...form, commodity: "", origin_name: "", destination_name: "", eta_at: "" }));
+      setDeliveryCreateMessage("Delivery created and added to the operations queue.");
+    } catch (cause) {
+      setDeliveryCreateMessage(cause instanceof Error ? cause.message : "Delivery creation failed. Please retry.");
+    } finally { setDeliveryCreateBusy(false); }
+  };
   const shareVehicleLocation = () => {
     if (!session?.access_token || !fleetSelectedVehicle || locationBusy) return;
     if (!navigator.geolocation) { setLocationMessage("Location is unavailable on this device."); return; }
@@ -294,10 +326,10 @@ export default function App() {
   const [selectedEdges, setSelectedEdges] = useState<Record<string, string>>({});
   useEffect(() => {
     let cancelled = false;
-    setOperatorRole("");
+    setOperatorRole(""); setOperatorRegion("");
     if (session?.access_token) {
       getProfile(session.access_token)
-        .then((profile) => { if (!cancelled) setOperatorRole(profile.role); })
+        .then((profile) => { if (!cancelled) { setOperatorRole(profile.role); setOperatorRegion(profile.region_code || ""); } })
         .catch(() => {
           if (!cancelled) setReportMessage("Session could not be verified. Sign in again.");
         });
@@ -781,7 +813,19 @@ export default function App() {
                 </> : !operationsErrors.fleet && <small className="muted-copy">{operationsBusy ? "Loading assigned vehicles…" : "No assigned vehicle is provisioned for this account."}</small>}
               </div>
               <div className="delivery-status">
-                <div className="panel-heading"><span><Truck size={18} /> Delivery status</span><span className="step-chip">{deliveries.filter((delivery) => !["delivered", "cancelled"].includes(delivery.status)).length}</span></div>
+                <div className="panel-heading"><span><Truck size={18} /> Delivery status</span><span className="panel-heading-actions"><span className="step-chip">{deliveries.filter((delivery) => !["delivered", "cancelled"].includes(delivery.status)).length}</span><button className="button compact" type="button" onClick={() => { setShowDeliveryForm((value) => !value); setDeliveryCreateMessage(""); }}>{showDeliveryForm ? "Close" : "New delivery"}</button></span></div>
+                {showDeliveryForm && <form className="delivery-form" onSubmit={submitDelivery}>
+                  <select aria-label="Delivery vehicle" value={deliveryForm.vehicle_id} onChange={(event) => setDeliveryForm((form) => ({ ...form, vehicle_id: event.target.value }))} required>
+                    <option value="">Select vehicle</option>
+                    {fleetVehicles.map((vehicle) => <option key={vehicle.id} value={vehicle.id}>{vehicle.registration} · {vehicle.vehicle_type}</option>)}
+                  </select>
+                  <input aria-label="Commodity" placeholder="Commodity" value={deliveryForm.commodity} onChange={(event) => setDeliveryForm((form) => ({ ...form, commodity: event.target.value }))} required />
+                  <input aria-label="Origin" placeholder="Origin" value={deliveryForm.origin_name} onChange={(event) => setDeliveryForm((form) => ({ ...form, origin_name: event.target.value }))} required />
+                  <input aria-label="Destination" placeholder="Destination" value={deliveryForm.destination_name} onChange={(event) => setDeliveryForm((form) => ({ ...form, destination_name: event.target.value }))} required />
+                  <input aria-label="Estimated arrival" type="datetime-local" value={deliveryForm.eta_at} onChange={(event) => setDeliveryForm((form) => ({ ...form, eta_at: event.target.value }))} />
+                  <button className="button primary" type="submit" disabled={deliveryCreateBusy || fleetVehicles.length === 0}>{deliveryCreateBusy ? "Creating…" : "Create delivery"}</button>
+                  {deliveryCreateMessage && <small className="muted-copy" role="status">{deliveryCreateMessage}</small>}
+                </form>}
                 {operationsErrors.deliveries ? <p className="source-error" role="alert">{operationsErrors.deliveries}</p> : deliveries.length === 0 ? <small className="muted-copy">{operationsBusy ? "Loading deliveries…" : "No delivery jobs assigned to your account."}</small> : <div className="delivery-list">{deliveries.slice(0, 3).map((delivery) => <article className="delivery-item" key={delivery.id}><div><strong>{delivery.commodity}</strong><small>{delivery.origin_name} → {delivery.destination_name}</small></div><span className={`delivery-badge ${delivery.status}`}>{delivery.status.replaceAll("_", " ")}</span>{delivery.eta_at && <small className="delivery-eta">ETA {new Date(delivery.eta_at).toLocaleString([], { dateStyle: "medium", timeStyle: "short" })}</small>}<div className="delivery-actions"><select aria-label={`Status for ${delivery.commodity}`} value={deliveryStatusDraft[delivery.id] || delivery.status} disabled={deliveryBusy === delivery.id} onChange={(event) => setDeliveryStatusDraft((items) => ({ ...items, [delivery.id]: event.target.value as DeliveryJob["status"] }))}><option value="planned">Planned</option><option value="en_route">En route</option><option value="delayed">Delayed</option><option value="delivered">Delivered</option><option value="cancelled">Cancelled</option></select><button className="button secondary" type="button" disabled={deliveryBusy === delivery.id || (deliveryStatusDraft[delivery.id] || delivery.status) === delivery.status} onClick={() => saveDeliveryStatus(delivery)}>{deliveryBusy === delivery.id ? "Saving…" : "Save"}</button></div></article>)}</div>}
                 {deliveryMessage && <small className="muted-copy" role="status">{deliveryMessage}</small>}
               </div>

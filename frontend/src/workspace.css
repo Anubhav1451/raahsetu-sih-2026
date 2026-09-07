@@ -45,6 +45,11 @@ main { max-width: 1760px; padding: 32px clamp(16px, 2.5vw, 40px); }
 .delivery-actions { display: flex; gap: 8px; grid-column: 1 / -1; align-items: center; }
 .delivery-actions select { min-width: 0; flex: 1; }
 .delivery-actions .button { padding: 7px 10px; }
+.panel-heading-actions { display: inline-flex; align-items: center; gap: 8px; }
+.button.compact { padding: 6px 9px; font-size: 11px; }
+.delivery-form { display: grid; gap: 8px; margin: 10px 0; padding: 10px; border: 1px solid var(--line); border-radius: 8px; background: #0d1c22; }
+.delivery-form input, .delivery-form select { width: 100%; min-width: 0; }
+.delivery-form .button { justify-self: start; }
 .search-feedback { display: block; font-size: 12px; line-height: 1.5; color: var(--muted); margin-top: 8px; }
 .search-feedback:empty { display: none; }
 select, input, textarea { color: var(--text); color-scheme: dark; }
