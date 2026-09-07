@@ -32,6 +32,7 @@ import {
   getAlerts,
   getConnectivity,
   getFleetVehicles,
+  getDeliveries,
   sendFleetPosition,
   getNetwork,
   getTerrain,
@@ -56,6 +57,7 @@ import type {
   Alert as AlertItem,
   ConnectivitySummary,
   VehicleAsset,
+  DeliveryJob,
   RoadCandidate,
   Network,
   Route,
@@ -164,6 +166,7 @@ export default function App() {
   const [operationsRefresh, setOperationsRefresh] = useState(0);
   const [operationsUpdated, setOperationsUpdated] = useState<string | null>(null);
   const [fleetVehicles, setFleetVehicles] = useState<VehicleAsset[]>([]);
+  const [deliveries, setDeliveries] = useState<DeliveryJob[]>([]);
   const [fleetSelectedVehicle, setFleetSelectedVehicle] = useState("");
   const [locationMessage, setLocationMessage] = useState("");
   const [locationBusy, setLocationBusy] = useState(false);
@@ -225,12 +228,12 @@ export default function App() {
   }, [regionCode]);
   useEffect(() => {
     let cancelled = false;
-    setAlerts([]); setConnectivity([]); setFleetVehicles([]); setFleetSelectedVehicle("");
+    setAlerts([]); setConnectivity([]); setFleetVehicles([]); setDeliveries([]); setFleetSelectedVehicle("");
     setOperationsErrors({}); setOperationsUpdated(null); setOperationsBusy(false);
     if (!session?.access_token || !showOperations) return;
     setOperationsBusy(true);
-    Promise.allSettled([getAlerts(session.access_token), getConnectivity(session.access_token), getFleetVehicles(session.access_token)])
-      .then(([alertResult, stateResult, vehicleResult]) => {
+    Promise.allSettled([getAlerts(session.access_token), getConnectivity(session.access_token), getFleetVehicles(session.access_token), getDeliveries(session.access_token)])
+      .then(([alertResult, stateResult, vehicleResult, deliveryResult]) => {
         if (cancelled) return;
         const errors: Record<string, string> = {};
         if (alertResult.status === "fulfilled") setAlerts(alertResult.value);
@@ -240,6 +243,8 @@ export default function App() {
         if (vehicleResult.status === "fulfilled") {
           setFleetVehicles(vehicleResult.value); setFleetSelectedVehicle(vehicleResult.value[0]?.id || "");
         } else errors.fleet = "Assigned vehicles could not be loaded. Refresh to retry.";
+        if (deliveryResult.status === "fulfilled") setDeliveries(deliveryResult.value);
+        else errors.deliveries = "Delivery status is unavailable. Refresh to retry.";
         setOperationsErrors(errors);
         setOperationsUpdated(new Date().toLocaleTimeString());
         setOperationsBusy(false);
@@ -753,6 +758,10 @@ export default function App() {
                   <button className="button secondary" type="button" disabled={locationBusy} onClick={shareVehicleLocation}>{locationBusy ? "Sharing location…" : "Share current location"}</button>
                   <small className="muted-copy" role="status">{locationMessage || "Sends one GPS update after your permission. No background tracking."}</small>
                 </> : !operationsErrors.fleet && <small className="muted-copy">{operationsBusy ? "Loading assigned vehicles…" : "No assigned vehicle is provisioned for this account."}</small>}
+              </div>
+              <div className="delivery-status">
+                <div className="panel-heading"><span><Truck size={18} /> Delivery status</span><span className="step-chip">{deliveries.filter((delivery) => !["delivered", "cancelled"].includes(delivery.status)).length}</span></div>
+                {operationsErrors.deliveries ? <p className="source-error" role="alert">{operationsErrors.deliveries}</p> : deliveries.length === 0 ? <small className="muted-copy">{operationsBusy ? "Loading deliveries…" : "No delivery jobs assigned to your account."}</small> : <div className="delivery-list">{deliveries.slice(0, 3).map((delivery) => <article className="delivery-item" key={delivery.id}><div><strong>{delivery.commodity}</strong><small>{delivery.origin_name} → {delivery.destination_name}</small></div><span className={`delivery-badge ${delivery.status}`}>{delivery.status.replaceAll("_", " ")}</span>{delivery.eta_at && <small className="delivery-eta">ETA {new Date(delivery.eta_at).toLocaleString([], { dateStyle: "medium", timeStyle: "short" })}</small>}</article>)}</div>}
               </div>
             </section></>}
           </div>}

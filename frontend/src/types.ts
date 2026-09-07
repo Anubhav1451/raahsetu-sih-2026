@@ -206,6 +206,7 @@ export type ConnectivitySummary = {
 };
 export type VehicleAsset = { id: string; region_code: string; registration: string; vehicle_type: Vehicle; active: boolean; metadata: Record<string, unknown> };
 export type VehiclePosition = { id: string; vehicle_id: string; recorded_at: string; lon: number; lat: number; speed_kph: number | null; heading: number | null; status: string; accuracy_m: number | null; metadata: Record<string, unknown> };
+export type DeliveryJob = { id: string; vehicle_id: string; region_code: string; commodity: string; origin_name: string; destination_name: string; status: "planned" | "en_route" | "delayed" | "delivered" | "cancelled"; eta_at: string | null; delivered_at: string | null; created_at: string; metadata: Record<string, unknown> };
 export type RoadCandidate = { edge_id: string; name: string; distance_m: number };
 
 export type AuthSession = {
