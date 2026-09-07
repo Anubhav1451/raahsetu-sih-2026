@@ -7,10 +7,11 @@ import psycopg
 from psycopg.rows import dict_row
 from psycopg.types.json import Jsonb
 
-from .models import DeliveryJob, PositionCreate, VehiclePosition, VehicleSummary
+from .models import DeliveryJob, PositionCreate, VehicleAsset, VehiclePosition, VehicleSummary
 
 
 class FleetStore(Protocol):
+    def vehicles(self, operator_id: str) -> list[VehicleAsset]: ...
     def positions(self, region_code: str | None, limit: int) -> list[VehicleSummary]: ...
     def record_position(self, payload: PositionCreate, operator_id: str) -> VehiclePosition: ...
     def deliveries(self, region_code: str | None, limit: int) -> list[DeliveryJob]: ...
@@ -36,6 +37,12 @@ class PostgresFleetStore:
                 order by p.recorded_at desc limit 1) p on true {where} and v.active order by p.recorded_at desc limit %s""",
                 (*params, limit)).fetchall()
             return [VehicleSummary.model_validate(row) for row in rows]
+
+    def vehicles(self, operator_id: str) -> list[VehicleAsset]:
+        with self._connect() as conn:
+            rows = conn.execute("""select id::text,region_code,registration,vehicle_type,active,metadata
+                from vehicle_assets where operator_id=%s and active order by registration""", (operator_id,)).fetchall()
+            return [VehicleAsset.model_validate(row) for row in rows]
 
     def record_position(self, payload: PositionCreate, operator_id: str) -> VehiclePosition:
         with self._connect() as conn:

@@ -32,6 +32,7 @@ from .models import (
     FieldReportReview,
     PositionCreate,
     RouteRequest,
+    VehicleAsset,
     VehiclePosition,
     VehicleSummary,
 )
@@ -145,6 +146,14 @@ def fleet_positions(store: Annotated[FleetStore, Depends(get_fleet_store)], user
     try:
         region = None if user.role == "admin" else user.region_code
         return store.positions(region, limit)
+    except RuntimeError as exc:
+        raise HTTPException(503, detail=str(exc)) from exc
+
+
+@app.get("/api/v1/fleet/vehicles", response_model=list[VehicleAsset])
+def fleet_vehicles(store: Annotated[FleetStore, Depends(get_fleet_store)], user: Annotated[AuthUser, Depends(require_user)]):
+    try:
+        return store.vehicles(user.id)
     except RuntimeError as exc:
         raise HTTPException(503, detail=str(exc)) from exc
 

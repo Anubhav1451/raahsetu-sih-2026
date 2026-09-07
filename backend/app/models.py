@@ -220,6 +220,15 @@ class VehicleSummary(VehiclePosition):
     vehicle_type: str
 
 
+class VehicleAsset(StrictModel):
+    id: str
+    region_code: str
+    registration: str
+    vehicle_type: Literal["heavy", "emergency", "light"]
+    active: bool
+    metadata: dict
+
+
 class DeliveryJob(StrictModel):
     id: str
     vehicle_id: str
