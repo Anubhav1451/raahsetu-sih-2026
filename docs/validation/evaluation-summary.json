@@ -1,0 +1,9 @@
+{
+  "dataset_id": "ner-synthetic-v1",
+  "dataset_version": "461deabc96ee",
+  "journeys": 56,
+  "synthetic": true,
+  "meaning": "Controlled route-cost experiment. Not a field safety study.",
+  "available": 56,
+  "lower_exposure": 34
+}

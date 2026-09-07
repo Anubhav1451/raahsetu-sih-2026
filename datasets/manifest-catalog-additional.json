@@ -1,0 +1,32 @@
+[
+  {
+    "id": "india_state_boundaries",
+    "url": "https://github.com/wmgeolab/geoBoundaries/raw/9469f09/releaseData/gbOpen/IND/ADM1/geoBoundaries-IND-ADM1.geojson",
+    "file": "raw/boundaries/india-adm1.geojson",
+    "license": "Creative Commons Attribution 2.5 India (CC BY 2.5 IN)",
+    "coverage": "India ADM1; source boundary year 2011",
+    "purpose": "Filter all eight NE states; not a legal boundary reference",
+    "accessed_at": "2026-09-06T11:44:43.171672+00:00",
+    "resolved_url": "https://media.githubusercontent.com/media/wmgeolab/geoBoundaries/9469f09592ced973a3448cf66b6100b741b64c0d/releaseData/gbOpen/IND/ADM1/geoBoundaries-IND-ADM1.geojson",
+    "last_modified": "Sun, 06 Sep 2026 11:44:48 GMT",
+    "content_type": "application/octet-stream",
+    "status": "downloaded",
+    "bytes": 46170854,
+    "sha256": "47aa0acb6f69868daee49143276f3ce323f18905ba7d38d0a86816b405028736"
+  },
+  {
+    "id": "morth_accidents_2023_alt",
+    "url": "https://morth.gov.in/backend/documents/uploaded/Road-Accident-in-India-2023-Publications.pdf",
+    "file": "raw/road_safety/morth-road-accidents-2023.pdf",
+    "license": "Government publication; verify reuse terms",
+    "coverage": "India state-level 2023 statistics",
+    "purpose": "Aggregate validation context; not road segment coordinates",
+    "accessed_at": "2026-09-06T11:44:43.173668+00:00",
+    "resolved_url": "https://morth.gov.in/backend/documents/uploaded/Road-Accident-in-India-2023-Publications.pdf",
+    "last_modified": "Mon, 24 Nov 2025 07:32:12 GMT",
+    "content_type": "application/pdf",
+    "status": "downloaded",
+    "bytes": 8596105,
+    "sha256": "901505420d5b387052ac51e36b4bdce0274f6326b614f9ebcee6e7954d45b5b0"
+  }
+]

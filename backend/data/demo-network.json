@@ -1,0 +1,3417 @@
+{
+  "id": "ner-synthetic-v1",
+  "title": "North-East logistics sandbox",
+  "region": "Guwahati-inspired demonstration area",
+  "source": "Fictional road network",
+  "generated_at": "2026-09-06T00:00:00Z",
+  "is_synthetic": true,
+  "hazard_source": "Synthetic scenarios; no eDAR or MoRTH records loaded",
+  "limitations": [
+    "Roads, facilities and hazards are fictional demonstration data.",
+    "Terrain is illustrative, not measured elevation.",
+    "Travel times are model estimates; no live traffic or weather feed.",
+    "Vehicle limits are synthetic. This is not operational navigation."
+  ],
+  "nodes": [
+    {
+      "id": "n0_0",
+      "lon": 91.66,
+      "lat": 26.22,
+      "label": null
+    },
+    {
+      "id": "n0_1",
+      "lon": 91.68,
+      "lat": 26.22,
+      "label": null
+    },
+    {
+      "id": "n0_2",
+      "lon": 91.7,
+      "lat": 26.22,
+      "label": null
+    },
+    {
+      "id": "n0_3",
+      "lon": 91.72,
+      "lat": 26.22,
+      "label": "Hill relief centre"
+    },
+    {
+      "id": "n0_4",
+      "lon": 91.74,
+      "lat": 26.22,
+      "label": null
+    },
+    {
+      "id": "n0_5",
+      "lon": 91.76,
+      "lat": 26.22,
+      "label": null
+    },
+    {
+      "id": "n0_6",
+      "lon": 91.78,
+      "lat": 26.22,
+      "label": "Remote service centre"
+    },
+    {
+      "id": "n1_0",
+      "lon": 91.66,
+      "lat": 26.202,
+      "label": null
+    },
+    {
+      "id": "n1_1",
+      "lon": 91.68,
+      "lat": 26.202,
+      "label": "North dispatch station"
+    },
+    {
+      "id": "n1_2",
+      "lon": 91.7,
+      "lat": 26.202,
+      "label": null
+    },
+    {
+      "id": "n1_3",
+      "lon": 91.72,
+      "lat": 26.202,
+      "label": null
+    },
+    {
+      "id": "n1_4",
+      "lon": 91.74,
+      "lat": 26.202,
+      "label": null
+    },
+    {
+      "id": "n1_5",
+      "lon": 91.76,
+      "lat": 26.202,
+      "label": null
+    },
+    {
+      "id": "n1_6",
+      "lon": 91.78,
+      "lat": 26.202,
+      "label": null
+    },
+    {
+      "id": "n2_0",
+      "lon": 91.66,
+      "lat": 26.184,
+      "label": "West distribution hub"
+    },
+    {
+      "id": "n2_1",
+      "lon": 91.68,
+      "lat": 26.184,
+      "label": null
+    },
+    {
+      "id": "n2_2",
+      "lon": 91.7,
+      "lat": 26.184,
+      "label": null
+    },
+    {
+      "id": "n2_3",
+      "lon": 91.72,
+      "lat": 26.184,
+      "label": null
+    },
+    {
+      "id": "n2_4",
+      "lon": 91.74,
+      "lat": 26.184,
+      "label": null
+    },
+    {
+      "id": "n2_5",
+      "lon": 91.76,
+      "lat": 26.184,
+      "label": null
+    },
+    {
+      "id": "n2_6",
+      "lon": 91.78,
+      "lat": 26.184,
+      "label": "East medical depot"
+    },
+    {
+      "id": "n3_0",
+      "lon": 91.66,
+      "lat": 26.166,
+      "label": null
+    },
+    {
+      "id": "n3_1",
+      "lon": 91.68,
+      "lat": 26.166,
+      "label": null
+    },
+    {
+      "id": "n3_2",
+      "lon": 91.7,
+      "lat": 26.166,
+      "label": null
+    },
+    {
+      "id": "n3_3",
+      "lon": 91.72,
+      "lat": 26.166,
+      "label": null
+    },
+    {
+      "id": "n3_4",
+      "lon": 91.74,
+      "lat": 26.166,
+      "label": null
+    },
+    {
+      "id": "n3_5",
+      "lon": 91.76,
+      "lat": 26.166,
+      "label": "Community hospital"
+    },
+    {
+      "id": "n3_6",
+      "lon": 91.78,
+      "lat": 26.166,
+      "label": null
+    },
+    {
+      "id": "n4_0",
+      "lon": 91.66,
+      "lat": 26.148,
+      "label": "South warehouse"
+    },
+    {
+      "id": "n4_1",
+      "lon": 91.68,
+      "lat": 26.148,
+      "label": null
+    },
+    {
+      "id": "n4_2",
+      "lon": 91.7,
+      "lat": 26.148,
+      "label": null
+    },
+    {
+      "id": "n4_3",
+      "lon": 91.72,
+      "lat": 26.148,
+      "label": "River supply point"
+    },
+    {
+      "id": "n4_4",
+      "lon": 91.74,
+      "lat": 26.148,
+      "label": null
+    },
+    {
+      "id": "n4_5",
+      "lon": 91.76,
+      "lat": 26.148,
+      "label": null
+    },
+    {
+      "id": "n4_6",
+      "lon": 91.78,
+      "lat": 26.148,
+      "label": null
+    }
+  ],
+  "edges": [
+    {
+      "id": "n0_0>n0_1",
+      "u": "n0_0",
+      "v": "n0_1",
+      "name": "Hill connector",
+      "length_m": 2097.18,
+      "speed_kph": 48,
+      "geometry": [
+        [
+          91.66,
+          26.22
+        ],
+        [
+          91.6707,
+          26.220599999999997
+        ],
+        [
+          91.68,
+          26.22
+        ]
+      ],
+      "accident_score": 0.06,
+      "surface_score": 0.051,
+      "weather_score": 0.03,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n0_1>n0_0",
+      "u": "n0_1",
+      "v": "n0_0",
+      "name": "Hill connector",
+      "length_m": 2097.18,
+      "speed_kph": 48,
+      "geometry": [
+        [
+          91.68,
+          26.22
+        ],
+        [
+          91.6707,
+          26.220599999999997
+        ],
+        [
+          91.66,
+          26.22
+        ]
+      ],
+      "accident_score": 0.06,
+      "surface_score": 0.051,
+      "weather_score": 0.03,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n0_1>n0_2",
+      "u": "n0_1",
+      "v": "n0_2",
+      "name": "Hill connector",
+      "length_m": 2097.18,
+      "speed_kph": 48,
+      "geometry": [
+        [
+          91.68,
+          26.22
+        ],
+        [
+          91.69069999999999,
+          26.220599999999997
+        ],
+        [
+          91.7,
+          26.22
+        ]
+      ],
+      "accident_score": 0.06,
+      "surface_score": 0.051,
+      "weather_score": 0.03,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n0_2>n0_1",
+      "u": "n0_2",
+      "v": "n0_1",
+      "name": "Hill connector",
+      "length_m": 2097.18,
+      "speed_kph": 48,
+      "geometry": [
+        [
+          91.7,
+          26.22
+        ],
+        [
+          91.69069999999999,
+          26.220599999999997
+        ],
+        [
+          91.68,
+          26.22
+        ]
+      ],
+      "accident_score": 0.06,
+      "surface_score": 0.051,
+      "weather_score": 0.03,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n0_2>n0_3",
+      "u": "n0_2",
+      "v": "n0_3",
+      "name": "Hill connector",
+      "length_m": 2097.18,
+      "speed_kph": 48,
+      "geometry": [
+        [
+          91.7,
+          26.22
+        ],
+        [
+          91.7107,
+          26.220599999999997
+        ],
+        [
+          91.72,
+          26.22
+        ]
+      ],
+      "accident_score": 0.06,
+      "surface_score": 0.051,
+      "weather_score": 0.03,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n0_3>n0_2",
+      "u": "n0_3",
+      "v": "n0_2",
+      "name": "Hill connector",
+      "length_m": 2097.18,
+      "speed_kph": 48,
+      "geometry": [
+        [
+          91.72,
+          26.22
+        ],
+        [
+          91.7107,
+          26.220599999999997
+        ],
+        [
+          91.7,
+          26.22
+        ]
+      ],
+      "accident_score": 0.06,
+      "surface_score": 0.051,
+      "weather_score": 0.03,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n0_3>n0_4",
+      "u": "n0_3",
+      "v": "n0_4",
+      "name": "Hill connector",
+      "length_m": 2097.18,
+      "speed_kph": 48,
+      "geometry": [
+        [
+          91.72,
+          26.22
+        ],
+        [
+          91.73069999999998,
+          26.220599999999997
+        ],
+        [
+          91.74,
+          26.22
+        ]
+      ],
+      "accident_score": 0.06,
+      "surface_score": 0.051,
+      "weather_score": 0.03,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 8,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n0_4>n0_3",
+      "u": "n0_4",
+      "v": "n0_3",
+      "name": "Hill connector",
+      "length_m": 2097.18,
+      "speed_kph": 48,
+      "geometry": [
+        [
+          91.74,
+          26.22
+        ],
+        [
+          91.73069999999998,
+          26.220599999999997
+        ],
+        [
+          91.72,
+          26.22
+        ]
+      ],
+      "accident_score": 0.06,
+      "surface_score": 0.051,
+      "weather_score": 0.03,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 8,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n0_4>n0_5",
+      "u": "n0_4",
+      "v": "n0_5",
+      "name": "Hill connector",
+      "length_m": 2097.18,
+      "speed_kph": 48,
+      "geometry": [
+        [
+          91.74,
+          26.22
+        ],
+        [
+          91.7507,
+          26.220599999999997
+        ],
+        [
+          91.76,
+          26.22
+        ]
+      ],
+      "accident_score": 0.06,
+      "surface_score": 0.051,
+      "weather_score": 0.03,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n0_5>n0_4",
+      "u": "n0_5",
+      "v": "n0_4",
+      "name": "Hill connector",
+      "length_m": 2097.18,
+      "speed_kph": 48,
+      "geometry": [
+        [
+          91.76,
+          26.22
+        ],
+        [
+          91.7507,
+          26.220599999999997
+        ],
+        [
+          91.74,
+          26.22
+        ]
+      ],
+      "accident_score": 0.06,
+      "surface_score": 0.051,
+      "weather_score": 0.03,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n0_5>n0_6",
+      "u": "n0_5",
+      "v": "n0_6",
+      "name": "Hill connector",
+      "length_m": 2097.18,
+      "speed_kph": 48,
+      "geometry": [
+        [
+          91.76,
+          26.22
+        ],
+        [
+          91.7707,
+          26.220599999999997
+        ],
+        [
+          91.78,
+          26.22
+        ]
+      ],
+      "accident_score": 0.06,
+      "surface_score": 0.051,
+      "weather_score": 0.03,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n0_6>n0_5",
+      "u": "n0_6",
+      "v": "n0_5",
+      "name": "Hill connector",
+      "length_m": 2097.18,
+      "speed_kph": 48,
+      "geometry": [
+        [
+          91.78,
+          26.22
+        ],
+        [
+          91.7707,
+          26.220599999999997
+        ],
+        [
+          91.76,
+          26.22
+        ]
+      ],
+      "accident_score": 0.06,
+      "surface_score": 0.051,
+      "weather_score": 0.03,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n1_0>n1_1",
+      "u": "n1_0",
+      "v": "n1_1",
+      "name": "Northern bypass",
+      "length_m": 2097.5,
+      "speed_kph": 48,
+      "geometry": [
+        [
+          91.66,
+          26.202
+        ],
+        [
+          91.6707,
+          26.2026
+        ],
+        [
+          91.68,
+          26.202
+        ]
+      ],
+      "accident_score": 0.06,
+      "surface_score": 0.051,
+      "weather_score": 0.03,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n1_1>n1_0",
+      "u": "n1_1",
+      "v": "n1_0",
+      "name": "Northern bypass",
+      "length_m": 2097.5,
+      "speed_kph": 48,
+      "geometry": [
+        [
+          91.68,
+          26.202
+        ],
+        [
+          91.6707,
+          26.2026
+        ],
+        [
+          91.66,
+          26.202
+        ]
+      ],
+      "accident_score": 0.06,
+      "surface_score": 0.051,
+      "weather_score": 0.03,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n1_1>n1_2",
+      "u": "n1_1",
+      "v": "n1_2",
+      "name": "Northern bypass",
+      "length_m": 2097.5,
+      "speed_kph": 48,
+      "geometry": [
+        [
+          91.68,
+          26.202
+        ],
+        [
+          91.69069999999999,
+          26.2026
+        ],
+        [
+          91.7,
+          26.202
+        ]
+      ],
+      "accident_score": 0.06,
+      "surface_score": 0.051,
+      "weather_score": 0.03,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n1_2>n1_1",
+      "u": "n1_2",
+      "v": "n1_1",
+      "name": "Northern bypass",
+      "length_m": 2097.5,
+      "speed_kph": 48,
+      "geometry": [
+        [
+          91.7,
+          26.202
+        ],
+        [
+          91.69069999999999,
+          26.2026
+        ],
+        [
+          91.68,
+          26.202
+        ]
+      ],
+      "accident_score": 0.06,
+      "surface_score": 0.051,
+      "weather_score": 0.03,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n1_2>n1_3",
+      "u": "n1_2",
+      "v": "n1_3",
+      "name": "Northern bypass",
+      "length_m": 2097.5,
+      "speed_kph": 48,
+      "geometry": [
+        [
+          91.7,
+          26.202
+        ],
+        [
+          91.7107,
+          26.2026
+        ],
+        [
+          91.72,
+          26.202
+        ]
+      ],
+      "accident_score": 0.06,
+      "surface_score": 0.051,
+      "weather_score": 0.03,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n1_3>n1_2",
+      "u": "n1_3",
+      "v": "n1_2",
+      "name": "Northern bypass",
+      "length_m": 2097.5,
+      "speed_kph": 48,
+      "geometry": [
+        [
+          91.72,
+          26.202
+        ],
+        [
+          91.7107,
+          26.2026
+        ],
+        [
+          91.7,
+          26.202
+        ]
+      ],
+      "accident_score": 0.06,
+      "surface_score": 0.051,
+      "weather_score": 0.03,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n1_3>n1_4",
+      "u": "n1_3",
+      "v": "n1_4",
+      "name": "Northern bypass",
+      "length_m": 2097.5,
+      "speed_kph": 48,
+      "geometry": [
+        [
+          91.72,
+          26.202
+        ],
+        [
+          91.73069999999998,
+          26.2026
+        ],
+        [
+          91.74,
+          26.202
+        ]
+      ],
+      "accident_score": 0.06,
+      "surface_score": 0.051,
+      "weather_score": 0.03,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n1_4>n1_3",
+      "u": "n1_4",
+      "v": "n1_3",
+      "name": "Northern bypass",
+      "length_m": 2097.5,
+      "speed_kph": 48,
+      "geometry": [
+        [
+          91.74,
+          26.202
+        ],
+        [
+          91.73069999999998,
+          26.2026
+        ],
+        [
+          91.72,
+          26.202
+        ]
+      ],
+      "accident_score": 0.06,
+      "surface_score": 0.051,
+      "weather_score": 0.03,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n1_4>n1_5",
+      "u": "n1_4",
+      "v": "n1_5",
+      "name": "Northern bypass",
+      "length_m": 2097.5,
+      "speed_kph": 48,
+      "geometry": [
+        [
+          91.74,
+          26.202
+        ],
+        [
+          91.7507,
+          26.2026
+        ],
+        [
+          91.76,
+          26.202
+        ]
+      ],
+      "accident_score": 0.06,
+      "surface_score": 0.051,
+      "weather_score": 0.03,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n1_5>n1_4",
+      "u": "n1_5",
+      "v": "n1_4",
+      "name": "Northern bypass",
+      "length_m": 2097.5,
+      "speed_kph": 48,
+      "geometry": [
+        [
+          91.76,
+          26.202
+        ],
+        [
+          91.7507,
+          26.2026
+        ],
+        [
+          91.74,
+          26.202
+        ]
+      ],
+      "accident_score": 0.06,
+      "surface_score": 0.051,
+      "weather_score": 0.03,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n1_5>n1_6",
+      "u": "n1_5",
+      "v": "n1_6",
+      "name": "Northern bypass",
+      "length_m": 2097.5,
+      "speed_kph": 48,
+      "geometry": [
+        [
+          91.76,
+          26.202
+        ],
+        [
+          91.7707,
+          26.2026
+        ],
+        [
+          91.78,
+          26.202
+        ]
+      ],
+      "accident_score": 0.06,
+      "surface_score": 0.051,
+      "weather_score": 0.03,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n1_6>n1_5",
+      "u": "n1_6",
+      "v": "n1_5",
+      "name": "Northern bypass",
+      "length_m": 2097.5,
+      "speed_kph": 48,
+      "geometry": [
+        [
+          91.78,
+          26.202
+        ],
+        [
+          91.7707,
+          26.2026
+        ],
+        [
+          91.76,
+          26.202
+        ]
+      ],
+      "accident_score": 0.06,
+      "surface_score": 0.051,
+      "weather_score": 0.03,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n2_0>n2_1",
+      "u": "n2_0",
+      "v": "n2_1",
+      "name": "Central freight corridor",
+      "length_m": 2097.83,
+      "speed_kph": 55,
+      "geometry": [
+        [
+          91.66,
+          26.184
+        ],
+        [
+          91.6707,
+          26.1846
+        ],
+        [
+          91.68,
+          26.184
+        ]
+      ],
+      "accident_score": 0.06,
+      "surface_score": 0.051,
+      "weather_score": 0.03,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n2_1>n2_0",
+      "u": "n2_1",
+      "v": "n2_0",
+      "name": "Central freight corridor",
+      "length_m": 2097.83,
+      "speed_kph": 55,
+      "geometry": [
+        [
+          91.68,
+          26.184
+        ],
+        [
+          91.6707,
+          26.1846
+        ],
+        [
+          91.66,
+          26.184
+        ]
+      ],
+      "accident_score": 0.06,
+      "surface_score": 0.051,
+      "weather_score": 0.03,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n2_1>n2_2",
+      "u": "n2_1",
+      "v": "n2_2",
+      "name": "Central freight corridor",
+      "length_m": 2097.83,
+      "speed_kph": 55,
+      "geometry": [
+        [
+          91.68,
+          26.184
+        ],
+        [
+          91.69069999999999,
+          26.1846
+        ],
+        [
+          91.7,
+          26.184
+        ]
+      ],
+      "accident_score": 0.06,
+      "surface_score": 0.051,
+      "weather_score": 0.03,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n2_2>n2_1",
+      "u": "n2_2",
+      "v": "n2_1",
+      "name": "Central freight corridor",
+      "length_m": 2097.83,
+      "speed_kph": 55,
+      "geometry": [
+        [
+          91.7,
+          26.184
+        ],
+        [
+          91.69069999999999,
+          26.1846
+        ],
+        [
+          91.68,
+          26.184
+        ]
+      ],
+      "accident_score": 0.06,
+      "surface_score": 0.051,
+      "weather_score": 0.03,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n2_2>n2_3",
+      "u": "n2_2",
+      "v": "n2_3",
+      "name": "Central freight corridor",
+      "length_m": 2097.83,
+      "speed_kph": 55,
+      "geometry": [
+        [
+          91.7,
+          26.184
+        ],
+        [
+          91.7107,
+          26.1846
+        ],
+        [
+          91.72,
+          26.184
+        ]
+      ],
+      "accident_score": 0.92,
+      "surface_score": 0.782,
+      "weather_score": 0.46,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n2_3>n2_2",
+      "u": "n2_3",
+      "v": "n2_2",
+      "name": "Central freight corridor",
+      "length_m": 2097.83,
+      "speed_kph": 55,
+      "geometry": [
+        [
+          91.72,
+          26.184
+        ],
+        [
+          91.7107,
+          26.1846
+        ],
+        [
+          91.7,
+          26.184
+        ]
+      ],
+      "accident_score": 0.92,
+      "surface_score": 0.782,
+      "weather_score": 0.46,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n2_3>n2_4",
+      "u": "n2_3",
+      "v": "n2_4",
+      "name": "Central freight corridor",
+      "length_m": 2097.83,
+      "speed_kph": 55,
+      "geometry": [
+        [
+          91.72,
+          26.184
+        ],
+        [
+          91.73069999999998,
+          26.1846
+        ],
+        [
+          91.74,
+          26.184
+        ]
+      ],
+      "accident_score": 0.92,
+      "surface_score": 0.782,
+      "weather_score": 0.46,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n2_4>n2_3",
+      "u": "n2_4",
+      "v": "n2_3",
+      "name": "Central freight corridor",
+      "length_m": 2097.83,
+      "speed_kph": 55,
+      "geometry": [
+        [
+          91.74,
+          26.184
+        ],
+        [
+          91.73069999999998,
+          26.1846
+        ],
+        [
+          91.72,
+          26.184
+        ]
+      ],
+      "accident_score": 0.92,
+      "surface_score": 0.782,
+      "weather_score": 0.46,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n2_4>n2_5",
+      "u": "n2_4",
+      "v": "n2_5",
+      "name": "Central freight corridor",
+      "length_m": 2097.83,
+      "speed_kph": 55,
+      "geometry": [
+        [
+          91.74,
+          26.184
+        ],
+        [
+          91.7507,
+          26.1846
+        ],
+        [
+          91.76,
+          26.184
+        ]
+      ],
+      "accident_score": 0.06,
+      "surface_score": 0.051,
+      "weather_score": 0.03,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n2_5>n2_4",
+      "u": "n2_5",
+      "v": "n2_4",
+      "name": "Central freight corridor",
+      "length_m": 2097.83,
+      "speed_kph": 55,
+      "geometry": [
+        [
+          91.76,
+          26.184
+        ],
+        [
+          91.7507,
+          26.1846
+        ],
+        [
+          91.74,
+          26.184
+        ]
+      ],
+      "accident_score": 0.06,
+      "surface_score": 0.051,
+      "weather_score": 0.03,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n2_5>n2_6",
+      "u": "n2_5",
+      "v": "n2_6",
+      "name": "Central freight corridor",
+      "length_m": 2097.83,
+      "speed_kph": 55,
+      "geometry": [
+        [
+          91.76,
+          26.184
+        ],
+        [
+          91.7707,
+          26.1846
+        ],
+        [
+          91.78,
+          26.184
+        ]
+      ],
+      "accident_score": 0.06,
+      "surface_score": 0.051,
+      "weather_score": 0.03,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n2_6>n2_5",
+      "u": "n2_6",
+      "v": "n2_5",
+      "name": "Central freight corridor",
+      "length_m": 2097.83,
+      "speed_kph": 55,
+      "geometry": [
+        [
+          91.78,
+          26.184
+        ],
+        [
+          91.7707,
+          26.1846
+        ],
+        [
+          91.76,
+          26.184
+        ]
+      ],
+      "accident_score": 0.06,
+      "surface_score": 0.051,
+      "weather_score": 0.03,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n3_0>n3_1",
+      "u": "n3_0",
+      "v": "n3_1",
+      "name": "River approach",
+      "length_m": 2098.15,
+      "speed_kph": 48,
+      "geometry": [
+        [
+          91.66,
+          26.166
+        ],
+        [
+          91.6707,
+          26.1666
+        ],
+        [
+          91.68,
+          26.166
+        ]
+      ],
+      "accident_score": 0.38,
+      "surface_score": 0.323,
+      "weather_score": 0.19,
+      "flood_susceptibility": 0.8,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n3_1>n3_0",
+      "u": "n3_1",
+      "v": "n3_0",
+      "name": "River approach",
+      "length_m": 2098.15,
+      "speed_kph": 48,
+      "geometry": [
+        [
+          91.68,
+          26.166
+        ],
+        [
+          91.6707,
+          26.1666
+        ],
+        [
+          91.66,
+          26.166
+        ]
+      ],
+      "accident_score": 0.38,
+      "surface_score": 0.323,
+      "weather_score": 0.19,
+      "flood_susceptibility": 0.8,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n3_1>n3_2",
+      "u": "n3_1",
+      "v": "n3_2",
+      "name": "River approach",
+      "length_m": 2098.15,
+      "speed_kph": 48,
+      "geometry": [
+        [
+          91.68,
+          26.166
+        ],
+        [
+          91.69069999999999,
+          26.1666
+        ],
+        [
+          91.7,
+          26.166
+        ]
+      ],
+      "accident_score": 0.38,
+      "surface_score": 0.323,
+      "weather_score": 0.19,
+      "flood_susceptibility": 0.8,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n3_2>n3_1",
+      "u": "n3_2",
+      "v": "n3_1",
+      "name": "River approach",
+      "length_m": 2098.15,
+      "speed_kph": 48,
+      "geometry": [
+        [
+          91.7,
+          26.166
+        ],
+        [
+          91.69069999999999,
+          26.1666
+        ],
+        [
+          91.68,
+          26.166
+        ]
+      ],
+      "accident_score": 0.38,
+      "surface_score": 0.323,
+      "weather_score": 0.19,
+      "flood_susceptibility": 0.8,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n3_2>n3_3",
+      "u": "n3_2",
+      "v": "n3_3",
+      "name": "River approach",
+      "length_m": 2098.15,
+      "speed_kph": 48,
+      "geometry": [
+        [
+          91.7,
+          26.166
+        ],
+        [
+          91.7107,
+          26.1666
+        ],
+        [
+          91.72,
+          26.166
+        ]
+      ],
+      "accident_score": 0.38,
+      "surface_score": 0.323,
+      "weather_score": 0.19,
+      "flood_susceptibility": 0.8,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n3_3>n3_2",
+      "u": "n3_3",
+      "v": "n3_2",
+      "name": "River approach",
+      "length_m": 2098.15,
+      "speed_kph": 48,
+      "geometry": [
+        [
+          91.72,
+          26.166
+        ],
+        [
+          91.7107,
+          26.1666
+        ],
+        [
+          91.7,
+          26.166
+        ]
+      ],
+      "accident_score": 0.38,
+      "surface_score": 0.323,
+      "weather_score": 0.19,
+      "flood_susceptibility": 0.8,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n3_3>n3_4",
+      "u": "n3_3",
+      "v": "n3_4",
+      "name": "River approach",
+      "length_m": 2098.15,
+      "speed_kph": 48,
+      "geometry": [
+        [
+          91.72,
+          26.166
+        ],
+        [
+          91.73069999999998,
+          26.1666
+        ],
+        [
+          91.74,
+          26.166
+        ]
+      ],
+      "accident_score": 0.38,
+      "surface_score": 0.323,
+      "weather_score": 0.19,
+      "flood_susceptibility": 0.8,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n3_4>n3_3",
+      "u": "n3_4",
+      "v": "n3_3",
+      "name": "River approach",
+      "length_m": 2098.15,
+      "speed_kph": 48,
+      "geometry": [
+        [
+          91.74,
+          26.166
+        ],
+        [
+          91.73069999999998,
+          26.1666
+        ],
+        [
+          91.72,
+          26.166
+        ]
+      ],
+      "accident_score": 0.38,
+      "surface_score": 0.323,
+      "weather_score": 0.19,
+      "flood_susceptibility": 0.8,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n3_4>n3_5",
+      "u": "n3_4",
+      "v": "n3_5",
+      "name": "River approach",
+      "length_m": 2098.15,
+      "speed_kph": 48,
+      "geometry": [
+        [
+          91.74,
+          26.166
+        ],
+        [
+          91.7507,
+          26.1666
+        ],
+        [
+          91.76,
+          26.166
+        ]
+      ],
+      "accident_score": 0.38,
+      "surface_score": 0.323,
+      "weather_score": 0.19,
+      "flood_susceptibility": 0.8,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n3_5>n3_4",
+      "u": "n3_5",
+      "v": "n3_4",
+      "name": "River approach",
+      "length_m": 2098.15,
+      "speed_kph": 48,
+      "geometry": [
+        [
+          91.76,
+          26.166
+        ],
+        [
+          91.7507,
+          26.1666
+        ],
+        [
+          91.74,
+          26.166
+        ]
+      ],
+      "accident_score": 0.38,
+      "surface_score": 0.323,
+      "weather_score": 0.19,
+      "flood_susceptibility": 0.8,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n3_5>n3_6",
+      "u": "n3_5",
+      "v": "n3_6",
+      "name": "River approach",
+      "length_m": 2098.15,
+      "speed_kph": 48,
+      "geometry": [
+        [
+          91.76,
+          26.166
+        ],
+        [
+          91.7707,
+          26.1666
+        ],
+        [
+          91.78,
+          26.166
+        ]
+      ],
+      "accident_score": 0.38,
+      "surface_score": 0.323,
+      "weather_score": 0.19,
+      "flood_susceptibility": 0.8,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n3_6>n3_5",
+      "u": "n3_6",
+      "v": "n3_5",
+      "name": "River approach",
+      "length_m": 2098.15,
+      "speed_kph": 48,
+      "geometry": [
+        [
+          91.78,
+          26.166
+        ],
+        [
+          91.7707,
+          26.1666
+        ],
+        [
+          91.76,
+          26.166
+        ]
+      ],
+      "accident_score": 0.38,
+      "surface_score": 0.323,
+      "weather_score": 0.19,
+      "flood_susceptibility": 0.8,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n4_0>n4_1",
+      "u": "n4_0",
+      "v": "n4_1",
+      "name": "Southern service road",
+      "length_m": 2098.47,
+      "speed_kph": 48,
+      "geometry": [
+        [
+          91.66,
+          26.148
+        ],
+        [
+          91.6707,
+          26.1486
+        ],
+        [
+          91.68,
+          26.148
+        ]
+      ],
+      "accident_score": 0.06,
+      "surface_score": 0.051,
+      "weather_score": 0.03,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n4_1>n4_0",
+      "u": "n4_1",
+      "v": "n4_0",
+      "name": "Southern service road",
+      "length_m": 2098.47,
+      "speed_kph": 48,
+      "geometry": [
+        [
+          91.68,
+          26.148
+        ],
+        [
+          91.6707,
+          26.1486
+        ],
+        [
+          91.66,
+          26.148
+        ]
+      ],
+      "accident_score": 0.06,
+      "surface_score": 0.051,
+      "weather_score": 0.03,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n4_1>n4_2",
+      "u": "n4_1",
+      "v": "n4_2",
+      "name": "Southern service road",
+      "length_m": 2098.47,
+      "speed_kph": 48,
+      "geometry": [
+        [
+          91.68,
+          26.148
+        ],
+        [
+          91.69069999999999,
+          26.1486
+        ],
+        [
+          91.7,
+          26.148
+        ]
+      ],
+      "accident_score": 0.06,
+      "surface_score": 0.051,
+      "weather_score": 0.03,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n4_2>n4_1",
+      "u": "n4_2",
+      "v": "n4_1",
+      "name": "Southern service road",
+      "length_m": 2098.47,
+      "speed_kph": 48,
+      "geometry": [
+        [
+          91.7,
+          26.148
+        ],
+        [
+          91.69069999999999,
+          26.1486
+        ],
+        [
+          91.68,
+          26.148
+        ]
+      ],
+      "accident_score": 0.06,
+      "surface_score": 0.051,
+      "weather_score": 0.03,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n4_2>n4_3",
+      "u": "n4_2",
+      "v": "n4_3",
+      "name": "Southern service road",
+      "length_m": 2098.47,
+      "speed_kph": 48,
+      "geometry": [
+        [
+          91.7,
+          26.148
+        ],
+        [
+          91.7107,
+          26.1486
+        ],
+        [
+          91.72,
+          26.148
+        ]
+      ],
+      "accident_score": 0.06,
+      "surface_score": 0.051,
+      "weather_score": 0.03,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n4_3>n4_2",
+      "u": "n4_3",
+      "v": "n4_2",
+      "name": "Southern service road",
+      "length_m": 2098.47,
+      "speed_kph": 48,
+      "geometry": [
+        [
+          91.72,
+          26.148
+        ],
+        [
+          91.7107,
+          26.1486
+        ],
+        [
+          91.7,
+          26.148
+        ]
+      ],
+      "accident_score": 0.06,
+      "surface_score": 0.051,
+      "weather_score": 0.03,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n4_3>n4_4",
+      "u": "n4_3",
+      "v": "n4_4",
+      "name": "Southern service road",
+      "length_m": 2098.47,
+      "speed_kph": 48,
+      "geometry": [
+        [
+          91.72,
+          26.148
+        ],
+        [
+          91.73069999999998,
+          26.1486
+        ],
+        [
+          91.74,
+          26.148
+        ]
+      ],
+      "accident_score": 0.06,
+      "surface_score": 0.051,
+      "weather_score": 0.03,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n4_4>n4_3",
+      "u": "n4_4",
+      "v": "n4_3",
+      "name": "Southern service road",
+      "length_m": 2098.47,
+      "speed_kph": 48,
+      "geometry": [
+        [
+          91.74,
+          26.148
+        ],
+        [
+          91.73069999999998,
+          26.1486
+        ],
+        [
+          91.72,
+          26.148
+        ]
+      ],
+      "accident_score": 0.06,
+      "surface_score": 0.051,
+      "weather_score": 0.03,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n4_4>n4_5",
+      "u": "n4_4",
+      "v": "n4_5",
+      "name": "Southern service road",
+      "length_m": 2098.47,
+      "speed_kph": 48,
+      "geometry": [
+        [
+          91.74,
+          26.148
+        ],
+        [
+          91.7507,
+          26.1486
+        ],
+        [
+          91.76,
+          26.148
+        ]
+      ],
+      "accident_score": 0.06,
+      "surface_score": 0.051,
+      "weather_score": 0.03,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n4_5>n4_4",
+      "u": "n4_5",
+      "v": "n4_4",
+      "name": "Southern service road",
+      "length_m": 2098.47,
+      "speed_kph": 48,
+      "geometry": [
+        [
+          91.76,
+          26.148
+        ],
+        [
+          91.7507,
+          26.1486
+        ],
+        [
+          91.74,
+          26.148
+        ]
+      ],
+      "accident_score": 0.06,
+      "surface_score": 0.051,
+      "weather_score": 0.03,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n4_5>n4_6",
+      "u": "n4_5",
+      "v": "n4_6",
+      "name": "Southern service road",
+      "length_m": 2098.47,
+      "speed_kph": 48,
+      "geometry": [
+        [
+          91.76,
+          26.148
+        ],
+        [
+          91.7707,
+          26.1486
+        ],
+        [
+          91.78,
+          26.148
+        ]
+      ],
+      "accident_score": 0.06,
+      "surface_score": 0.051,
+      "weather_score": 0.03,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n4_6>n4_5",
+      "u": "n4_6",
+      "v": "n4_5",
+      "name": "Southern service road",
+      "length_m": 2098.47,
+      "speed_kph": 48,
+      "geometry": [
+        [
+          91.78,
+          26.148
+        ],
+        [
+          91.7707,
+          26.1486
+        ],
+        [
+          91.76,
+          26.148
+        ]
+      ],
+      "accident_score": 0.06,
+      "surface_score": 0.051,
+      "weather_score": 0.03,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n0_0>n1_0",
+      "u": "n0_0",
+      "v": "n1_0",
+      "name": "Link road 1",
+      "length_m": 2103.95,
+      "speed_kph": 40,
+      "geometry": [
+        [
+          91.66,
+          26.22
+        ],
+        [
+          91.66069999999999,
+          26.211599999999997
+        ],
+        [
+          91.66,
+          26.202
+        ]
+      ],
+      "accident_score": 0.08,
+      "surface_score": 0.068,
+      "weather_score": 0.04,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n1_0>n0_0",
+      "u": "n1_0",
+      "v": "n0_0",
+      "name": "Link road 1",
+      "length_m": 2103.95,
+      "speed_kph": 40,
+      "geometry": [
+        [
+          91.66,
+          26.202
+        ],
+        [
+          91.66069999999999,
+          26.211599999999997
+        ],
+        [
+          91.66,
+          26.22
+        ]
+      ],
+      "accident_score": 0.08,
+      "surface_score": 0.068,
+      "weather_score": 0.04,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n0_1>n1_1",
+      "u": "n0_1",
+      "v": "n1_1",
+      "name": "Link road 2",
+      "length_m": 2103.95,
+      "speed_kph": 40,
+      "geometry": [
+        [
+          91.68,
+          26.22
+        ],
+        [
+          91.6807,
+          26.211599999999997
+        ],
+        [
+          91.68,
+          26.202
+        ]
+      ],
+      "accident_score": 0.08,
+      "surface_score": 0.068,
+      "weather_score": 0.04,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n1_1>n0_1",
+      "u": "n1_1",
+      "v": "n0_1",
+      "name": "Link road 2",
+      "length_m": 2103.95,
+      "speed_kph": 40,
+      "geometry": [
+        [
+          91.68,
+          26.202
+        ],
+        [
+          91.6807,
+          26.211599999999997
+        ],
+        [
+          91.68,
+          26.22
+        ]
+      ],
+      "accident_score": 0.08,
+      "surface_score": 0.068,
+      "weather_score": 0.04,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n0_3>n1_3",
+      "u": "n0_3",
+      "v": "n1_3",
+      "name": "Link road 4",
+      "length_m": 2103.95,
+      "speed_kph": 40,
+      "geometry": [
+        [
+          91.72,
+          26.22
+        ],
+        [
+          91.7207,
+          26.211599999999997
+        ],
+        [
+          91.72,
+          26.202
+        ]
+      ],
+      "accident_score": 0.08,
+      "surface_score": 0.068,
+      "weather_score": 0.04,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n1_3>n0_3",
+      "u": "n1_3",
+      "v": "n0_3",
+      "name": "Link road 4",
+      "length_m": 2103.95,
+      "speed_kph": 40,
+      "geometry": [
+        [
+          91.72,
+          26.202
+        ],
+        [
+          91.7207,
+          26.211599999999997
+        ],
+        [
+          91.72,
+          26.22
+        ]
+      ],
+      "accident_score": 0.08,
+      "surface_score": 0.068,
+      "weather_score": 0.04,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n0_5>n1_5",
+      "u": "n0_5",
+      "v": "n1_5",
+      "name": "Link road 6",
+      "length_m": 2103.95,
+      "speed_kph": 40,
+      "geometry": [
+        [
+          91.76,
+          26.22
+        ],
+        [
+          91.7607,
+          26.211599999999997
+        ],
+        [
+          91.76,
+          26.202
+        ]
+      ],
+      "accident_score": 0.08,
+      "surface_score": 0.068,
+      "weather_score": 0.04,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n1_5>n0_5",
+      "u": "n1_5",
+      "v": "n0_5",
+      "name": "Link road 6",
+      "length_m": 2103.95,
+      "speed_kph": 40,
+      "geometry": [
+        [
+          91.76,
+          26.202
+        ],
+        [
+          91.7607,
+          26.211599999999997
+        ],
+        [
+          91.76,
+          26.22
+        ]
+      ],
+      "accident_score": 0.08,
+      "surface_score": 0.068,
+      "weather_score": 0.04,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n0_6>n1_6",
+      "u": "n0_6",
+      "v": "n1_6",
+      "name": "Link road 7",
+      "length_m": 2103.95,
+      "speed_kph": 40,
+      "geometry": [
+        [
+          91.78,
+          26.22
+        ],
+        [
+          91.7807,
+          26.211599999999997
+        ],
+        [
+          91.78,
+          26.202
+        ]
+      ],
+      "accident_score": 0.08,
+      "surface_score": 0.068,
+      "weather_score": 0.04,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n1_6>n0_6",
+      "u": "n1_6",
+      "v": "n0_6",
+      "name": "Link road 7",
+      "length_m": 2103.95,
+      "speed_kph": 40,
+      "geometry": [
+        [
+          91.78,
+          26.202
+        ],
+        [
+          91.7807,
+          26.211599999999997
+        ],
+        [
+          91.78,
+          26.22
+        ]
+      ],
+      "accident_score": 0.08,
+      "surface_score": 0.068,
+      "weather_score": 0.04,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n1_0>n2_0",
+      "u": "n1_0",
+      "v": "n2_0",
+      "name": "Link road 1",
+      "length_m": 2103.95,
+      "speed_kph": 40,
+      "geometry": [
+        [
+          91.66,
+          26.202
+        ],
+        [
+          91.66069999999999,
+          26.1936
+        ],
+        [
+          91.66,
+          26.184
+        ]
+      ],
+      "accident_score": 0.08,
+      "surface_score": 0.068,
+      "weather_score": 0.04,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n2_0>n1_0",
+      "u": "n2_0",
+      "v": "n1_0",
+      "name": "Link road 1",
+      "length_m": 2103.95,
+      "speed_kph": 40,
+      "geometry": [
+        [
+          91.66,
+          26.184
+        ],
+        [
+          91.66069999999999,
+          26.1936
+        ],
+        [
+          91.66,
+          26.202
+        ]
+      ],
+      "accident_score": 0.08,
+      "surface_score": 0.068,
+      "weather_score": 0.04,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n1_1>n2_1",
+      "u": "n1_1",
+      "v": "n2_1",
+      "name": "Link road 2",
+      "length_m": 2103.95,
+      "speed_kph": 40,
+      "geometry": [
+        [
+          91.68,
+          26.202
+        ],
+        [
+          91.6807,
+          26.1936
+        ],
+        [
+          91.68,
+          26.184
+        ]
+      ],
+      "accident_score": 0.08,
+      "surface_score": 0.068,
+      "weather_score": 0.04,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n2_1>n1_1",
+      "u": "n2_1",
+      "v": "n1_1",
+      "name": "Link road 2",
+      "length_m": 2103.95,
+      "speed_kph": 40,
+      "geometry": [
+        [
+          91.68,
+          26.184
+        ],
+        [
+          91.6807,
+          26.1936
+        ],
+        [
+          91.68,
+          26.202
+        ]
+      ],
+      "accident_score": 0.08,
+      "surface_score": 0.068,
+      "weather_score": 0.04,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n1_3>n2_3",
+      "u": "n1_3",
+      "v": "n2_3",
+      "name": "Link road 4",
+      "length_m": 2103.95,
+      "speed_kph": 40,
+      "geometry": [
+        [
+          91.72,
+          26.202
+        ],
+        [
+          91.7207,
+          26.1936
+        ],
+        [
+          91.72,
+          26.184
+        ]
+      ],
+      "accident_score": 0.08,
+      "surface_score": 0.068,
+      "weather_score": 0.04,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n2_3>n1_3",
+      "u": "n2_3",
+      "v": "n1_3",
+      "name": "Link road 4",
+      "length_m": 2103.95,
+      "speed_kph": 40,
+      "geometry": [
+        [
+          91.72,
+          26.184
+        ],
+        [
+          91.7207,
+          26.1936
+        ],
+        [
+          91.72,
+          26.202
+        ]
+      ],
+      "accident_score": 0.08,
+      "surface_score": 0.068,
+      "weather_score": 0.04,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n1_5>n2_5",
+      "u": "n1_5",
+      "v": "n2_5",
+      "name": "Link road 6",
+      "length_m": 2103.95,
+      "speed_kph": 40,
+      "geometry": [
+        [
+          91.76,
+          26.202
+        ],
+        [
+          91.7607,
+          26.1936
+        ],
+        [
+          91.76,
+          26.184
+        ]
+      ],
+      "accident_score": 0.08,
+      "surface_score": 0.068,
+      "weather_score": 0.04,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n2_5>n1_5",
+      "u": "n2_5",
+      "v": "n1_5",
+      "name": "Link road 6",
+      "length_m": 2103.95,
+      "speed_kph": 40,
+      "geometry": [
+        [
+          91.76,
+          26.184
+        ],
+        [
+          91.7607,
+          26.1936
+        ],
+        [
+          91.76,
+          26.202
+        ]
+      ],
+      "accident_score": 0.08,
+      "surface_score": 0.068,
+      "weather_score": 0.04,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n1_6>n2_6",
+      "u": "n1_6",
+      "v": "n2_6",
+      "name": "Link road 7",
+      "length_m": 2103.95,
+      "speed_kph": 40,
+      "geometry": [
+        [
+          91.78,
+          26.202
+        ],
+        [
+          91.7807,
+          26.1936
+        ],
+        [
+          91.78,
+          26.184
+        ]
+      ],
+      "accident_score": 0.08,
+      "surface_score": 0.068,
+      "weather_score": 0.04,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n2_6>n1_6",
+      "u": "n2_6",
+      "v": "n1_6",
+      "name": "Link road 7",
+      "length_m": 2103.95,
+      "speed_kph": 40,
+      "geometry": [
+        [
+          91.78,
+          26.184
+        ],
+        [
+          91.7807,
+          26.1936
+        ],
+        [
+          91.78,
+          26.202
+        ]
+      ],
+      "accident_score": 0.08,
+      "surface_score": 0.068,
+      "weather_score": 0.04,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n2_0>n3_0",
+      "u": "n2_0",
+      "v": "n3_0",
+      "name": "Link road 1",
+      "length_m": 2103.95,
+      "speed_kph": 40,
+      "geometry": [
+        [
+          91.66,
+          26.184
+        ],
+        [
+          91.66069999999999,
+          26.1756
+        ],
+        [
+          91.66,
+          26.166
+        ]
+      ],
+      "accident_score": 0.08,
+      "surface_score": 0.068,
+      "weather_score": 0.04,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n3_0>n2_0",
+      "u": "n3_0",
+      "v": "n2_0",
+      "name": "Link road 1",
+      "length_m": 2103.95,
+      "speed_kph": 40,
+      "geometry": [
+        [
+          91.66,
+          26.166
+        ],
+        [
+          91.66069999999999,
+          26.1756
+        ],
+        [
+          91.66,
+          26.184
+        ]
+      ],
+      "accident_score": 0.08,
+      "surface_score": 0.068,
+      "weather_score": 0.04,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n2_1>n3_1",
+      "u": "n2_1",
+      "v": "n3_1",
+      "name": "Link road 2",
+      "length_m": 2103.95,
+      "speed_kph": 40,
+      "geometry": [
+        [
+          91.68,
+          26.184
+        ],
+        [
+          91.6807,
+          26.1756
+        ],
+        [
+          91.68,
+          26.166
+        ]
+      ],
+      "accident_score": 0.08,
+      "surface_score": 0.068,
+      "weather_score": 0.04,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n3_1>n2_1",
+      "u": "n3_1",
+      "v": "n2_1",
+      "name": "Link road 2",
+      "length_m": 2103.95,
+      "speed_kph": 40,
+      "geometry": [
+        [
+          91.68,
+          26.166
+        ],
+        [
+          91.6807,
+          26.1756
+        ],
+        [
+          91.68,
+          26.184
+        ]
+      ],
+      "accident_score": 0.08,
+      "surface_score": 0.068,
+      "weather_score": 0.04,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n2_3>n3_3",
+      "u": "n2_3",
+      "v": "n3_3",
+      "name": "Link road 4",
+      "length_m": 2103.95,
+      "speed_kph": 40,
+      "geometry": [
+        [
+          91.72,
+          26.184
+        ],
+        [
+          91.7207,
+          26.1756
+        ],
+        [
+          91.72,
+          26.166
+        ]
+      ],
+      "accident_score": 0.08,
+      "surface_score": 0.068,
+      "weather_score": 0.04,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n3_3>n2_3",
+      "u": "n3_3",
+      "v": "n2_3",
+      "name": "Link road 4",
+      "length_m": 2103.95,
+      "speed_kph": 40,
+      "geometry": [
+        [
+          91.72,
+          26.166
+        ],
+        [
+          91.7207,
+          26.1756
+        ],
+        [
+          91.72,
+          26.184
+        ]
+      ],
+      "accident_score": 0.08,
+      "surface_score": 0.068,
+      "weather_score": 0.04,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n2_5>n3_5",
+      "u": "n2_5",
+      "v": "n3_5",
+      "name": "Link road 6",
+      "length_m": 2103.95,
+      "speed_kph": 40,
+      "geometry": [
+        [
+          91.76,
+          26.184
+        ],
+        [
+          91.7607,
+          26.1756
+        ],
+        [
+          91.76,
+          26.166
+        ]
+      ],
+      "accident_score": 0.08,
+      "surface_score": 0.068,
+      "weather_score": 0.04,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n3_5>n2_5",
+      "u": "n3_5",
+      "v": "n2_5",
+      "name": "Link road 6",
+      "length_m": 2103.95,
+      "speed_kph": 40,
+      "geometry": [
+        [
+          91.76,
+          26.166
+        ],
+        [
+          91.7607,
+          26.1756
+        ],
+        [
+          91.76,
+          26.184
+        ]
+      ],
+      "accident_score": 0.08,
+      "surface_score": 0.068,
+      "weather_score": 0.04,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n2_6>n3_6",
+      "u": "n2_6",
+      "v": "n3_6",
+      "name": "Link road 7",
+      "length_m": 2103.95,
+      "speed_kph": 40,
+      "geometry": [
+        [
+          91.78,
+          26.184
+        ],
+        [
+          91.7807,
+          26.1756
+        ],
+        [
+          91.78,
+          26.166
+        ]
+      ],
+      "accident_score": 0.08,
+      "surface_score": 0.068,
+      "weather_score": 0.04,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n3_6>n2_6",
+      "u": "n3_6",
+      "v": "n2_6",
+      "name": "Link road 7",
+      "length_m": 2103.95,
+      "speed_kph": 40,
+      "geometry": [
+        [
+          91.78,
+          26.166
+        ],
+        [
+          91.7807,
+          26.1756
+        ],
+        [
+          91.78,
+          26.184
+        ]
+      ],
+      "accident_score": 0.08,
+      "surface_score": 0.068,
+      "weather_score": 0.04,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n3_0>n4_0",
+      "u": "n3_0",
+      "v": "n4_0",
+      "name": "Link road 1",
+      "length_m": 2103.95,
+      "speed_kph": 40,
+      "geometry": [
+        [
+          91.66,
+          26.166
+        ],
+        [
+          91.66069999999999,
+          26.1576
+        ],
+        [
+          91.66,
+          26.148
+        ]
+      ],
+      "accident_score": 0.08,
+      "surface_score": 0.068,
+      "weather_score": 0.04,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n4_0>n3_0",
+      "u": "n4_0",
+      "v": "n3_0",
+      "name": "Link road 1",
+      "length_m": 2103.95,
+      "speed_kph": 40,
+      "geometry": [
+        [
+          91.66,
+          26.148
+        ],
+        [
+          91.66069999999999,
+          26.1576
+        ],
+        [
+          91.66,
+          26.166
+        ]
+      ],
+      "accident_score": 0.08,
+      "surface_score": 0.068,
+      "weather_score": 0.04,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n3_1>n4_1",
+      "u": "n3_1",
+      "v": "n4_1",
+      "name": "Link road 2",
+      "length_m": 2103.95,
+      "speed_kph": 40,
+      "geometry": [
+        [
+          91.68,
+          26.166
+        ],
+        [
+          91.6807,
+          26.1576
+        ],
+        [
+          91.68,
+          26.148
+        ]
+      ],
+      "accident_score": 0.08,
+      "surface_score": 0.068,
+      "weather_score": 0.04,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n4_1>n3_1",
+      "u": "n4_1",
+      "v": "n3_1",
+      "name": "Link road 2",
+      "length_m": 2103.95,
+      "speed_kph": 40,
+      "geometry": [
+        [
+          91.68,
+          26.148
+        ],
+        [
+          91.6807,
+          26.1576
+        ],
+        [
+          91.68,
+          26.166
+        ]
+      ],
+      "accident_score": 0.08,
+      "surface_score": 0.068,
+      "weather_score": 0.04,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n3_3>n4_3",
+      "u": "n3_3",
+      "v": "n4_3",
+      "name": "Link road 4",
+      "length_m": 2103.95,
+      "speed_kph": 40,
+      "geometry": [
+        [
+          91.72,
+          26.166
+        ],
+        [
+          91.7207,
+          26.1576
+        ],
+        [
+          91.72,
+          26.148
+        ]
+      ],
+      "accident_score": 0.08,
+      "surface_score": 0.068,
+      "weather_score": 0.04,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n4_3>n3_3",
+      "u": "n4_3",
+      "v": "n3_3",
+      "name": "Link road 4",
+      "length_m": 2103.95,
+      "speed_kph": 40,
+      "geometry": [
+        [
+          91.72,
+          26.148
+        ],
+        [
+          91.7207,
+          26.1576
+        ],
+        [
+          91.72,
+          26.166
+        ]
+      ],
+      "accident_score": 0.08,
+      "surface_score": 0.068,
+      "weather_score": 0.04,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n3_5>n4_5",
+      "u": "n3_5",
+      "v": "n4_5",
+      "name": "Link road 6",
+      "length_m": 2103.95,
+      "speed_kph": 40,
+      "geometry": [
+        [
+          91.76,
+          26.166
+        ],
+        [
+          91.7607,
+          26.1576
+        ],
+        [
+          91.76,
+          26.148
+        ]
+      ],
+      "accident_score": 0.08,
+      "surface_score": 0.068,
+      "weather_score": 0.04,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n4_5>n3_5",
+      "u": "n4_5",
+      "v": "n3_5",
+      "name": "Link road 6",
+      "length_m": 2103.95,
+      "speed_kph": 40,
+      "geometry": [
+        [
+          91.76,
+          26.148
+        ],
+        [
+          91.7607,
+          26.1576
+        ],
+        [
+          91.76,
+          26.166
+        ]
+      ],
+      "accident_score": 0.08,
+      "surface_score": 0.068,
+      "weather_score": 0.04,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n3_6>n4_6",
+      "u": "n3_6",
+      "v": "n4_6",
+      "name": "Link road 7",
+      "length_m": 2103.95,
+      "speed_kph": 40,
+      "geometry": [
+        [
+          91.78,
+          26.166
+        ],
+        [
+          91.7807,
+          26.1576
+        ],
+        [
+          91.78,
+          26.148
+        ]
+      ],
+      "accident_score": 0.08,
+      "surface_score": 0.068,
+      "weather_score": 0.04,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n4_6>n3_6",
+      "u": "n4_6",
+      "v": "n3_6",
+      "name": "Link road 7",
+      "length_m": 2103.95,
+      "speed_kph": 40,
+      "geometry": [
+        [
+          91.78,
+          26.148
+        ],
+        [
+          91.7807,
+          26.1576
+        ],
+        [
+          91.78,
+          26.166
+        ]
+      ],
+      "accident_score": 0.08,
+      "surface_score": 0.068,
+      "weather_score": 0.04,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 3.2,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n2_2>n2_3:bridge",
+      "u": "n2_2",
+      "v": "n2_3",
+      "name": "Old narrow bridge",
+      "length_m": 2097.83,
+      "speed_kph": 65,
+      "geometry": [
+        [
+          91.7,
+          26.184
+        ],
+        [
+          91.7107,
+          26.1846
+        ],
+        [
+          91.72,
+          26.184
+        ]
+      ],
+      "accident_score": 0.02,
+      "surface_score": 0.017,
+      "weather_score": 0.01,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 2.0,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    },
+    {
+      "id": "n2_3>n2_2:bridge",
+      "u": "n2_3",
+      "v": "n2_2",
+      "name": "Old narrow bridge",
+      "length_m": 2097.83,
+      "speed_kph": 65,
+      "geometry": [
+        [
+          91.72,
+          26.184
+        ],
+        [
+          91.7107,
+          26.1846
+        ],
+        [
+          91.7,
+          26.184
+        ]
+      ],
+      "accident_score": 0.02,
+      "surface_score": 0.017,
+      "weather_score": 0.01,
+      "flood_susceptibility": 0.2,
+      "max_height_m": 4.8,
+      "max_weight_t": 30,
+      "max_width_m": 2.0,
+      "hgv_allowed": true,
+      "evidence": "Synthetic demo scenario"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "bypass_closed",
+      "label": "Bypass closure",
+      "description": "A simulated landslide closes the northern bypass in both directions.",
+      "closed_edge_ids": [
+        "n1_3>n1_4",
+        "n1_4>n1_3"
+      ]
+    },
+    {
+      "id": "depot_isolated",
+      "label": "Depot isolated",
+      "description": "Flooding disconnects the east medical depot from every approach.",
+      "closed_edge_ids": [
+        "n2_5>n2_6",
+        "n2_6>n2_5",
+        "n1_6>n2_6",
+        "n2_6>n1_6",
+        "n2_6>n3_6",
+        "n3_6>n2_6"
+      ]
+    }
+  ],
+  "default_origin": "n2_0",
+  "default_destination": "n2_6"
+}

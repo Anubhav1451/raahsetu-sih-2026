@@ -1,0 +1,14 @@
+.git
+.venv
+**/node_modules
+**/dist
+**/__pycache__
+**/.pytest_cache
+**/.ruff_cache
+**/*.egg-info
+.env
+datasets
+work
+docs
+backend/data/*.graphml
+backend/data/osm-*.json

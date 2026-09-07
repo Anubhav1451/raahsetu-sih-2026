@@ -1,0 +1,25 @@
+{
+  "audited_at": "2026-09-07T14:02:01.066966+00:00",
+  "verified_download_files": 61,
+  "downloaded_bytes": 1070758787,
+  "state_road_extracts": 8,
+  "state_road_ways_including_boundary_overlap": 273494,
+  "state_facility_features_including_boundary_overlap": 2705,
+  "terrain_tiles": 45,
+  "terrain_tiles_planned": 45,
+  "missing_terrain": [],
+  "historical_ne_landslides": 467,
+  "weather_reference_point_days": 14608,
+  "weather_spatial_coverage": "8 reference points, not complete state-wide spatial coverage",
+  "runtime_pilot": {
+    "nodes": 5814,
+    "directed_edges": 13681
+  },
+  "gaps": [
+    "Verified coordinate-level blackspot coverage for all eight states",
+    "Live official closures, traffic and road condition feeds",
+    "Reviewed hazard-to-road joins and calibrated disruption model",
+    "Current authoritative susceptibility/warning layers"
+  ],
+  "osm_coverage_check": "Geofabrik North-Eastern Zone polygon fully covers Sikkim; all 8 extracts use this source. Eastern Zone is optional adjacent-region context."
+}

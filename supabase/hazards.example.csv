@@ -1,0 +1,2 @@
+source,source_record_id,kind,severity,longitude,latitude,observed_at,is_synthetic
+synthetic-demo,example-001,blackspot,0.8,91.72,26.184,2026-09-06T00:00:00Z,true

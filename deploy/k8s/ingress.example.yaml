@@ -1,0 +1,21 @@
+# Apply only after replacing the domain and provisioning an ingress controller and TLS secret.
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: raahsetu
+  namespace: raahsetu
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts: [raahsetu.example.com]
+      secretName: raahsetu-tls
+  rules:
+    - host: raahsetu.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: frontend
+                port: {number: 80}

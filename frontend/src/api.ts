@@ -1,0 +1,140 @@
+import type {
+  Bootstrap,
+  AuthSession,
+  AccessibilityEvent,
+  Comparison,
+  ElevationGrid,
+  FieldReport,
+  FieldReportInput,
+  FieldReportAttachment,
+  RoadCandidate,
+  Network,
+  RouteInput,
+  SearchResult,
+  Weather,
+} from "./types";
+
+const API = import.meta.env.VITE_API_BASE_URL ?? "";
+async function request<T>(path: string, init?: RequestInit): Promise<T> {
+  const response = await fetch(`${API}${path}`, {
+    ...init,
+    signal: init?.signal ?? AbortSignal.timeout(20000),
+  });
+  if (!response.ok) {
+    const body = await response.json().catch(() => null);
+    throw new Error(
+      typeof body?.detail === "string"
+        ? body.detail
+        : `Request failed (${response.status}).`,
+    );
+  }
+  return response.json() as Promise<T>;
+}
+export const getBootstrap = (dataset = "demo") =>
+  request<Bootstrap>(
+    `/api/v1/bootstrap?dataset=${encodeURIComponent(dataset)}`,
+  );
+export const getTerrain = (dataset = "demo") =>
+  request<ElevationGrid | null>(
+    `/api/v1/terrain?dataset=${encodeURIComponent(dataset)}`,
+  );
+export const getNetwork = (
+  weather: Weather = "normal",
+  dataset = "demo",
+  focusNode?: string,
+) =>
+  request<Network>(
+    `/api/v1/network?weather=${weather}&dataset=${encodeURIComponent(dataset)}${focusNode ? `&focus_node=${encodeURIComponent(focusNode)}` : ""}`,
+  );
+export const compareRoutes = (input: RouteInput, signal: AbortSignal) =>
+  request<Comparison>("/api/v1/routes/compare", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(input),
+    signal,
+  });
+export const searchPlaces = (query: string, dataset = "demo") =>
+  request<{ results: SearchResult[] }>(
+    `/api/v1/search?q=${encodeURIComponent(query)}&dataset=${encodeURIComponent(dataset)}`,
+  );
+export const createFieldReport = (input: FieldReportInput, token: string) =>
+  request<FieldReport>("/api/v1/field-reports", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+    body: JSON.stringify(input),
+  });
+export const uploadFieldReportAttachment = (token: string, reportId: string, file: File) => {
+  const body = new FormData();
+  body.append("file", file);
+  return request<FieldReportAttachment>(`/api/v1/field-reports/${encodeURIComponent(reportId)}/attachments`, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${token}` },
+    body,
+  });
+};
+export const getFieldReports = (token: string, regionCode?: string) =>
+  request<FieldReport[]>(
+    `/api/v1/field-reports${regionCode ? `?region_code=${encodeURIComponent(regionCode)}` : ""}`,
+    { headers: { Authorization: `Bearer ${token}` } },
+  );
+export const getAccessibilityEvents = (regionCode?: string) =>
+  request<{ events: AccessibilityEvent[] }>(
+    `/api/v1/accessibility-events${regionCode ? `?region_code=${encodeURIComponent(regionCode)}` : ""}`,
+  );
+
+type PublicConfig = { supabase_url: string; supabase_publishable_key: string };
+export class AuthError extends Error {
+  constructor(message: string, public status: number) { super(message); }
+}
+let publicConfig: Promise<PublicConfig> | undefined;
+const getPublicConfig = () =>
+  (publicConfig ??= request<PublicConfig>("/api/v1/public-config").catch((error) => {
+    publicConfig = undefined;
+    throw error;
+  }));
+
+async function authRequest(path: string, body: Record<string, unknown>) {
+  const config = await getPublicConfig();
+  const response = await fetch(`${config.supabase_url}/auth/v1/${path}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      apikey: config.supabase_publishable_key,
+    },
+    body: JSON.stringify(body),
+    signal: AbortSignal.timeout(15000),
+  });
+  const payload = await response.json().catch(() => ({}));
+  if (!response.ok) throw new AuthError(payload.msg || payload.error_description || "Authentication failed.", response.status);
+  if (payload.access_token && !payload.expires_at) {
+    payload.expires_at = Math.floor(Date.now() / 1000) + payload.expires_in;
+  }
+  return payload as AuthSession;
+}
+
+export const signIn = (email: string, password: string) =>
+  authRequest("token?grant_type=password", { email, password });
+export const signUp = (email: string, password: string, displayName: string) =>
+  authRequest("signup", { email, password, data: { display_name: displayName } });
+
+export const refreshSession = (refreshToken: string) =>
+  authRequest("token?grant_type=refresh_token", { refresh_token: refreshToken });
+
+export const getProfile = (token: string) =>
+  request<{ id: string; role: string; region_code: string | null }>("/api/v1/me", {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+export const reviewFieldReport = (
+  token: string, id: string, decision: "accepted" | "rejected", reviewNote: string,
+  datasetId?: string, edgeId?: string,
+) => request<FieldReport>(`/api/v1/field-reports/${encodeURIComponent(id)}/review`, {
+  method: "PATCH",
+  headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+  body: JSON.stringify({ decision, review_note: reviewNote, dataset_id: datasetId, edge_id: edgeId }),
+});
+export const getRoadCandidates = (token: string, id: string, datasetId: string) =>
+  request<{ candidates: RoadCandidate[] }>(
+    `/api/v1/field-reports/${encodeURIComponent(id)}/road-candidates?dataset_id=${encodeURIComponent(datasetId)}`,
+    { headers: { Authorization: `Bearer ${token}` } },
+  );

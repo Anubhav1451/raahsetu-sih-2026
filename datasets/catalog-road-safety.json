@@ -1,0 +1,18 @@
+[
+  {
+    "id": "assam_blackspot_protocol",
+    "url": "https://pwdroads.assam.gov.in/sites/default/files/swf_utility_folder/departments/pwd_lipl_in_oid_3/portlet/level_1/files/protocol_for_identification_and_rectification_of_road_accident_black_spots_on_national_highways_om_dated_28_10_2015.pdf",
+    "file": "raw/road_safety/blackspot-identification-protocol-2015.pdf",
+    "license": "Government publication; verify reuse terms",
+    "coverage": "India national highway blackspot definition",
+    "purpose": "Methodology reference"
+  },
+  {
+    "id": "nhidcl_assam_blackspots",
+    "url": "https://www.nhidcl.com/sites/default/files/tenders/tendors/uploads/2372c/tendor/RFP.pdf",
+    "file": "raw/road_safety/nhidcl-assam-blackspots-rfp.pdf",
+    "license": "Government tender publication; verify reuse terms",
+    "coverage": "Listed Assam blackspots; tender document, not current closure status",
+    "purpose": "Location/chainage reference; requires reviewed geocoding"
+  }
+]

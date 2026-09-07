@@ -1,0 +1,28 @@
+[
+  {
+    "id": "assam_blackspot_protocol",
+    "url": "https://pwdroads.assam.gov.in/sites/default/files/swf_utility_folder/departments/pwd_lipl_in_oid_3/portlet/level_1/files/protocol_for_identification_and_rectification_of_road_accident_black_spots_on_national_highways_om_dated_28_10_2015.pdf",
+    "file": "raw/road_safety/blackspot-identification-protocol-2015.pdf",
+    "license": "Government publication; verify reuse terms",
+    "coverage": "India national highway blackspot definition",
+    "purpose": "Methodology reference",
+    "accessed_at": "2026-09-06T11:59:17.139611+00:00",
+    "resolved_url": "https://pwdroads.assam.gov.in/sites/default/files/swf_utility_folder/departments/pwd_lipl_in_oid_3/portlet/level_1/files/protocol_for_identification_and_rectification_of_road_accident_black_spots_on_national_highways_om_dated_28_10_2015.pdf",
+    "last_modified": "Thu, 30 Oct 2025 08:23:07 GMT",
+    "content_type": "application/pdf",
+    "status": "downloaded",
+    "bytes": 750604,
+    "sha256": "be81d1df4499ad5b3a3ab56c1287c25ad89e9b609667d2fc66bf7dfcf3137466"
+  },
+  {
+    "id": "nhidcl_assam_blackspots",
+    "url": "https://www.nhidcl.com/sites/default/files/tenders/tendors/uploads/2372c/tendor/RFP.pdf",
+    "file": "raw/road_safety/nhidcl-assam-blackspots-rfp.pdf",
+    "license": "Government tender publication; verify reuse terms",
+    "coverage": "Listed Assam blackspots; tender document, not current closure status",
+    "purpose": "Location/chainage reference; requires reviewed geocoding",
+    "accessed_at": "2026-09-06T11:59:17.141611+00:00",
+    "status": "unavailable",
+    "error": "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1010)>"
+  }
+]

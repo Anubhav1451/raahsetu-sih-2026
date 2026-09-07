@@ -1,0 +1,74 @@
+[
+  {
+    "id": "weather_arunachal_pradesh",
+    "url": "https://archive-api.open-meteo.com/v1/archive?latitude=27.0844&longitude=93.6053&start_date=2021-01-01&end_date=2025-12-31&daily=temperature_2m_max%2Ctemperature_2m_min%2Cprecipitation_sum%2Crain_sum%2Cwind_speed_10m_max&timezone=Asia%2FKolkata",
+    "file": "raw/weather/arunachal-pradesh-daily-2021-2025.json",
+    "license": "CC BY 4.0; Open-Meteo and underlying reanalysis providers",
+    "coverage": "Itanagar reference point (27.0844, 93.6053); NOT statewide road-level observations",
+    "purpose": "Historical weather prototype features; model/reanalysis data, not station measurements"
+  },
+  {
+    "id": "weather_assam",
+    "url": "https://archive-api.open-meteo.com/v1/archive?latitude=26.1445&longitude=91.7362&start_date=2021-01-01&end_date=2025-12-31&daily=temperature_2m_max%2Ctemperature_2m_min%2Cprecipitation_sum%2Crain_sum%2Cwind_speed_10m_max&timezone=Asia%2FKolkata",
+    "file": "raw/weather/assam-daily-2021-2025.json",
+    "license": "CC BY 4.0; Open-Meteo and underlying reanalysis providers",
+    "coverage": "Guwahati reference point (26.1445, 91.7362); NOT statewide road-level observations",
+    "purpose": "Historical weather prototype features; model/reanalysis data, not station measurements"
+  },
+  {
+    "id": "weather_manipur",
+    "url": "https://archive-api.open-meteo.com/v1/archive?latitude=24.817&longitude=93.9368&start_date=2021-01-01&end_date=2025-12-31&daily=temperature_2m_max%2Ctemperature_2m_min%2Cprecipitation_sum%2Crain_sum%2Cwind_speed_10m_max&timezone=Asia%2FKolkata",
+    "file": "raw/weather/manipur-daily-2021-2025.json",
+    "license": "CC BY 4.0; Open-Meteo and underlying reanalysis providers",
+    "coverage": "Imphal reference point (24.817, 93.9368); NOT statewide road-level observations",
+    "purpose": "Historical weather prototype features; model/reanalysis data, not station measurements"
+  },
+  {
+    "id": "weather_meghalaya",
+    "url": "https://archive-api.open-meteo.com/v1/archive?latitude=25.5788&longitude=91.8933&start_date=2021-01-01&end_date=2025-12-31&daily=temperature_2m_max%2Ctemperature_2m_min%2Cprecipitation_sum%2Crain_sum%2Cwind_speed_10m_max&timezone=Asia%2FKolkata",
+    "file": "raw/weather/meghalaya-daily-2021-2025.json",
+    "license": "CC BY 4.0; Open-Meteo and underlying reanalysis providers",
+    "coverage": "Shillong reference point (25.5788, 91.8933); NOT statewide road-level observations",
+    "purpose": "Historical weather prototype features; model/reanalysis data, not station measurements"
+  },
+  {
+    "id": "weather_mizoram",
+    "url": "https://archive-api.open-meteo.com/v1/archive?latitude=23.7271&longitude=92.7176&start_date=2021-01-01&end_date=2025-12-31&daily=temperature_2m_max%2Ctemperature_2m_min%2Cprecipitation_sum%2Crain_sum%2Cwind_speed_10m_max&timezone=Asia%2FKolkata",
+    "file": "raw/weather/mizoram-daily-2021-2025.json",
+    "license": "CC BY 4.0; Open-Meteo and underlying reanalysis providers",
+    "coverage": "Aizawl reference point (23.7271, 92.7176); NOT statewide road-level observations",
+    "purpose": "Historical weather prototype features; model/reanalysis data, not station measurements"
+  },
+  {
+    "id": "weather_nagaland",
+    "url": "https://archive-api.open-meteo.com/v1/archive?latitude=25.6751&longitude=94.1086&start_date=2021-01-01&end_date=2025-12-31&daily=temperature_2m_max%2Ctemperature_2m_min%2Cprecipitation_sum%2Crain_sum%2Cwind_speed_10m_max&timezone=Asia%2FKolkata",
+    "file": "raw/weather/nagaland-daily-2021-2025.json",
+    "license": "CC BY 4.0; Open-Meteo and underlying reanalysis providers",
+    "coverage": "Kohima reference point (25.6751, 94.1086); NOT statewide road-level observations",
+    "purpose": "Historical weather prototype features; model/reanalysis data, not station measurements"
+  },
+  {
+    "id": "weather_sikkim",
+    "url": "https://archive-api.open-meteo.com/v1/archive?latitude=27.3389&longitude=88.6065&start_date=2021-01-01&end_date=2025-12-31&daily=temperature_2m_max%2Ctemperature_2m_min%2Cprecipitation_sum%2Crain_sum%2Cwind_speed_10m_max&timezone=Asia%2FKolkata",
+    "file": "raw/weather/sikkim-daily-2021-2025.json",
+    "license": "CC BY 4.0; Open-Meteo and underlying reanalysis providers",
+    "coverage": "Gangtok reference point (27.3389, 88.6065); NOT statewide road-level observations",
+    "purpose": "Historical weather prototype features; model/reanalysis data, not station measurements"
+  },
+  {
+    "id": "weather_tripura",
+    "url": "https://archive-api.open-meteo.com/v1/archive?latitude=23.8315&longitude=91.2868&start_date=2021-01-01&end_date=2025-12-31&daily=temperature_2m_max%2Ctemperature_2m_min%2Cprecipitation_sum%2Crain_sum%2Cwind_speed_10m_max&timezone=Asia%2FKolkata",
+    "file": "raw/weather/tripura-daily-2021-2025.json",
+    "license": "CC BY 4.0; Open-Meteo and underlying reanalysis providers",
+    "coverage": "Agartala reference point (23.8315, 91.2868); NOT statewide road-level observations",
+    "purpose": "Historical weather prototype features; model/reanalysis data, not station measurements"
+  },
+  {
+    "id": "nasa_glc_2016",
+    "url": "https://data.nasa.gov/docs/legacy/Global_Landslide_Catalog_Export/Global_Landslide_Catalog_Export_rows.csv",
+    "file": "raw/landslides/nasa-global-landslide-catalog-2016.csv",
+    "license": "NASA catalog terms; cite Kirschbaum et al. 2010 and 2015",
+    "coverage": "Global historical one-time export, current as of 2016-03-07",
+    "purpose": "Historical reported rainfall-triggered landslides; spatially filter NE; incomplete and reporting-biased"
+  }
+]

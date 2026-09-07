@@ -1,0 +1,3 @@
+source,source_record_id,kind,severity,longitude,latitude,observed_at,is_synthetic
+NASA-GLC,10004,landslide,0.65,91.79364785,26.14547804,2017-07-10,false
+NASA-GLC,10007,landslide,0.65,91.77306002,26.19037705,2017-07-10,false
