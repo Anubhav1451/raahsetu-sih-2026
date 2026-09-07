@@ -103,8 +103,8 @@ function Ground({ heightAt }: { heightAt: (x: number, z: number) => number }) {
     geo.rotateX(-Math.PI / 2);
     const vertices = geo.attributes.position;
     const colors = [];
-    const low = new THREE.Color("#173735");
-    const high = new THREE.Color("#3c5750");
+    const low = new THREE.Color("#233d36");
+    const high = new THREE.Color("#778772");
     for (let i = 0; i < vertices.count; i++) {
       const h = heightAt(vertices.getX(i), vertices.getZ(i));
       vertices.setY(i, h);
@@ -119,7 +119,7 @@ function Ground({ heightAt }: { heightAt: (x: number, z: number) => number }) {
   return (
     <group>
       <mesh geometry={geometry}>
-        <meshStandardMaterial vertexColors roughness={1} metalness={0} />
+        <meshStandardMaterial vertexColors roughness={0.85} metalness={0.08} />
       </mesh>
       <mesh geometry={geometry} position={[0, 0.045, 0]}>
         <meshBasicMaterial
@@ -133,6 +133,14 @@ function Ground({ heightAt }: { heightAt: (x: number, z: number) => number }) {
         args={[200, 25, "#284044", "#192f34"]}
         position={[0, -0.6, 0]}
       />
+      <mesh position={[0, -3, 0]}>
+        <boxGeometry args={[184, 4, 136]} />
+        <meshStandardMaterial color="#182b28" roughness={0.6} metalness={0.25} />
+      </mesh>
+      <mesh position={[0, -5.5, 0]}>
+        <boxGeometry args={[188, 1, 140]} />
+        <meshStandardMaterial color="#6c8a75" roughness={0.45} metalness={0.4} />
+      </mesh>
     </group>
   );
 }
@@ -142,8 +150,8 @@ function CameraRig({ mode, reset }: Pick<Props, "mode" | "reset">) {
   useEffect(() => {
     camera.position.set(
       0,
-      mode === "flat" ? 155 : 101,
-      mode === "flat" ? 0.01 : 95,
+      mode === "flat" ? 200 : 155,
+      mode === "flat" ? 0.01 : 145,
     );
     camera.lookAt(0, 0, 0);
     camera.updateProjectionMatrix();
@@ -304,8 +312,8 @@ function MapScene(props: Props) {
   );
   return (
     <>
-      <color attach="background" args={["#102229"]} />
-      <fog attach="fog" args={["#102229", 160, 330]} />
+      <color attach="background" args={["#101b1c"]} />
+      <fog attach="fog" args={["#101b1c", 200, 380]} />
       <ambientLight intensity={1.5} />
       <directionalLight
         position={[-40, 90, 20]}

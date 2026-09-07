@@ -6,6 +6,8 @@ Trust-first logistics intelligence: calm dark surfaces, clear evidence, restrain
 
 ## Visual Direction
 
+The premium spatial pass uses graphite instrument panels, ivory text and mint highlights. Raised CSS surfaces frame a wider R3F terrain view with a two-layer physical base. Mobile places the map before journey controls. `premium.css` contains this visual layer; no additional animation dependency is required.
+
 Dark navy-green workspace with one mint primary accent and a muted orange hazard accent. The map is the visual focus; controls explain decisions without hiding uncertainty.
 
 ## Tokens

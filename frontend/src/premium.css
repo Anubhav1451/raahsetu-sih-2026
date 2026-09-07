@@ -1,0 +1,64 @@
+/* Spatial operations workspace. Depth is structural; readable controls stay flat. */
+:root { --bg: #090f12; --panel: #151e22; --line: #334047; --text: #eeeae1; --muted: #a3b2b6; --mint: #b4edce; --radius: 20px; color: var(--text); background: var(--bg); }
+body { background: radial-gradient(ellipse at 70% 0%, #233831 0%, transparent 52%), #090f12; }
+.rail { background: #10181c; border-right-color: #35433f; box-shadow: 8px 0 32px #0004; }
+.brand-symbol { background: #b4edce; box-shadow: 0 4px 0 #527764, 0 10px 22px #0006; }
+.topbar { background: #10181ce8; border-bottom-color: #34423d; }
+main { max-width: 1920px; margin-inline: auto; padding-top: 28px; }
+.page-heading { align-items: center; margin-bottom: 24px; }
+.page-heading h1 { font-family: Manrope, sans-serif; font-size: clamp(32px, 3.2vw, 52px); line-height: 1.08; font-weight: 650; letter-spacing: -.055em; max-width: 21ch; }
+.eyebrow { color: #b4edce; letter-spacing: .19em; font-size: 10px; margin-bottom: 13px; }
+.page-heading p { font-size: 14px; color: #a3b2b6; margin-top: 14px; }
+.workspace-toolbar { background: #182327; border-color: #3a4b46; border-radius: 14px; box-shadow: inset 0 1px #ffffff0d, 0 6px 0 #0b1316, 0 16px 28px #0003; margin-bottom: 26px; }
+.planner-grid { grid-template-columns: 276px minmax(340px, 1fr) 270px; gap: 20px; perspective: 1800px; }
+.planner-panel, .comparison-panel { background: linear-gradient(155deg, #202c30, #141c20 65%); border-color: #3a494d; border-radius: 20px; box-shadow: inset 0 1px #ffffff18, 0 7px 0 #0c1417, 0 22px 40px #0005; }
+.panel-heading { color: #f0eee7; letter-spacing: -.02em; }
+.step-chip { background: #0c1519; color: #b4edce; border: 1px solid #42544c; border-radius: 6px; font-variant-numeric: tabular-nums; }
+.map-panel { min-height: 730px; border-radius: 24px; border: 1px solid #6a8174; box-shadow: inset 0 1px #ffffff30, 0 9px 0 #152321, 0 12px 0 #334b42, 0 35px 65px #0008; background: #101b1c; isolation: isolate; }
+.map-top { padding: 12px; top: 14px; left: 14px; right: 14px; border: 1px solid #637c6555; border-radius: 12px; background: #111d20ed; box-shadow: 0 8px 20px #0004; }
+.map-title strong { color: #eeeae1; }
+.map-tools { top: 118px; }
+.map-tool { width: 42px; height: 42px; background: #18282b; border: 1px solid #4b6259; box-shadow: 0 3px 0 #091414; border-radius: 10px; }
+.map-bottom { background: #111d20ed; border-top: 1px solid #4c6357; }
+.view-switch { background: #0a1416; border-color: #41554b; }
+.view-switch button.on { background: #b4edce; color: #13251b; }
+.map-pin { background: #152725; border-color: #94bca6; box-shadow: 0 4px 0 #07130f, 0 10px 22px #0006; }
+.route-card { background: #10191d; border-radius: 14px; border-color: #36474b; box-shadow: inset 0 1px #ffffff09; transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease; }
+.route-card.selected { background: linear-gradient(140deg, #2d4639, #162922); border-color: #9cc8ae; box-shadow: inset 3px 0 #b4edce, 0 5px 0 #0b1913, 0 14px 24px #0004; }
+.route-metrics strong { font-family: Manrope, sans-serif; font-variant-numeric: tabular-nums; letter-spacing: -.045em; }
+.button { border-radius: 10px; font-weight: 600; }
+.button.primary { background: #b4edce; color: #14291d; box-shadow: inset 0 1px #e6fff0, 0 4px 0 #4a705b, 0 8px 18px #0003; }
+.button.secondary { background: #1b292d; border: 1px solid #475952; box-shadow: inset 0 1px #ffffff0b, 0 3px 0 #0a1315; }
+select, input, textarea, .full-select { background-color: #101a1e; color: #eeeae1; border-color: #46565a; border-radius: 9px; }
+select option { background: #182529; color: #eeeae1; }
+.search-results { max-height: 280px; overflow-y: auto; overscroll-behavior: contain; box-shadow: 0 16px 28px #0008; }
+.insights-grid { margin-top: 30px; gap: 20px; }
+.operations-workspace { background: #131f23; border-color: #526a5b; box-shadow: 0 7px 0 #091315, 0 20px 35px #0004; }
+.operations-strip > div { background: #1c292e; border-color: #3a4c50; border-radius: 14px; }
+.delivery-form input, .delivery-form select { padding: 12px; }
+.live-weather { display: block; line-height: 1.6; padding: 10px 0; }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .route-card:hover { transform: translateY(-3px); }
+  .button:active:not(:disabled) { transform: translateY(2px); }
+  .planner-panel, .comparison-panel { animation: spatial-enter 450ms ease-out both; }
+  .comparison-panel { animation-delay: 90ms; }
+}
+@keyframes spatial-enter { from { opacity: 0; transform: translateY(14px) rotateX(2deg); } to { opacity: 1; transform: none; } }
+@media (max-width: 1250px) {
+  .planner-grid { grid-template-columns: 270px minmax(0, 1fr); }
+  .comparison-panel { grid-column: 1 / -1; }
+  .map-panel { min-height: 650px; }
+}
+@media (max-width: 760px) {
+  .planner-grid { display: flex; flex-direction: column; }
+  .map-panel { order: -1; min-height: 480px; width: 100%; }
+  .page-heading h1 { font-size: 36px; }
+  .map-top { flex-wrap: wrap; padding: 10px; }
+  .map-title { min-width: 0; }
+  .map-tools { top: 140px; }
+  .planner-panel, .comparison-panel { width: 100%; }
+  .comparison-panel { display: block; }
+  .workspace-toolbar { flex-wrap: wrap; }
+  .page-heading { align-items: flex-start; }
+}
+@media (prefers-reduced-motion: reduce) { .route-card, .button { transform: none !important; } }
