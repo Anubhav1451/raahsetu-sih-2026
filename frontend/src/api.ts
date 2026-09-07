@@ -2,6 +2,8 @@ import type {
   Bootstrap,
   AuthSession,
   AccessibilityEvent,
+  Alert,
+  ConnectivitySummary,
   Comparison,
   ElevationGrid,
   FieldReport,
@@ -81,6 +83,8 @@ export const getAccessibilityEvents = (regionCode?: string) =>
   request<{ events: AccessibilityEvent[] }>(
     `/api/v1/accessibility-events${regionCode ? `?region_code=${encodeURIComponent(regionCode)}` : ""}`,
   );
+export const getAlerts = (token: string) => request<Alert[]>("/api/v1/alerts", { headers: { Authorization: `Bearer ${token}` } });
+export const getConnectivity = (token: string) => request<ConnectivitySummary[]>("/api/v1/connectivity", { headers: { Authorization: `Bearer ${token}` } });
 
 type PublicConfig = { supabase_url: string; supabase_publishable_key: string };
 export class AuthError extends Error {

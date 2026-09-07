@@ -183,6 +183,27 @@ export type AccessibilityEvent = {
   source: string;
   details: Record<string, unknown>;
 };
+export type Alert = {
+  id: string;
+  event_id: string;
+  region_code: string;
+  alert_type: "blocked_route" | "high_risk" | "delay" | "reopened";
+  severity: number;
+  title: string;
+  message_key: string;
+  message_params: Record<string, unknown>;
+  created_at: string;
+  expires_at: string | null;
+};
+export type ConnectivitySummary = {
+  region_code: string;
+  state_name: string;
+  active_events: number;
+  blocked_events: number;
+  restricted_events: number;
+  status: "open" | "restricted" | "blocked";
+  last_event_at: string | null;
+};
 export type RoadCandidate = { edge_id: string; name: string; distance_m: number };
 
 export type AuthSession = {

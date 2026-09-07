@@ -29,6 +29,8 @@ import {
   getBootstrap,
   getFieldReports,
   getAccessibilityEvents,
+  getAlerts,
+  getConnectivity,
   getNetwork,
   getTerrain,
   searchPlaces,
@@ -49,6 +51,8 @@ import type {
   ElevationGrid,
   FieldReport,
   AccessibilityEvent,
+  Alert as AlertItem,
+  ConnectivitySummary,
   RoadCandidate,
   Network,
   Route,
@@ -148,6 +152,8 @@ export default function App() {
   const reportDialog = useRef<HTMLDialogElement>(null);
   const [reports, setReports] = useState<FieldReport[]>([]);
   const [events, setEvents] = useState<AccessibilityEvent[]>([]);
+  const [alerts, setAlerts] = useState<AlertItem[]>([]);
+  const [connectivity, setConnectivity] = useState<ConnectivitySummary[]>([]);
   const [reportBusy, setReportBusy] = useState(false);
   const [reportMessage, setReportMessage] = useState("");
   const [evidenceFile, setEvidenceFile] = useState<File | null>(null);
@@ -201,6 +207,11 @@ export default function App() {
   useEffect(() => {
     getAccessibilityEvents(regionCode).then((payload) => setEvents(payload.events)).catch(() => setEvents([]));
   }, [regionCode]);
+  useEffect(() => {
+    if (!session?.access_token) { setAlerts([]); setConnectivity([]); return; }
+    getAlerts(session.access_token).then(setAlerts).catch(() => setAlerts([]));
+    getConnectivity(session.access_token).then(setConnectivity).catch(() => setConnectivity([]));
+  }, [session?.access_token, regionCode]);
   const [operatorRole, setOperatorRole] = useState("");
   const [reviewNotes, setReviewNotes] = useState<Record<string, string>>({});
   const [reviewing, setReviewing] = useState<string | null>(null);
@@ -645,6 +656,24 @@ export default function App() {
               </button>
             </div>
           </div>
+          {session && (alerts.length > 0 || connectivity.length > 0) && (
+            <section className="operations-strip" aria-label="Live operations status">
+              <div className="operations-alerts">
+                <div className="panel-heading"><span><AlertTriangle size={18} /> Live alerts</span><span className="step-chip">{alerts.length}</span></div>
+                {alerts.slice(0, 3).map((alert) => (
+                  <div className="operation-alert" key={alert.id}>
+                    <i className={alert.severity >= 0.75 ? "critical" : "warning"} />
+                    <span><strong>{alert.title}</strong><small>{alert.region_code} · {alert.alert_type.replaceAll("_", " ")}</small></span>
+                  </div>
+                ))}
+                {alerts.length === 0 && <small className="muted-copy">No active alerts for your account scope.</small>}
+              </div>
+              <div className="connectivity-summary">
+                <div className="panel-heading"><span><Activity size={18} /> State connectivity</span><span className="step-chip">{connectivity.length}</span></div>
+                <div className="connectivity-list">{connectivity.slice(0, 8).map((state) => <span key={state.region_code} className={`connectivity-chip ${state.status}`}><i />{state.state_name}</span>)}</div>
+              </div>
+            </section>
+          )}
           <div className="planner-grid">
             <section className="planner-panel" aria-label="Journey settings">
               <div className="panel-heading">
