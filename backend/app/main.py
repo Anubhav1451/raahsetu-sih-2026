@@ -18,14 +18,19 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from .auth import AuthUser, require_reviewer, require_user
 from .field_reports import FieldReportStore, PostgresFieldReportStore
+from .fleet import FleetStore, PostgresFleetStore
 from .models import (
     Dataset,
+    DeliveryJob,
     Endpoint,
     FieldReport,
     FieldReportAttachment,
     FieldReportCreate,
     FieldReportReview,
+    PositionCreate,
     RouteRequest,
+    VehiclePosition,
+    VehicleSummary,
 )
 from .routing import VEHICLES, RoadGraph
 
@@ -104,6 +109,10 @@ def get_field_report_store() -> FieldReportStore:
     return PostgresFieldReportStore()
 
 
+def get_fleet_store() -> FleetStore:
+    return PostgresFleetStore()
+
+
 @app.get("/health")
 def health():
     graph = app.state.graph
@@ -122,6 +131,34 @@ def public_config():
 @app.get("/api/v1/me", response_model=AuthUser)
 def current_user(user: Annotated[AuthUser, Depends(require_user)]):
     return user
+
+
+@app.get("/api/v1/fleet/positions", response_model=list[VehicleSummary])
+def fleet_positions(store: Annotated[FleetStore, Depends(get_fleet_store)], user: Annotated[AuthUser, Depends(require_user)], limit: int = Query(default=200, ge=1, le=1000)):
+    try:
+        region = None if user.role == "admin" else user.region_code
+        return store.positions(region, limit)
+    except RuntimeError as exc:
+        raise HTTPException(503, detail=str(exc)) from exc
+
+
+@app.post("/api/v1/fleet/positions", response_model=VehiclePosition, status_code=201)
+def record_fleet_position(payload: PositionCreate, store: Annotated[FleetStore, Depends(get_fleet_store)], user: Annotated[AuthUser, Depends(require_user)]):
+    try:
+        return store.record_position(payload, user.id)
+    except LookupError as exc:
+        raise HTTPException(403, detail=str(exc)) from exc
+    except RuntimeError as exc:
+        raise HTTPException(503, detail=str(exc)) from exc
+
+
+@app.get("/api/v1/deliveries", response_model=list[DeliveryJob])
+def deliveries(store: Annotated[FleetStore, Depends(get_fleet_store)], user: Annotated[AuthUser, Depends(require_user)], limit: int = Query(default=200, ge=1, le=1000)):
+    try:
+        region = None if user.role == "admin" else user.region_code
+        return store.deliveries(region, limit)
+    except RuntimeError as exc:
+        raise HTTPException(503, detail=str(exc)) from exc
 
 
 @app.get("/api/v1/accessibility-events")

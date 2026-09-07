@@ -67,6 +67,29 @@ def test_unknown_dataset_and_weather(client):
     assert client.get("/api/v1/network?focus_node=unknown").status_code == 422
 
 
+def test_fleet_position_validates_coordinates_before_store(client):
+    response = client.post(
+        "/api/v1/fleet/positions",
+        json={
+            "vehicle_id": "not-a-vehicle",
+            "recorded_at": "2026-09-07T06:00:00Z",
+            "lon": 181,
+            "lat": 26,
+        },
+    )
+    assert response.status_code == 422
+
+
+def test_fleet_routes_require_authenticated_user():
+    app.dependency_overrides.clear()
+    try:
+        with TestClient(app) as unauthenticated:
+            assert unauthenticated.get("/api/v1/fleet/positions").status_code == 401
+            assert unauthenticated.get("/api/v1/deliveries").status_code == 401
+    finally:
+        app.dependency_overrides.clear()
+
+
 def test_network_response_is_bounded(client):
     response = client.get("/api/v1/network?limit=100").json()
     assert len(response["features"]) <= 100

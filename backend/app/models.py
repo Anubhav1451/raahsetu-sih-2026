@@ -187,3 +187,48 @@ class FieldReportAttachment(StrictModel):
     byte_size: int
     sha256: str
     captured_at: datetime | None = None
+
+
+class PositionCreate(StrictModel):
+    vehicle_id: str
+    recorded_at: datetime
+    lon: float = Field(ge=-180, le=180)
+    lat: float = Field(ge=-90, le=90)
+    speed_kph: float | None = Field(default=None, ge=0, le=200)
+    heading: float | None = Field(default=None, ge=0, le=360)
+    status: Literal["en_route", "delayed", "stopped", "delivered"] = "en_route"
+    accuracy_m: float | None = Field(default=None, ge=0, le=10000)
+    metadata: dict = Field(default_factory=dict)
+
+
+class VehiclePosition(StrictModel):
+    id: str
+    vehicle_id: str
+    recorded_at: datetime
+    lon: float
+    lat: float
+    speed_kph: float | None
+    heading: float | None
+    status: str
+    accuracy_m: float | None
+    metadata: dict
+
+
+class VehicleSummary(VehiclePosition):
+    region_code: str
+    registration: str
+    vehicle_type: str
+
+
+class DeliveryJob(StrictModel):
+    id: str
+    vehicle_id: str
+    region_code: str
+    commodity: str
+    origin_name: str
+    destination_name: str
+    status: Literal["planned", "en_route", "delayed", "delivered", "cancelled"]
+    eta_at: datetime | None
+    delivered_at: datetime | None
+    created_at: datetime
+    metadata: dict
