@@ -13,6 +13,7 @@ RaahSetu is a working local SIH26002 MVP in `D:\FORSIH`. FastAPI runs on port 80
 - Supabase/PostGIS schema, CSV imports and deployment manifests prepared.
 - Fleet foundation added: vehicle assets, GPS position history, delivery jobs and region-scoped FastAPI endpoints.
 - Alert and connectivity foundation added: active alert listing and state-wise open/restricted/blocked summaries.
+- Delivery workflow added: operators can create jobs for assigned vehicles and update status through delivered/cancelled states.
 
 ## Known Problems and Limits
 

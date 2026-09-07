@@ -24,7 +24,9 @@ from .models import (
     Alert,
     ConnectivitySummary,
     Dataset,
+    DeliveryCreate,
     DeliveryJob,
+    DeliveryUpdate,
     Endpoint,
     FieldReport,
     FieldReportAttachment,
@@ -173,6 +175,28 @@ def deliveries(store: Annotated[FleetStore, Depends(get_fleet_store)], user: Ann
     try:
         region = None if user.role == "admin" else user.region_code
         return store.deliveries(region, limit)
+    except RuntimeError as exc:
+        raise HTTPException(503, detail=str(exc)) from exc
+
+
+@app.post("/api/v1/deliveries", response_model=DeliveryJob, status_code=201)
+def create_delivery(payload: DeliveryCreate, store: Annotated[FleetStore, Depends(get_fleet_store)], user: Annotated[AuthUser, Depends(require_user)]):
+    if user.region_code and user.role != "admin" and user.region_code != payload.region_code:
+        raise HTTPException(403, detail="Delivery is outside the assigned region")
+    try:
+        return store.create_delivery(payload, user.id)
+    except LookupError as exc:
+        raise HTTPException(403, detail=str(exc)) from exc
+    except RuntimeError as exc:
+        raise HTTPException(503, detail=str(exc)) from exc
+
+
+@app.patch("/api/v1/deliveries/{delivery_id}", response_model=DeliveryJob)
+def update_delivery(delivery_id: UUID, payload: DeliveryUpdate, store: Annotated[FleetStore, Depends(get_fleet_store)], user: Annotated[AuthUser, Depends(require_user)]):
+    try:
+        return store.update_delivery(str(delivery_id), payload, user.id, user.role == "admin")
+    except LookupError as exc:
+        raise HTTPException(404, detail=str(exc)) from exc
     except RuntimeError as exc:
         raise HTTPException(503, detail=str(exc)) from exc
 

@@ -243,6 +243,21 @@ class DeliveryJob(StrictModel):
     metadata: dict
 
 
+class DeliveryCreate(StrictModel):
+    vehicle_id: str
+    region_code: str = Field(min_length=3, max_length=40, pattern=r"^[a-z]+(?:-[a-z]+)*$")
+    commodity: str = Field(min_length=2, max_length=120)
+    origin_name: str = Field(min_length=2, max_length=160)
+    destination_name: str = Field(min_length=2, max_length=160)
+    eta_at: datetime | None = None
+    metadata: dict = Field(default_factory=dict)
+
+
+class DeliveryUpdate(StrictModel):
+    status: Literal["planned", "en_route", "delayed", "delivered", "cancelled"]
+    eta_at: datetime | None = None
+
+
 class Alert(StrictModel):
     id: str
     event_id: str
