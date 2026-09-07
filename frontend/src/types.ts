@@ -19,6 +19,7 @@ export type SearchResult = Location & {
 };
 export type Vehicle = "heavy" | "emergency" | "light";
 export type Weather = "normal" | "heavy_rain";
+export type LiveWeather = { source: string; observed_at: string | null; temperature_c: number | null; precipitation_mm: number; rain_mm: number; wind_kph: number; routing_scenario: Weather };
 export type Bootstrap = {
   dataset: {
     id: string;

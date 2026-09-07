@@ -17,6 +17,7 @@ import type {
   RouteInput,
   SearchResult,
   Weather,
+  LiveWeather,
 } from "./types";
 
 const API = import.meta.env.VITE_API_BASE_URL ?? "";
@@ -62,6 +63,7 @@ export const searchPlaces = (query: string, dataset = "demo") =>
   request<{ results: SearchResult[] }>(
     `/api/v1/search?q=${encodeURIComponent(query)}&dataset=${encodeURIComponent(dataset)}`,
   );
+export const getLiveWeather = (lat: number, lon: number) => request<LiveWeather>(`/api/v1/weather?lat=${lat}&lon=${lon}`);
 export const createFieldReport = (input: FieldReportInput, token: string) =>
   request<FieldReport>("/api/v1/field-reports", {
     method: "POST",

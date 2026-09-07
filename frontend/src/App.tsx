@@ -38,6 +38,7 @@ import {
   sendFleetPosition,
   getNetwork,
   getTerrain,
+  getLiveWeather,
   searchPlaces,
   signIn,
   signUp,
@@ -140,6 +141,7 @@ export default function App() {
   const [destination, setDestination] = useState("");
   const [vehicle, setVehicle] = useState<Vehicle>("heavy");
   const [weather, setWeather] = useState<Weather>("normal");
+  const [liveWeather, setLiveWeather] = useState<import("./types").LiveWeather | null>(null);
   const [aversion, setAversion] = useState(1.5);
   const [strict, setStrict] = useState(false);
   const [scenarioId, setScenarioId] = useState("none");
@@ -239,6 +241,11 @@ export default function App() {
   useEffect(() => {
     getAccessibilityEvents(regionCode).then((payload) => setEvents(payload.events)).catch(() => setEvents([]));
   }, [regionCode]);
+  useEffect(() => {
+    const point = bootstrap?.locations.find((location) => location.id === bootstrap.dataset.default_origin) || bootstrap?.locations[0];
+    if (!point) return;
+    getLiveWeather(point.lat, point.lon).then(setLiveWeather).catch(() => setLiveWeather(null));
+  }, [bootstrap]);
   useEffect(() => {
     let cancelled = false;
     setAlerts([]); setConnectivity([]); setFleetVehicles([]); setDeliveries([]); setDeliveryStatusDraft({}); setDeliveryMessage(""); setDeliveryCreateMessage(""); setFleetSelectedVehicle("");
@@ -1081,6 +1088,7 @@ export default function App() {
                   Heavy rain
                 </button>
               </div>
+              {liveWeather && <small className="muted-copy live-weather" role="status">Live Open-Meteo · {liveWeather.temperature_c ?? "—"}°C · {liveWeather.rain_mm.toFixed(1)} mm rain · {liveWeather.wind_kph.toFixed(0)} km/h wind · {liveWeather.routing_scenario === "heavy_rain" ? "Risk uplift active" : "Normal conditions"}</small>}
               <label className="field-label compact" htmlFor="closure">
                 Road disruption
               </label>
