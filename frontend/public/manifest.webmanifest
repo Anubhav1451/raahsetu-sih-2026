@@ -1,0 +1,11 @@
+{
+  "name": "RaahSetu Logistics Intelligence",
+  "short_name": "RaahSetu",
+  "description": "Offline-ready Northeast logistics route and accessibility workspace.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0c171d",
+  "theme_color": "#0c171d",
+  "lang": "en-IN",
+  "icons": [{ "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }]
+}
