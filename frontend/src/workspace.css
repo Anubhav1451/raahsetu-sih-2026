@@ -47,6 +47,7 @@ main { max-width: 1760px; padding: 32px clamp(16px, 2.5vw, 40px); }
 .delivery-actions .button { padding: 7px 10px; }
 .panel-heading-actions { display: inline-flex; align-items: center; gap: 8px; }
 .button.compact { padding: 6px 9px; font-size: 11px; }
+.button.danger { border-color: #81434d; color: #ffadb5; background: rgba(129, 67, 77, 0.16); }
 .delivery-form { display: grid; gap: 8px; margin: 10px 0; padding: 10px; border: 1px solid var(--line); border-radius: 8px; background: #0d1c22; }
 .delivery-form input, .delivery-form select { width: 100%; min-width: 0; }
 .delivery-form .button { justify-self: start; }

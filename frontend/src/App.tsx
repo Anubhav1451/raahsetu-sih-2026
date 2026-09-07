@@ -180,6 +180,8 @@ export default function App() {
   const [fleetSelectedVehicle, setFleetSelectedVehicle] = useState("");
   const [locationMessage, setLocationMessage] = useState("");
   const [locationBusy, setLocationBusy] = useState(false);
+  const [liveTracking, setLiveTracking] = useState(false);
+  const gpsWatch = useRef<number | null>(null);
   const currentAccount = useRef<string | undefined>(undefined);
   const [alertLanguage, setAlertLanguage] = useState<"en" | "hi" | "as">("en");
   const [reportBusy, setReportBusy] = useState(false);
@@ -319,6 +321,24 @@ export default function App() {
       finally { setLocationBusy(false); }
     }, () => { setLocationBusy(false); if (currentAccount.current === accountId) setLocationMessage("GPS permission was denied or unavailable."); }, { enableHighAccuracy: true, timeout: 10000, maximumAge: 30000 });
   };
+  const stopLiveTracking = () => {
+    if (gpsWatch.current !== null) navigator.geolocation.clearWatch(gpsWatch.current);
+    gpsWatch.current = null; setLiveTracking(false); setLocationMessage("Live GPS sharing stopped.");
+  };
+  const startLiveTracking = () => {
+    if (!session?.access_token || !fleetSelectedVehicle || liveTracking) return;
+    if (!navigator.geolocation) { setLocationMessage("Location is unavailable on this device."); return; }
+    const accountId = session.user.id;
+    setLiveTracking(true); setLocationMessage("Requesting live GPS permission…");
+    gpsWatch.current = navigator.geolocation.watchPosition(async (position) => {
+      if (currentAccount.current !== accountId || !session?.access_token) return;
+      try {
+        await sendFleetPosition(session.access_token, { vehicle_id: fleetSelectedVehicle, recorded_at: new Date(position.timestamp).toISOString(), lon: position.coords.longitude, lat: position.coords.latitude, accuracy_m: position.coords.accuracy });
+        setLocationMessage(`Live location shared · ±${Math.round(position.coords.accuracy)} m accuracy`);
+      } catch (cause) { setLocationMessage(cause instanceof Error ? cause.message : "Live GPS update failed."); }
+    }, () => { setLiveTracking(false); setLocationMessage("GPS permission was denied or became unavailable."); }, { enableHighAccuracy: true, timeout: 15000, maximumAge: 15000 });
+  };
+  useEffect(() => () => { if (gpsWatch.current !== null) navigator.geolocation.clearWatch(gpsWatch.current); }, []);
   const [operatorRole, setOperatorRole] = useState("");
   const [reviewNotes, setReviewNotes] = useState<Record<string, string>>({});
   const [reviewing, setReviewing] = useState<string | null>(null);
@@ -809,7 +829,8 @@ export default function App() {
                 {fleetVehicles.length > 0 ? <>
                   <select aria-label="Assigned vehicle" disabled={locationBusy} value={fleetSelectedVehicle} onChange={(event) => setFleetSelectedVehicle(event.target.value)}>{fleetVehicles.map((vehicle) => <option key={vehicle.id} value={vehicle.id}>{vehicle.registration} · {vehicle.vehicle_type}</option>)}</select>
                   <button className="button secondary" type="button" disabled={locationBusy} onClick={shareVehicleLocation}>{locationBusy ? "Sharing location…" : "Share current location"}</button>
-                  <small className="muted-copy" role="status">{locationMessage || "Sends one GPS update after your permission. No background tracking."}</small>
+                  <button className={`button ${liveTracking ? "danger" : "secondary"}`} type="button" disabled={locationBusy} onClick={liveTracking ? stopLiveTracking : startLiveTracking}>{liveTracking ? "Stop live sharing" : "Start live sharing"}</button>
+                  <small className="muted-copy" role="status">{locationMessage || "One-shot or operator-controlled live updates. No hidden background tracking."}</small>
                 </> : !operationsErrors.fleet && <small className="muted-copy">{operationsBusy ? "Loading assigned vehicles…" : "No assigned vehicle is provisioned for this account."}</small>}
               </div>
               <div className="delivery-status">
