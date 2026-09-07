@@ -154,6 +154,7 @@ export default function App() {
   const [events, setEvents] = useState<AccessibilityEvent[]>([]);
   const [alerts, setAlerts] = useState<AlertItem[]>([]);
   const [connectivity, setConnectivity] = useState<ConnectivitySummary[]>([]);
+  const [alertLanguage, setAlertLanguage] = useState<"en" | "hi" | "as">("en");
   const [reportBusy, setReportBusy] = useState(false);
   const [reportMessage, setReportMessage] = useState("");
   const [evidenceFile, setEvidenceFile] = useState<File | null>(null);
@@ -576,6 +577,14 @@ export default function App() {
   const activeRoute = result?.routes.find((r) => r.id === selected);
   const selectedVehicle = bootstrap?.vehicles[vehicle];
   const reduction = result?.comparison?.exposure_reduction_pct;
+  const localizedAlert = (alert: AlertItem) => {
+    const labels = {
+      en: { "route.blocked": "Road blocked", "route.restricted": "Road accessibility restricted" },
+      hi: { "route.blocked": "सड़क बंद है", "route.restricted": "सड़क आवागमन सीमित है" },
+      as: { "route.blocked": "পথ বন্ধ আছে", "route.restricted": "পথ চলাচল সীমিত" },
+    } as const;
+    return labels[alertLanguage][alert.message_key as keyof typeof labels.en] ?? alert.title;
+  };
 
   return (
     <div className="app-shell">
@@ -659,11 +668,11 @@ export default function App() {
           {session && (alerts.length > 0 || connectivity.length > 0) && (
             <section className="operations-strip" aria-label="Live operations status">
               <div className="operations-alerts">
-                <div className="panel-heading"><span><AlertTriangle size={18} /> Live alerts</span><span className="step-chip">{alerts.length}</span></div>
+                <div className="panel-heading"><span><AlertTriangle size={18} /> Live alerts</span><span className="alert-tools"><select aria-label="Alert language" value={alertLanguage} onChange={(event) => setAlertLanguage(event.target.value as typeof alertLanguage)}><option value="en">EN</option><option value="hi">हिं</option><option value="as">অসমীয়া</option></select><span className="step-chip">{alerts.length}</span></span></div>
                 {alerts.slice(0, 3).map((alert) => (
                   <div className="operation-alert" key={alert.id}>
                     <i className={alert.severity >= 0.75 ? "critical" : "warning"} />
-                    <span><strong>{alert.title}</strong><small>{alert.region_code} · {alert.alert_type.replaceAll("_", " ")}</small></span>
+                    <span><strong>{localizedAlert(alert)}</strong><small>{alert.region_code} · {alert.alert_type.replaceAll("_", " ")}</small></span>
                   </div>
                 ))}
                 {alerts.length === 0 && <small className="muted-copy">No active alerts for your account scope.</small>}
