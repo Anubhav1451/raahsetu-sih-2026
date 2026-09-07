@@ -56,6 +56,7 @@ import type {
   Vehicle,
   Weather,
 } from "./types";
+import { dataUrlToFile, fileToDataUrl, listQueuedReports, queueReport, removeQueuedReport } from "./offlineQueue";
 
 function RouteCard({
   route,
@@ -150,6 +151,7 @@ export default function App() {
   const [reportBusy, setReportBusy] = useState(false);
   const [reportMessage, setReportMessage] = useState("");
   const [evidenceFile, setEvidenceFile] = useState<File | null>(null);
+  const [queuedReports, setQueuedReports] = useState(0);
   const [session, setSession] = useState<AuthSession | null>(() => {
     try {
       return JSON.parse(localStorage.getItem("raahsetu-session") || "null");
@@ -257,6 +259,38 @@ export default function App() {
     (location) => location.id === origin,
   );
 
+  const refreshQueueCount = () => listQueuedReports().then((items) => setQueuedReports(items.length)).catch(() => setQueuedReports(0));
+  useEffect(() => { refreshQueueCount(); }, []);
+
+  useEffect(() => {
+    if (!session?.access_token || !navigator.onLine) return;
+    let cancelled = false;
+    const sync = async () => {
+      const items = await listQueuedReports().catch(() => []);
+      for (const item of items) {
+        if (cancelled) return;
+        try {
+          const created = await createFieldReport(item.payload, session.access_token);
+          if (item.evidence) {
+            await uploadFieldReportAttachment(
+              session.access_token,
+              created.id,
+              dataUrlToFile(item.evidence.dataUrl, item.evidence.name, item.evidence.type),
+            );
+          }
+          await removeQueuedReport(item.id);
+          setReports((current) => [created, ...current]);
+        } catch {
+          break;
+        }
+      }
+      refreshQueueCount();
+    };
+    sync();
+    window.addEventListener("online", sync);
+    return () => { cancelled = true; window.removeEventListener("online", sync); };
+  }, [session?.access_token]);
+
   const openReportDialog = () => {
     setReportMessage("");
     reportDialog.current?.showModal();
@@ -340,9 +374,36 @@ export default function App() {
         setReportMessage("Report queued for official review.");
       }
     } catch (cause) {
-      setReportMessage(
-        cause instanceof Error ? cause.message : "Report could not be submitted.",
-      );
+      const payload = {
+        client_report_id: `web-${crypto.randomUUID()}`,
+        region_code: regionCode,
+        district: reportForm.district || undefined,
+        place_name: reportLocation.label,
+        kind: reportForm.kind as import("./types").FieldReportInput["kind"],
+        accessibility_status: reportForm.accessibility_status as import("./types").FieldReportInput["accessibility_status"],
+        severity: reportForm.severity, lon: reportLocation.lon, lat: reportLocation.lat,
+        description: reportForm.description, observed_at: now,
+        offline_created_at: now, details: { dataset_id: datasetId, source: "offline-dashboard" },
+      };
+      const isNetworkFailure = !navigator.onLine || cause instanceof TypeError || (cause instanceof Error && /network|fetch|failed to fetch/i.test(cause.message));
+      if (isNetworkFailure) {
+        try {
+          await queueReport({
+            id: payload.client_report_id,
+            payload,
+            queuedAt: now,
+            evidence: evidenceFile ? { name: evidenceFile.name, type: evidenceFile.type, dataUrl: await fileToDataUrl(evidenceFile) } : undefined,
+          });
+          setQueuedReports((count) => count + 1);
+          setReportForm((current) => ({ ...current, description: "" }));
+          setEvidenceFile(null);
+          setReportMessage("Offline: report saved on this device and will sync automatically.");
+        } catch {
+          setReportMessage("Offline storage is unavailable. Keep this report open and retry when connected.");
+        }
+      } else {
+        setReportMessage(cause instanceof Error ? cause.message : "Report could not be submitted.");
+      }
     } finally {
       setReportBusy(false);
     }
@@ -1398,6 +1459,7 @@ export default function App() {
           <div className="report-actions">
             <span className={reportMessage.includes("queued") ? "success" : ""}>
               {reportMessage || "New reports remain pending until reviewed."}
+              {queuedReports > 0 && <small className="offline-queue-note"> {queuedReports} saved offline · will sync when connected</small>}
             </span>
             <button className="button primary" disabled={reportBusy || !reportLocation || !session}>
               {reportBusy ? <LoaderCircle className="spin" size={16} /> : <AlertTriangle size={16} />}

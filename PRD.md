@@ -42,6 +42,7 @@ Fastest-route navigation can select roads with known or suspected accident, surf
 - Road/place search for loaded datasets.
 - Supabase/PostGIS schema and transactional import tools.
 - Provenance, assumptions, warnings and JSON export.
+- Offline field-report queue with local photo evidence and automatic retry when connectivity returns.
 
 ## User Flow
 
@@ -54,7 +55,7 @@ Fastest-route navigation can select roads with known or suspected accident, surf
 
 ## Future Features
 
-Reviewed hazard workflows, authenticated field reports, state-wise runtime graph selection, live permitted feeds, turn restrictions, multi-stop routing, offline support, ML after labelled-data validation, and cloud deployment.
+State-wise runtime graph selection, live permitted feeds, turn restrictions, multi-stop routing, GPS fleet tracking, multilingual alerts, ML after labelled-data validation, and cloud deployment remain future work.
 
 ## Technical Constraints
 

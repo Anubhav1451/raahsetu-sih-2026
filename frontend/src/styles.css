@@ -1853,6 +1853,11 @@ footer button {
 .report-actions > span.success {
   color: #4ec9a2;
 }
+.offline-queue-note {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+}
 .pending-reports {
   margin-top: 22px;
   padding-top: 18px;
