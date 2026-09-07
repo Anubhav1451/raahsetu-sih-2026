@@ -473,7 +473,12 @@ def field_report_road_candidates(
     dataset_id: str = Query(min_length=1, max_length=100),
 ):
     try:
-        return {"candidates": store.road_candidates(str(report_id), dataset_id)}
+        region_code = None if reviewer.role == "admin" else reviewer.region_code
+        return {"candidates": store.road_candidates(str(report_id), dataset_id, region_code)}
+    except PermissionError as exc:
+        raise HTTPException(403, detail=str(exc)) from exc
+    except LookupError as exc:
+        raise HTTPException(404, detail=str(exc)) from exc
     except RuntimeError as exc:
         raise HTTPException(503, detail=str(exc)) from exc
 

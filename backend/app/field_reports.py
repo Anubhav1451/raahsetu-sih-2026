@@ -21,7 +21,7 @@ class FieldReportStore(Protocol):
 
     def active_events(self, region_code: str | None) -> list[dict]: ...
 
-    def road_candidates(self, report_id: str, dataset_id: str) -> list[dict]: ...
+    def road_candidates(self, report_id: str, dataset_id: str, region_code: str | None = None) -> list[dict]: ...
 
     def save_attachment(self, report_id: str, user_id: str, path: str, mime: str, size: int, sha256: str) -> FieldReportAttachment: ...
 
@@ -142,8 +142,15 @@ class PostgresFieldReportStore:
             )
             return self._to_model(row)
 
-    def road_candidates(self, report_id: str, dataset_id: str) -> list[dict]:
+    def road_candidates(self, report_id: str, dataset_id: str, region_code: str | None = None) -> list[dict]:
         with self._connect() as conn:
+            report = conn.execute(
+                "select region_code from field_reports where id=%s", (report_id,),
+            ).fetchone()
+            if not report:
+                raise LookupError("Field report was not found")
+            if region_code is not None and report["region_code"] != region_code:
+                raise PermissionError("Report is outside the assigned reviewer region")
             rows = conn.execute(
                 """select e.edge_id,e.name,
                 round(st_distance(e.geom::geography,r.geom::geography)::numeric,1) distance_m

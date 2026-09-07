@@ -1,6 +1,6 @@
 # Completion audit against the original SIH brief
 
-Audit date: 2026-09-06
+Audit date: 2026-09-07
 
 This file separates implemented work from work that needs accounts, restricted data, field review or a final team decision. A prepared configuration is not described as a live deployment.
 
@@ -10,12 +10,12 @@ This file separates implemented work from work that needs accounts, restricted d
 |---|---|---|
 | Custom risk-aware A* routing | Complete for the prototype | `backend/app/routing.py`; directed keyed edges, request-scoped costs and explicit path reconstruction |
 | Distance plus accident, road-condition and weather risk | Complete for the prototype | Documented edge-cost formula; synthetic scores are clearly labelled and real missing evidence remains unknown |
-| Correctness baseline | Complete | 27 tests, including 300 randomized A* versus independent NetworkX Dijkstra cost comparisons |
+| Correctness baseline | Complete for tested prototype behavior | 41 backend tests, including 300 randomized A* versus independent NetworkX Dijkstra cost comparisons and reviewer-region access regressions |
 | Python 3.12 and FastAPI | Complete | Version-pinned backend, validation models, health/bootstrap/network/terrain/route endpoints and generated OpenAPI contract |
 | OSMnx graph processing | Complete | Local PBF/XML import pipeline, directed multigraph conversion and a real Guwahati runtime snapshot |
 | React, TypeScript and React Three Fiber | Complete | Interactive 3D terrain dashboard, two-route comparison, scenarios, vehicle profiles and JSON evidence export |
 | Supabase PostgreSQL/PostGIS | Live and verified | Three migrations, eight-state catalog, demo and Guwahati graphs, two hazard observations, canonical version reconciliation, private evidence bucket and auth profile trigger are verified; database uses about 35.1 MB |
-| Field accessibility reporting | Authenticated pending/review foundation | Responsive dashboard supports Supabase sign-in/signup, mapped reports and regional listing; FastAPI validates tokens and roles, reviewer decisions are audited, accepted reports become active accessibility events, and private evidence policies are live. Evidence upload UI and event-to-edge routing remain |
+| Field accessibility reporting | Authenticated reporting, evidence upload and reviewed edge closures implemented | Dashboard supports sign-in/signup, mapped reports, private photo upload and explicit candidate-edge review. Accepted blocked events affect request-time routing. Candidate lookup enforces assigned reviewer regions. Durable offline synchronization remains pending. |
 | Docker | Ready for runtime verification | Non-root backend/frontend images and Compose file are present; Docker was unavailable on this machine |
 | Kubernetes on cloud VMs | Ready for environment configuration | Two-replica manifests, probes, resource limits and ingress example are present; registry, domain, cluster and TLS belong to the team environment |
 | Northeast public data and OSM | Complete for the documented public-source acquisition scope | Eight state OSM extracts and eight validated runtime graph snapshots, 45 terrain tiles, boundaries, 467 historical landslide records, 14,608 weather point-days and road-safety source documents |
@@ -29,7 +29,7 @@ This file separates implemented work from work that needs accounts, restricted d
 
 ## Fresh verification result
 
-- Backend tests: 33 passed. Two dependency deprecation warnings do not affect results.
+- Backend tests: 41 passed. Two dependency deprecation warnings do not affect results. Five new candidate-access cases use a mocked database connection; they do not constitute a fresh live Supabase authorization test.
 - Algorithm oracle checks: 300 randomized comparisons passed.
 - Synthetic evaluation: 56 journeys available; 34 had lower modelled exposure at the default preference.
 - Data audit: 61 source downloads and all 45 planned HGT tiles verified; no terrain tile is missing.
