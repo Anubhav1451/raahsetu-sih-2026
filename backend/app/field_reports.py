@@ -110,18 +110,29 @@ class PostgresFieldReportStore:
                 ).fetchone()
                 if not candidate:
                     raise ValueError("Selected road edge is not within 2 km of the report")
-                conn.execute(
+                event = conn.execute(
                 """insert into accessibility_events
                     (source_report_id,region_code,dataset_id,edge_id,kind,accessibility_status,severity,geom,
                      starts_at,ends_at,source,details)
-                    values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,'field_report',%s)""",
+                    values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,'field_report',%s)
+                    returning id""",
                     (
                         source["id"], source["region_code"], review.dataset_id, review.edge_id,
-                        source["kind"], status,
-                        source["severity"], source["geom"], source["observed_at"],
+                        source["kind"], status, source["severity"], source["geom"], source["observed_at"],
                         source["valid_until"], Jsonb({**(source["details"] or {}), "review_note": review.review_note}),
                     ),
-                )
+                ).fetchone()
+                if event:
+                    alert_type = "blocked_route" if status == "blocked" else "high_risk"
+                    conn.execute(
+                        """insert into alerts(event_id,alert_type,severity,title,message_key,message_params,expires_at)
+                        values(%s,%s,%s,%s,%s,%s,%s)
+                        on conflict do nothing""",
+                        (event["id"], alert_type, source["severity"],
+                         "Road blocked" if status == "blocked" else "Road accessibility restricted",
+                         "route.blocked" if status == "blocked" else "route.restricted",
+                         Jsonb({"place": source["place_name"], "district": source["district"]}), source["valid_until"]),
+                    )
             row = conn.execute(
                 """update field_reports set review_status=%s,reviewed_by=%s,
                 reviewed_at=now(),review_note=%s where id=%s
