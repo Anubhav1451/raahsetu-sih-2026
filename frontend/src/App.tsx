@@ -33,6 +33,7 @@ import {
   getConnectivity,
   getFleetVehicles,
   getDeliveries,
+  updateDelivery,
   sendFleetPosition,
   getNetwork,
   getTerrain,
@@ -167,6 +168,9 @@ export default function App() {
   const [operationsUpdated, setOperationsUpdated] = useState<string | null>(null);
   const [fleetVehicles, setFleetVehicles] = useState<VehicleAsset[]>([]);
   const [deliveries, setDeliveries] = useState<DeliveryJob[]>([]);
+  const [deliveryStatusDraft, setDeliveryStatusDraft] = useState<Record<string, DeliveryJob["status"]>>({});
+  const [deliveryBusy, setDeliveryBusy] = useState<string | null>(null);
+  const [deliveryMessage, setDeliveryMessage] = useState("");
   const [fleetSelectedVehicle, setFleetSelectedVehicle] = useState("");
   const [locationMessage, setLocationMessage] = useState("");
   const [locationBusy, setLocationBusy] = useState(false);
@@ -228,7 +232,7 @@ export default function App() {
   }, [regionCode]);
   useEffect(() => {
     let cancelled = false;
-    setAlerts([]); setConnectivity([]); setFleetVehicles([]); setDeliveries([]); setFleetSelectedVehicle("");
+    setAlerts([]); setConnectivity([]); setFleetVehicles([]); setDeliveries([]); setDeliveryStatusDraft({}); setDeliveryMessage(""); setFleetSelectedVehicle("");
     setOperationsErrors({}); setOperationsUpdated(null); setOperationsBusy(false);
     if (!session?.access_token || !showOperations) return;
     setOperationsBusy(true);
@@ -243,7 +247,10 @@ export default function App() {
         if (vehicleResult.status === "fulfilled") {
           setFleetVehicles(vehicleResult.value); setFleetSelectedVehicle(vehicleResult.value[0]?.id || "");
         } else errors.fleet = "Assigned vehicles could not be loaded. Refresh to retry.";
-        if (deliveryResult.status === "fulfilled") setDeliveries(deliveryResult.value);
+        if (deliveryResult.status === "fulfilled") {
+          setDeliveries(deliveryResult.value);
+          setDeliveryStatusDraft(Object.fromEntries(deliveryResult.value.map((delivery) => [delivery.id, delivery.status])));
+        }
         else errors.deliveries = "Delivery status is unavailable. Refresh to retry.";
         setOperationsErrors(errors);
         setOperationsUpdated(new Date().toLocaleTimeString());
@@ -251,6 +258,20 @@ export default function App() {
       });
     return () => { cancelled = true; };
   }, [session?.access_token, showOperations, operationsRefresh]);
+  const saveDeliveryStatus = async (delivery: DeliveryJob) => {
+    if (!session?.access_token || deliveryBusy) return;
+    const status = deliveryStatusDraft[delivery.id] || delivery.status;
+    if (status === delivery.status) return;
+    setDeliveryBusy(delivery.id); setDeliveryMessage("");
+    try {
+      const updated = await updateDelivery(session.access_token, delivery.id, { status, eta_at: delivery.eta_at });
+      setDeliveries((items) => items.map((item) => item.id === updated.id ? updated : item));
+      setDeliveryStatusDraft((items) => ({ ...items, [updated.id]: updated.status }));
+      setDeliveryMessage("Delivery status updated.");
+    } catch (cause) {
+      setDeliveryMessage(cause instanceof Error ? cause.message : "Delivery update failed. Please retry.");
+    } finally { setDeliveryBusy(null); }
+  };
   const shareVehicleLocation = () => {
     if (!session?.access_token || !fleetSelectedVehicle || locationBusy) return;
     if (!navigator.geolocation) { setLocationMessage("Location is unavailable on this device."); return; }
@@ -761,7 +782,8 @@ export default function App() {
               </div>
               <div className="delivery-status">
                 <div className="panel-heading"><span><Truck size={18} /> Delivery status</span><span className="step-chip">{deliveries.filter((delivery) => !["delivered", "cancelled"].includes(delivery.status)).length}</span></div>
-                {operationsErrors.deliveries ? <p className="source-error" role="alert">{operationsErrors.deliveries}</p> : deliveries.length === 0 ? <small className="muted-copy">{operationsBusy ? "Loading deliveries…" : "No delivery jobs assigned to your account."}</small> : <div className="delivery-list">{deliveries.slice(0, 3).map((delivery) => <article className="delivery-item" key={delivery.id}><div><strong>{delivery.commodity}</strong><small>{delivery.origin_name} → {delivery.destination_name}</small></div><span className={`delivery-badge ${delivery.status}`}>{delivery.status.replaceAll("_", " ")}</span>{delivery.eta_at && <small className="delivery-eta">ETA {new Date(delivery.eta_at).toLocaleString([], { dateStyle: "medium", timeStyle: "short" })}</small>}</article>)}</div>}
+                {operationsErrors.deliveries ? <p className="source-error" role="alert">{operationsErrors.deliveries}</p> : deliveries.length === 0 ? <small className="muted-copy">{operationsBusy ? "Loading deliveries…" : "No delivery jobs assigned to your account."}</small> : <div className="delivery-list">{deliveries.slice(0, 3).map((delivery) => <article className="delivery-item" key={delivery.id}><div><strong>{delivery.commodity}</strong><small>{delivery.origin_name} → {delivery.destination_name}</small></div><span className={`delivery-badge ${delivery.status}`}>{delivery.status.replaceAll("_", " ")}</span>{delivery.eta_at && <small className="delivery-eta">ETA {new Date(delivery.eta_at).toLocaleString([], { dateStyle: "medium", timeStyle: "short" })}</small>}<div className="delivery-actions"><select aria-label={`Status for ${delivery.commodity}`} value={deliveryStatusDraft[delivery.id] || delivery.status} disabled={deliveryBusy === delivery.id} onChange={(event) => setDeliveryStatusDraft((items) => ({ ...items, [delivery.id]: event.target.value as DeliveryJob["status"] }))}><option value="planned">Planned</option><option value="en_route">En route</option><option value="delayed">Delayed</option><option value="delivered">Delivered</option><option value="cancelled">Cancelled</option></select><button className="button secondary" type="button" disabled={deliveryBusy === delivery.id || (deliveryStatusDraft[delivery.id] || delivery.status) === delivery.status} onClick={() => saveDeliveryStatus(delivery)}>{deliveryBusy === delivery.id ? "Saving…" : "Save"}</button></div></article>)}</div>}
+                {deliveryMessage && <small className="muted-copy" role="status">{deliveryMessage}</small>}
               </div>
             </section></>}
           </div>}
