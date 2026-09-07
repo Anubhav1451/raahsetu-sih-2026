@@ -22,4 +22,4 @@
 
 Authenticated operations success/error flows and physical-device GPS require an assigned test account/vehicle for end-to-end verification. Desktop/tablet, browser reduced-motion emulation and sustained FPS profiling have not been completed in this pass. No claim of complete SIH production readiness is made.
 
-The operations workspace now surfaces read-only delivery status cards alongside alerts, connectivity, and fleet sharing. Next: verify the fleet/delivery SQL paths against the live schema, then add delivery creation/status controls. The offline queue also requires account isolation and retry-idempotency review before operational use.
+The operations workspace now surfaces delivery status cards and authenticated create/status controls alongside alerts, connectivity, and fleet sharing. The offline queue still requires account isolation and retry-idempotency review before operational use.
