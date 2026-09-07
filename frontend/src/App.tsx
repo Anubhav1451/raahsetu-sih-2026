@@ -50,7 +50,6 @@ import {
   AuthError,
 } from "./api";
 const TerrainMap = lazy(() => import("./TerrainMap"));
-const NortheastMap = lazy(() => import("./NortheastMap"));
 import type {
   Bootstrap,
   AuthSession,
@@ -151,7 +150,6 @@ export default function App() {
   const [error, setError] = useState("");
   const [selected, setSelected] = useState("risk_aware");
   const [mode, setMode] = useState<"3d" | "flat">("3d");
-  const [basemap, setBasemap] = useState(false);
   const [reset, setReset] = useState(0);
   const [showRisk, setShowRisk] = useState(true);
   const [retry, setRetry] = useState(0);
@@ -1147,18 +1145,17 @@ export default function App() {
                   role="group"
                   aria-label="Map perspective"
                 >
-                  <button className={basemap ? "on" : ""} aria-pressed={basemap} onClick={() => setBasemap(true)}>Explore NE</button>
                   <button
-                    className={!basemap && mode === "flat" ? "on" : ""}
-                    aria-pressed={!basemap && mode === "flat"}
-                    onClick={() => {setBasemap(false); setMode("flat");}}
+                    className={mode === "flat" ? "on" : ""}
+                    aria-pressed={mode === "flat"}
+                    onClick={() => setMode("flat")}
                   >
                     Top view
                   </button>
                   <button
-                    className={!basemap && mode === "3d" ? "on" : ""}
-                    aria-pressed={!basemap && mode === "3d"}
-                    onClick={() => {setBasemap(false); setMode("3d");}}
+                    className={mode === "3d" ? "on" : ""}
+                    aria-pressed={mode === "3d"}
+                    onClick={() => setMode("3d")}
                   >
                     <Layers3 size={14} />
                     3D terrain
@@ -1167,7 +1164,7 @@ export default function App() {
               </div>
               <div className="map-canvas">
                 {network && bootstrap ? (
-                  <Suspense fallback={<div className="map-loading" role="status"><Compass size={42} /><span>Loading map renderer…</span></div>}>{basemap ? <NortheastMap result={result} selected={selected} events={events} reset={reset} synthetic={bootstrap.dataset.is_synthetic} /> : <TerrainMap
+                  <Suspense fallback={<div className="map-loading" role="status"><Compass size={42} /><span>Loading map renderer…</span></div>}><TerrainMap
                     network={network}
                     locations={bootstrap.locations}
                     result={result}
@@ -1180,7 +1177,7 @@ export default function App() {
                     selected={selected}
                     terrain={terrain}
                     events={events.filter((event) => !event.dataset_id || event.dataset_id === datasetId)}
-                  />}</Suspense>
+                  /></Suspense>
                 ) : (
                   <div className="map-loading">
                     <Compass size={42} />
