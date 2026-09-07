@@ -138,6 +138,34 @@ def public_config():
     return {"supabase_url": url, "supabase_publishable_key": key}
 
 
+@app.get("/api/v1/weather")
+def current_weather(lat: float = Query(..., ge=-90, le=90), lon: float = Query(..., ge=-180, le=180)):
+    """Return a small Open-Meteo snapshot and a conservative routing flag."""
+    try:
+        response = httpx.get(
+            "https://api.open-meteo.com/v1/forecast",
+            params={"latitude": lat, "longitude": lon, "current": "temperature_2m,precipitation,rain,wind_speed_10m", "timezone": "UTC"},
+            timeout=8,
+        )
+        response.raise_for_status()
+        current = response.json().get("current", {})
+    except (httpx.HTTPError, ValueError) as exc:
+        raise HTTPException(503, detail="Live weather is temporarily unavailable") from exc
+    precipitation = float(current.get("precipitation") or 0)
+    rain = float(current.get("rain") or 0)
+    wind = float(current.get("wind_speed_10m") or 0)
+    return {
+        "source": "Open-Meteo",
+        "observed_at": current.get("time"),
+        "temperature_c": current.get("temperature_2m"),
+        "precipitation_mm": precipitation,
+        "rain_mm": rain,
+        "wind_kph": wind,
+        "routing_scenario": "heavy_rain" if precipitation >= 10 or rain >= 5 or wind >= 45 else "normal",
+        "coordinates": {"lat": lat, "lon": lon},
+    }
+
+
 @app.get("/api/v1/me", response_model=AuthUser)
 def current_user(user: Annotated[AuthUser, Depends(require_user)]):
     return user
