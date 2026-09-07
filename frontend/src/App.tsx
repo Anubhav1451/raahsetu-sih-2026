@@ -151,7 +151,7 @@ export default function App() {
   const [error, setError] = useState("");
   const [selected, setSelected] = useState("risk_aware");
   const [mode, setMode] = useState<"3d" | "flat">("3d");
-  const [basemap, setBasemap] = useState(true);
+  const [basemap, setBasemap] = useState(false);
   const [reset, setReset] = useState(0);
   const [showRisk, setShowRisk] = useState(true);
   const [retry, setRetry] = useState(0);
@@ -1147,7 +1147,7 @@ export default function App() {
                   role="group"
                   aria-label="Map perspective"
                 >
-                  <button className={basemap ? "on" : ""} aria-pressed={basemap} onClick={() => setBasemap(true)}>OSM explorer</button>
+                  <button className={basemap ? "on" : ""} aria-pressed={basemap} onClick={() => setBasemap(true)}>Explore NE</button>
                   <button
                     className={!basemap && mode === "flat" ? "on" : ""}
                     aria-pressed={!basemap && mode === "flat"}
