@@ -1,4 +1,4 @@
-import { Component, useEffect, useMemo, useRef, type ReactNode } from "react";
+import { Component, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Html, Line, OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
@@ -417,12 +417,30 @@ class MapBoundary extends Component<
 }
 
 export default function TerrainMap(props: Props) {
+  const container = useRef<HTMLDivElement>(null);
+  const [animate, setAnimate] = useState(false);
+  useEffect(() => {
+    const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let visible = true;
+    const update = () => setAnimate(visible && !document.hidden && !preference.matches);
+    const observer = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; update(); });
+    if (container.current) observer.observe(container.current);
+    preference.addEventListener("change", update);
+    document.addEventListener("visibilitychange", update);
+    update();
+    return () => {
+      observer.disconnect();
+      preference.removeEventListener("change", update);
+      document.removeEventListener("visibilitychange", update);
+    };
+  }, []);
   return (
+    <div ref={container} style={{ width: "100%", height: "100%" }}>
     <MapBoundary {...props}>
       <Canvas
         camera={{ position: [0, 101, 95], fov: 48, near: 0.1, far: 500 }}
         dpr={[1, 1.7]}
-        frameloop="always"
+        frameloop={animate ? "always" : "demand"}
         performance={{ min: 0.55, max: 1, debounce: 120 }}
         gl={{ antialias: true, alpha: false }}
         fallback={
@@ -432,5 +450,6 @@ export default function TerrainMap(props: Props) {
         <MapScene {...props} />
       </Canvas>
     </MapBoundary>
+    </div>
   );
 }

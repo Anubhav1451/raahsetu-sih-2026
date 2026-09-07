@@ -1,4 +1,4 @@
-import { type FormEvent, useEffect, useRef, useState } from "react";
+import { type FormEvent, lazy, Suspense, useEffect, useRef, useState } from "react";
 import {
   Activity,
   ArrowDownUp,
@@ -45,7 +45,7 @@ import {
   refreshSession,
   AuthError,
 } from "./api";
-import TerrainMap from "./TerrainMap";
+const TerrainMap = lazy(() => import("./TerrainMap"));
 import type {
   Bootstrap,
   AuthSession,
@@ -148,6 +148,7 @@ export default function App() {
   const [showRisk, setShowRisk] = useState(true);
   const [retry, setRetry] = useState(0);
   const [search, setSearch] = useState("");
+  const [searchMessage, setSearchMessage] = useState("");
   const [searchResults, setSearchResults] = useState<
     import("./types").SearchResult[]
   >([]);
@@ -157,9 +158,16 @@ export default function App() {
   const [events, setEvents] = useState<AccessibilityEvent[]>([]);
   const [alerts, setAlerts] = useState<AlertItem[]>([]);
   const [connectivity, setConnectivity] = useState<ConnectivitySummary[]>([]);
+  const [showOperations, setShowOperations] = useState(false);
+  const [operationsBusy, setOperationsBusy] = useState(false);
+  const [operationsErrors, setOperationsErrors] = useState<Record<string, string>>({});
+  const [operationsRefresh, setOperationsRefresh] = useState(0);
+  const [operationsUpdated, setOperationsUpdated] = useState<string | null>(null);
   const [fleetVehicles, setFleetVehicles] = useState<VehicleAsset[]>([]);
   const [fleetSelectedVehicle, setFleetSelectedVehicle] = useState("");
   const [locationMessage, setLocationMessage] = useState("");
+  const [locationBusy, setLocationBusy] = useState(false);
+  const currentAccount = useRef<string | undefined>(undefined);
   const [alertLanguage, setAlertLanguage] = useState<"en" | "hi" | "as">("en");
   const [reportBusy, setReportBusy] = useState(false);
   const [reportMessage, setReportMessage] = useState("");
@@ -173,6 +181,7 @@ export default function App() {
     }
   });
   const [authForm, setAuthForm] = useState({ displayName: "", email: "", password: "" });
+  currentAccount.current = session?.user?.id;
   const [authMode, setAuthMode] = useState<"signin" | "signup">("signin");
   const [authBusy, setAuthBusy] = useState(false);
   const [authMessage, setAuthMessage] = useState("");
@@ -215,24 +224,42 @@ export default function App() {
     getAccessibilityEvents(regionCode).then((payload) => setEvents(payload.events)).catch(() => setEvents([]));
   }, [regionCode]);
   useEffect(() => {
-    if (!session?.access_token) { setAlerts([]); setConnectivity([]); return; }
-    getAlerts(session.access_token).then(setAlerts).catch(() => setAlerts([]));
-    getConnectivity(session.access_token).then(setConnectivity).catch(() => setConnectivity([]));
-  }, [session?.access_token, regionCode]);
-  useEffect(() => {
-    if (!session?.access_token) { setFleetVehicles([]); setFleetSelectedVehicle(""); return; }
-    getFleetVehicles(session.access_token).then((items) => { setFleetVehicles(items); setFleetSelectedVehicle((current) => current || items[0]?.id || ""); }).catch(() => setFleetVehicles([]));
-  }, [session?.access_token]);
+    let cancelled = false;
+    setAlerts([]); setConnectivity([]); setFleetVehicles([]); setFleetSelectedVehicle("");
+    setOperationsErrors({}); setOperationsUpdated(null); setOperationsBusy(false);
+    if (!session?.access_token || !showOperations) return;
+    setOperationsBusy(true);
+    Promise.allSettled([getAlerts(session.access_token), getConnectivity(session.access_token), getFleetVehicles(session.access_token)])
+      .then(([alertResult, stateResult, vehicleResult]) => {
+        if (cancelled) return;
+        const errors: Record<string, string> = {};
+        if (alertResult.status === "fulfilled") setAlerts(alertResult.value);
+        else errors.alerts = "Alerts could not be loaded. Refresh to retry.";
+        if (stateResult.status === "fulfilled") setConnectivity(stateResult.value);
+        else errors.connectivity = "Regional reports are unavailable. Refresh to retry.";
+        if (vehicleResult.status === "fulfilled") {
+          setFleetVehicles(vehicleResult.value); setFleetSelectedVehicle(vehicleResult.value[0]?.id || "");
+        } else errors.fleet = "Assigned vehicles could not be loaded. Refresh to retry.";
+        setOperationsErrors(errors);
+        setOperationsUpdated(new Date().toLocaleTimeString());
+        setOperationsBusy(false);
+      });
+    return () => { cancelled = true; };
+  }, [session?.access_token, showOperations, operationsRefresh]);
   const shareVehicleLocation = () => {
-    if (!session?.access_token || !fleetSelectedVehicle) return;
+    if (!session?.access_token || !fleetSelectedVehicle || locationBusy) return;
     if (!navigator.geolocation) { setLocationMessage("Location is unavailable on this device."); return; }
+    const accountId = session.user.id;
+    setLocationBusy(true);
     setLocationMessage("Requesting GPS…");
     navigator.geolocation.getCurrentPosition(async (position) => {
       try {
-        await sendFleetPosition(session.access_token, { vehicle_id: fleetSelectedVehicle, recorded_at: new Date().toISOString(), lon: position.coords.longitude, lat: position.coords.latitude, accuracy_m: position.coords.accuracy });
-        setLocationMessage("Location shared securely.");
-      } catch (cause) { setLocationMessage(cause instanceof Error ? cause.message : "Location update failed."); }
-    }, () => setLocationMessage("GPS permission was denied or unavailable."), { enableHighAccuracy: true, timeout: 10000, maximumAge: 30000 });
+        if (currentAccount.current !== accountId) return;
+        await sendFleetPosition(session.access_token, { vehicle_id: fleetSelectedVehicle, recorded_at: new Date(position.timestamp).toISOString(), lon: position.coords.longitude, lat: position.coords.latitude, accuracy_m: position.coords.accuracy });
+        if (currentAccount.current === accountId) setLocationMessage("Location shared securely.");
+      } catch (cause) { if (currentAccount.current === accountId) setLocationMessage(cause instanceof Error ? cause.message : "Location update failed."); }
+      finally { setLocationBusy(false); }
+    }, () => { setLocationBusy(false); if (currentAccount.current === accountId) setLocationMessage("GPS permission was denied or unavailable."); }, { enableHighAccuracy: true, timeout: 10000, maximumAge: 30000 });
   };
   const [operatorRole, setOperatorRole] = useState("");
   const [reviewNotes, setReviewNotes] = useState<Record<string, string>>({});
@@ -458,16 +485,23 @@ export default function App() {
   };
 
   useEffect(() => {
+    let cancelled = false;
+    setSearchResults([]);
     if (search.trim().length < 2) {
-      setSearchResults([]);
+      setSearchMessage("");
       return;
     }
+    setSearchMessage("Searching this road network…");
     const timer = window.setTimeout(() => {
       searchPlaces(search, datasetId)
-        .then((value) => setSearchResults(value.results))
-        .catch(() => setSearchResults([]));
+        .then((value) => {
+          if (cancelled) return;
+          setSearchResults(value.results);
+          setSearchMessage(value.results.length ? "Choose A for origin or B for destination." : "No matching places in this dataset. Try a nearby town or road.");
+        })
+        .catch(() => { if (!cancelled) setSearchMessage("Search unavailable. Edit your search to retry."); });
     }, 240);
-    return () => window.clearTimeout(timer);
+    return () => { cancelled = true; window.clearTimeout(timer); };
   }, [search, datasetId]);
 
   useEffect(() => {
@@ -668,8 +702,8 @@ export default function App() {
           <div className="page-heading">
             <div>
               <div className="eyebrow">NORTH EAST · CORRIDOR INTELLIGENCE</div>
-              <h1>Every route has a tradeoff.</h1>
-              <p>Find the balance between arrival time and road risk.</p>
+              <h1>Plan with the road ahead in view.</h1>
+              <p>Compare routes, inspect road evidence and coordinate essential supplies.</p>
             </div>
             <div className="heading-actions">
               <button className="button secondary" onClick={openReportDialog}>
@@ -686,8 +720,15 @@ export default function App() {
               </button>
             </div>
           </div>
-          {session && (alerts.length > 0 || connectivity.length > 0) && (
-            <section className="operations-strip" aria-label="Live operations status">
+          <div className="workspace-toolbar">
+            <div className="workspace-context"><MapPinned size={19} aria-hidden="true" /><span><strong>{bootstrap?.dataset.title || "Loading road network"}</strong><small>{bootstrap?.dataset.is_synthetic ? "Synthetic sandbox · illustrative roads and hazards" : "OSM snapshot · risk evidence may be incomplete"}</small></span></div>
+            <button className="button secondary" aria-expanded={showOperations} aria-controls="operations-panel" onClick={() => setShowOperations((value) => !value)}><Activity size={16} />Operations {showOperations ? "−" : "+"}</button>
+          </div>
+          {showOperations && <div id="operations-panel" className="operations-workspace">
+            <div className="operations-heading"><div><h2>Field operations</h2><p>Account-scoped reports and vehicle sharing. Refresh for a new snapshot.</p></div>{session && <button className="button secondary" disabled={operationsBusy} onClick={() => setOperationsRefresh((value) => value + 1)}>{operationsBusy ? "Loading…" : "Refresh data"}</button>}</div>
+            {!session ? <div className="operations-signin"><ShieldCheck size={28} /><div><strong>Your operations workspace</strong><p>Sign in to view reviewed alerts, regional reports and vehicles assigned to you.</p></div><button className="button primary" onClick={openReportDialog}>Sign in to operations</button></div> : <>
+            <p className="operations-freshness" role="status">{operationsBusy ? "Loading your account data…" : operationsUpdated ? `Last checked ${operationsUpdated}${Object.keys(operationsErrors).length ? " · Some sources unavailable" : ""}` : "Awaiting data"}</p>
+            <section className="operations-strip" aria-label="Operations snapshot" aria-busy={operationsBusy}>
               <div className="operations-alerts">
                 <div className="panel-heading"><span><AlertTriangle size={18} /> Live alerts</span><span className="alert-tools"><select aria-label="Alert language" value={alertLanguage} onChange={(event) => setAlertLanguage(event.target.value as typeof alertLanguage)}><option value="en">EN</option><option value="hi">हिं</option><option value="as">অসমীয়া</option></select><span className="step-chip">{alerts.length}</span></span></div>
                 {alerts.slice(0, 3).map((alert) => (
@@ -696,18 +737,25 @@ export default function App() {
                     <span><strong>{localizedAlert(alert)}</strong><small>{alert.region_code} · {alert.alert_type.replaceAll("_", " ")}</small></span>
                   </div>
                 ))}
-                {alerts.length === 0 && <small className="muted-copy">No active alerts for your account scope.</small>}
+                {operationsErrors.alerts ? <p className="source-error" role="alert">{operationsErrors.alerts}</p> : alerts.length === 0 && <small className="muted-copy">{operationsBusy ? "Checking alerts…" : "No active alerts returned for your account scope."}</small>}
               </div>
               <div className="connectivity-summary">
-                <div className="panel-heading"><span><Activity size={18} /> State connectivity</span><span className="step-chip">{connectivity.length}</span></div>
-                <div className="connectivity-list">{connectivity.slice(0, 8).map((state) => <span key={state.region_code} className={`connectivity-chip ${state.status}`}><i />{state.state_name}</span>)}</div>
+                <div className="panel-heading"><span><Activity size={18} /> Regional road reports</span><span className="step-chip">{connectivity.length}</span></div>
+                <div className="connectivity-list">{connectivity.slice(0, 8).map((state) => <span key={state.region_code} className={`connectivity-chip ${state.blocked_events ? "blocked" : state.restricted_events ? "restricted" : "unknown"}`}><strong>{state.state_name}</strong><small>{state.active_events ? `${state.blocked_events} blocked · ${state.restricted_events} restricted` : "No active reports"}</small></span>)}</div>
+                {operationsErrors.connectivity && <p className="source-error" role="alert">{operationsErrors.connectivity}</p>}
+                <p className="muted-copy">Report counts do not establish whether every road in a state is accessible.</p>
               </div>
               <div className="fleet-share">
+                {operationsErrors.fleet && <p className="source-error" role="alert">{operationsErrors.fleet}</p>}
                 <div className="panel-heading"><span><Navigation size={18} /> Share vehicle GPS</span></div>
-                {fleetVehicles.length > 0 ? <><select aria-label="Assigned vehicle" value={fleetSelectedVehicle} onChange={(event) => setFleetSelectedVehicle(event.target.value)}>{fleetVehicles.map((vehicle) => <option key={vehicle.id} value={vehicle.id}>{vehicle.registration} · {vehicle.vehicle_type}</option>)}</select><button className="button secondary" type="button" onClick={shareVehicleLocation}>Share current location</button><small className="muted-copy">{locationMessage || "Only your assigned vehicles are available."}</small></> : <small className="muted-copy">No assigned vehicle is provisioned for this account.</small>}
+                {fleetVehicles.length > 0 ? <>
+                  <select aria-label="Assigned vehicle" disabled={locationBusy} value={fleetSelectedVehicle} onChange={(event) => setFleetSelectedVehicle(event.target.value)}>{fleetVehicles.map((vehicle) => <option key={vehicle.id} value={vehicle.id}>{vehicle.registration} · {vehicle.vehicle_type}</option>)}</select>
+                  <button className="button secondary" type="button" disabled={locationBusy} onClick={shareVehicleLocation}>{locationBusy ? "Sharing location…" : "Share current location"}</button>
+                  <small className="muted-copy" role="status">{locationMessage || "Sends one GPS update after your permission. No background tracking."}</small>
+                </> : !operationsErrors.fleet && <small className="muted-copy">{operationsBusy ? "Loading assigned vehicles…" : "No assigned vehicle is provisioned for this account."}</small>}
               </div>
-            </section>
-          )}
+            </section></>}
+          </div>}
           <div className="planner-grid">
             <section className="planner-panel" aria-label="Journey settings">
               <div className="panel-heading">
@@ -756,8 +804,10 @@ export default function App() {
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   placeholder="City, village, hospital or road"
+                  aria-describedby="search-feedback"
                 />
-                {searchResults.length > 0 && (
+                <small id="search-feedback" className="search-feedback" role="status">{searchMessage}</small>
+                {search.trim().length >= 2 && searchResults.length > 0 && (
                   <div className="search-results">
                     {searchResults.map((item) => (
                       <div
@@ -772,11 +822,13 @@ export default function App() {
                           </small>
                         </span>
                         <button
+                          aria-label={`Set ${item.label} as origin`}
                           onClick={() => chooseSearchResult(item, "origin")}
                         >
                           A
                         </button>
                         <button
+                          aria-label={`Set ${item.label} as destination`}
                           onClick={() =>
                             chooseSearchResult(item, "destination")
                           }
@@ -969,7 +1021,7 @@ export default function App() {
                 <div className="map-title">
                   <span className="map-region-dot" />
                   <div>
-                    <strong>North-East pilot</strong>
+                    <strong>{bootstrap?.dataset.region || "North-East road network"}</strong>
                     <span>
                       {bootstrap?.dataset.is_synthetic === false
                         ? "OpenStreetMap road network"
@@ -984,12 +1036,14 @@ export default function App() {
                 >
                   <button
                     className={mode === "flat" ? "on" : ""}
+                    aria-pressed={mode === "flat"}
                     onClick={() => setMode("flat")}
                   >
                     Top view
                   </button>
                   <button
                     className={mode === "3d" ? "on" : ""}
+                    aria-pressed={mode === "3d"}
                     onClick={() => setMode("3d")}
                   >
                     <Layers3 size={14} />
@@ -999,7 +1053,7 @@ export default function App() {
               </div>
               <div className="map-canvas">
                 {network && bootstrap ? (
-                  <TerrainMap
+                  <Suspense fallback={<div className="map-loading" role="status"><Compass size={42} /><span>Loading map renderer…</span></div>}><TerrainMap
                     network={network}
                     locations={bootstrap.locations}
                     result={result}
@@ -1012,7 +1066,7 @@ export default function App() {
                     selected={selected}
                     terrain={terrain}
                     events={events.filter((event) => !event.dataset_id || event.dataset_id === datasetId)}
-                  />
+                  /></Suspense>
                 ) : (
                   <div className="map-loading">
                     <Compass size={42} />

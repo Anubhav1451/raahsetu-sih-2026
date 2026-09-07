@@ -20,6 +20,8 @@ Dark navy-green workspace with one mint primary accent and a muted orange hazard
 
 Use a fixed compact rail, responsive top bar, journey controls, central map and route comparison panels. Prefer CSS grid for major layout. Preserve readable mobile stacking and avoid content hidden behind fixed elements.
 
+The network context bar opens Field operations on demand. Show explicit sign-in, loading, empty and source-error states. Report counts must not imply that an entire state is open or blocked. `frontend/src/workspace.css` extends the existing tokens and is imported after the base stylesheet.
+
 ## Component Patterns
 
 - Native labelled selects for network, endpoint, vehicle and scenario.
