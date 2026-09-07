@@ -17,6 +17,7 @@ This file separates implemented work from work that needs accounts, restricted d
 | Supabase PostgreSQL/PostGIS | Live and verified | Three migrations, eight-state catalog, demo and Guwahati graphs, two hazard observations, canonical version reconciliation, private evidence bucket and auth profile trigger are verified; database uses about 35.1 MB |
 | Field accessibility reporting | Authenticated reporting, evidence upload, reviewed edge closures and browser offline queue implemented | Dashboard supports sign-in/signup, mapped reports, private photo upload and explicit candidate-edge review. Accepted blocked events affect request-time routing. Candidate lookup enforces assigned reviewer regions. Report payloads and optional evidence are queued in IndexedDB and retried after connectivity returns. |
 | GPS fleet tracking and delivery visibility | Backend foundation complete | Migration `004_fleet_tracking.sql` adds vehicle assets, position history and delivery jobs. Authenticated API scopes reads by reviewer region and restricts position writes to the assigned operator. A full mobile GPS client and delivery creation workflow remain pending. |
+| Disruption alerts and connectivity dashboard | Backend foundation complete | Authenticated `/api/v1/alerts` returns active region-scoped alerts and `/api/v1/connectivity` summarizes open, restricted and blocked events by state. Alert generation and multilingual delivery channels remain pending. |
 | Docker | Ready for runtime verification | Non-root backend/frontend images and Compose file are present; Docker was unavailable on this machine |
 | Kubernetes on cloud VMs | Ready for environment configuration | Two-replica manifests, probes, resource limits and ingress example are present; registry, domain, cluster and TLS belong to the team environment |
 | Northeast public data and OSM | Complete for the documented public-source acquisition scope | Eight state OSM extracts and eight validated runtime graph snapshots, 45 terrain tiles, boundaries, 467 historical landslide records, 14,608 weather point-days and road-safety source documents |
@@ -31,6 +32,7 @@ This file separates implemented work from work that needs accounts, restricted d
 ## Fresh verification result
 
 - Backend tests: 43 passed. Two dependency deprecation warnings do not affect results. Candidate-access and fleet validation cases use mocked or local dependencies; they do not constitute a fresh live Supabase authorization test.
+- Frontend production build: passed after the fleet and alert API foundation changes.
 - Frontend production build: passed after adding the IndexedDB offline report queue and retry flow.
 - Algorithm oracle checks: 300 randomized comparisons passed.
 - Synthetic evaluation: 56 journeys available; 34 had lower modelled exposure at the default preference.

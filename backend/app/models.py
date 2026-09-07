@@ -232,3 +232,26 @@ class DeliveryJob(StrictModel):
     delivered_at: datetime | None
     created_at: datetime
     metadata: dict
+
+
+class Alert(StrictModel):
+    id: str
+    event_id: str
+    region_code: str
+    alert_type: Literal["blocked_route", "high_risk", "delay", "reopened"]
+    severity: float
+    title: str
+    message_key: str
+    message_params: dict
+    created_at: datetime
+    expires_at: datetime | None
+
+
+class ConnectivitySummary(StrictModel):
+    region_code: str
+    state_name: str
+    active_events: int
+    blocked_events: int
+    restricted_events: int
+    status: Literal["open", "restricted", "blocked"]
+    last_event_at: datetime | None

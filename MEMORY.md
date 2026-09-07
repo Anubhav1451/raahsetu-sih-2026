@@ -12,6 +12,7 @@ RaahSetu is a working local SIH26002 MVP in `D:\FORSIH`. FastAPI runs on port 80
 - Custom Risk-A* and 27-test verification suite established.
 - Supabase/PostGIS schema, CSV imports and deployment manifests prepared.
 - Fleet foundation added: vehicle assets, GPS position history, delivery jobs and region-scoped FastAPI endpoints.
+- Alert and connectivity foundation added: active alert listing and state-wise open/restricted/blocked summaries.
 
 ## Known Problems and Limits
 
@@ -25,7 +26,7 @@ Risk belongs in edge cost; heuristic remains an admissible lower bound. Missing 
 
 1. Implement durable offline report and photo synchronization with account isolation and retry handling.
 2. Add a mobile/driver GPS client and delivery creation/update workflow over the fleet API.
-3. Add alerts, district connectivity summaries and multilingual notifications.
+3. Add alert generation, district drill-down and multilingual notifications.
 4. Integrate permitted current weather feeds; train disruption prediction only after labelled-data validation.
 5. Verify Docker/Kubernetes deployment and rehearse the full field-report-to-rerouting demo.
 
