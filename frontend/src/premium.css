@@ -1,4 +1,12 @@
 /* Spatial operations workspace. Depth is structural; readable controls stay flat. */
+.ne-map-shell, .ne-basemap { width: 100%; height: 100%; }
+.ne-basemap { z-index: 0; }
+.ne-map-actions { position: absolute; top: 120px; left: 16px; z-index: 5; display: flex; flex-wrap: wrap; gap: 8px; right: 65px; }
+.ne-map-actions .button { font-size: 11px; padding: 8px; }
+.ne-map-note { position: absolute; bottom: 82px; left: 60px; right: 12px; z-index: 5; background: #102027ed; border-radius: 8px; padding: 10px; font-size: 12px; }
+.ne-basemap .leaflet-bottom { bottom: 48px; }
+.ne-basemap .leaflet-control-attribution { color: #172923; background: #fffffff2; font-size: 11px; }
+.ne-basemap .leaflet-control-attribution a { color: #164b77; }
 :root { --bg: #090f12; --panel: #151e22; --line: #334047; --text: #eeeae1; --muted: #a3b2b6; --mint: #b4edce; --radius: 20px; color: var(--text); background: var(--bg); }
 body { background: radial-gradient(ellipse at 70% 0%, #233831 0%, transparent 52%), #090f12; }
 .rail { background: #10181c; border-right-color: #35433f; box-shadow: 8px 0 32px #0004; }
