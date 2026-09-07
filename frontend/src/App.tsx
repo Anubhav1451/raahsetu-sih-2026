@@ -31,6 +31,8 @@ import {
   getAccessibilityEvents,
   getAlerts,
   getConnectivity,
+  getFleetVehicles,
+  sendFleetPosition,
   getNetwork,
   getTerrain,
   searchPlaces,
@@ -53,6 +55,7 @@ import type {
   AccessibilityEvent,
   Alert as AlertItem,
   ConnectivitySummary,
+  VehicleAsset,
   RoadCandidate,
   Network,
   Route,
@@ -154,6 +157,9 @@ export default function App() {
   const [events, setEvents] = useState<AccessibilityEvent[]>([]);
   const [alerts, setAlerts] = useState<AlertItem[]>([]);
   const [connectivity, setConnectivity] = useState<ConnectivitySummary[]>([]);
+  const [fleetVehicles, setFleetVehicles] = useState<VehicleAsset[]>([]);
+  const [fleetSelectedVehicle, setFleetSelectedVehicle] = useState("");
+  const [locationMessage, setLocationMessage] = useState("");
   const [alertLanguage, setAlertLanguage] = useState<"en" | "hi" | "as">("en");
   const [reportBusy, setReportBusy] = useState(false);
   const [reportMessage, setReportMessage] = useState("");
@@ -213,6 +219,21 @@ export default function App() {
     getAlerts(session.access_token).then(setAlerts).catch(() => setAlerts([]));
     getConnectivity(session.access_token).then(setConnectivity).catch(() => setConnectivity([]));
   }, [session?.access_token, regionCode]);
+  useEffect(() => {
+    if (!session?.access_token) { setFleetVehicles([]); setFleetSelectedVehicle(""); return; }
+    getFleetVehicles(session.access_token).then((items) => { setFleetVehicles(items); setFleetSelectedVehicle((current) => current || items[0]?.id || ""); }).catch(() => setFleetVehicles([]));
+  }, [session?.access_token]);
+  const shareVehicleLocation = () => {
+    if (!session?.access_token || !fleetSelectedVehicle) return;
+    if (!navigator.geolocation) { setLocationMessage("Location is unavailable on this device."); return; }
+    setLocationMessage("Requesting GPS…");
+    navigator.geolocation.getCurrentPosition(async (position) => {
+      try {
+        await sendFleetPosition(session.access_token, { vehicle_id: fleetSelectedVehicle, recorded_at: new Date().toISOString(), lon: position.coords.longitude, lat: position.coords.latitude, accuracy_m: position.coords.accuracy });
+        setLocationMessage("Location shared securely.");
+      } catch (cause) { setLocationMessage(cause instanceof Error ? cause.message : "Location update failed."); }
+    }, () => setLocationMessage("GPS permission was denied or unavailable."), { enableHighAccuracy: true, timeout: 10000, maximumAge: 30000 });
+  };
   const [operatorRole, setOperatorRole] = useState("");
   const [reviewNotes, setReviewNotes] = useState<Record<string, string>>({});
   const [reviewing, setReviewing] = useState<string | null>(null);
@@ -680,6 +701,10 @@ export default function App() {
               <div className="connectivity-summary">
                 <div className="panel-heading"><span><Activity size={18} /> State connectivity</span><span className="step-chip">{connectivity.length}</span></div>
                 <div className="connectivity-list">{connectivity.slice(0, 8).map((state) => <span key={state.region_code} className={`connectivity-chip ${state.status}`}><i />{state.state_name}</span>)}</div>
+              </div>
+              <div className="fleet-share">
+                <div className="panel-heading"><span><Navigation size={18} /> Share vehicle GPS</span></div>
+                {fleetVehicles.length > 0 ? <><select aria-label="Assigned vehicle" value={fleetSelectedVehicle} onChange={(event) => setFleetSelectedVehicle(event.target.value)}>{fleetVehicles.map((vehicle) => <option key={vehicle.id} value={vehicle.id}>{vehicle.registration} · {vehicle.vehicle_type}</option>)}</select><button className="button secondary" type="button" onClick={shareVehicleLocation}>Share current location</button><small className="muted-copy">{locationMessage || "Only your assigned vehicles are available."}</small></> : <small className="muted-copy">No assigned vehicle is provisioned for this account.</small>}
               </div>
             </section>
           )}

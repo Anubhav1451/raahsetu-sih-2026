@@ -204,6 +204,8 @@ export type ConnectivitySummary = {
   status: "open" | "restricted" | "blocked";
   last_event_at: string | null;
 };
+export type VehicleAsset = { id: string; region_code: string; registration: string; vehicle_type: Vehicle; active: boolean; metadata: Record<string, unknown> };
+export type VehiclePosition = { id: string; vehicle_id: string; recorded_at: string; lon: number; lat: number; speed_kph: number | null; heading: number | null; status: string; accuracy_m: number | null; metadata: Record<string, unknown> };
 export type RoadCandidate = { edge_id: string; name: string; distance_m: number };
 
 export type AuthSession = {

@@ -4,6 +4,8 @@ import type {
   AccessibilityEvent,
   Alert,
   ConnectivitySummary,
+  VehicleAsset,
+  VehiclePosition,
   Comparison,
   ElevationGrid,
   FieldReport,
@@ -85,6 +87,8 @@ export const getAccessibilityEvents = (regionCode?: string) =>
   );
 export const getAlerts = (token: string) => request<Alert[]>("/api/v1/alerts", { headers: { Authorization: `Bearer ${token}` } });
 export const getConnectivity = (token: string) => request<ConnectivitySummary[]>("/api/v1/connectivity", { headers: { Authorization: `Bearer ${token}` } });
+export const getFleetVehicles = (token: string) => request<VehicleAsset[]>("/api/v1/fleet/vehicles", { headers: { Authorization: `Bearer ${token}` } });
+export const sendFleetPosition = (token: string, payload: { vehicle_id: string; recorded_at: string; lon: number; lat: number; accuracy_m?: number | null }) => request<VehiclePosition>("/api/v1/fleet/positions", { method: "POST", headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` }, body: JSON.stringify(payload) });
 
 type PublicConfig = { supabase_url: string; supabase_publishable_key: string };
 export class AuthError extends Error {
