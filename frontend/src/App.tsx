@@ -184,6 +184,7 @@ export default function App() {
   const gpsWatch = useRef<number | null>(null);
   const currentAccount = useRef<string | undefined>(undefined);
   const [alertLanguage, setAlertLanguage] = useState<"en" | "hi" | "as">("en");
+  const [notificationMessage, setNotificationMessage] = useState("");
   const [reportBusy, setReportBusy] = useState(false);
   const [reportMessage, setReportMessage] = useState("");
   const [evidenceFile, setEvidenceFile] = useState<File | null>(null);
@@ -324,6 +325,11 @@ export default function App() {
   const stopLiveTracking = () => {
     if (gpsWatch.current !== null) navigator.geolocation.clearWatch(gpsWatch.current);
     gpsWatch.current = null; setLiveTracking(false); setLocationMessage("Live GPS sharing stopped.");
+  };
+  const enableBrowserNotifications = async () => {
+    if (!("Notification" in window)) { setNotificationMessage("Browser notifications are unavailable on this device."); return; }
+    const permission = await Notification.requestPermission();
+    setNotificationMessage(permission === "granted" ? "Browser alerts enabled for this session." : "Notification permission was not granted.");
   };
   const startLiveTracking = () => {
     if (!session?.access_token || !fleetSelectedVehicle || liveTracking) return;
@@ -808,7 +814,7 @@ export default function App() {
             <p className="operations-freshness" role="status">{operationsBusy ? "Loading your account data…" : operationsUpdated ? `Last checked ${operationsUpdated}${Object.keys(operationsErrors).length ? " · Some sources unavailable" : ""}` : "Awaiting data"}</p>
             <section className="operations-strip" aria-label="Operations snapshot" aria-busy={operationsBusy}>
               <div className="operations-alerts">
-                <div className="panel-heading"><span><AlertTriangle size={18} /> Live alerts</span><span className="alert-tools"><select aria-label="Alert language" value={alertLanguage} onChange={(event) => setAlertLanguage(event.target.value as typeof alertLanguage)}><option value="en">EN</option><option value="hi">हिं</option><option value="as">অসমীয়া</option></select><span className="step-chip">{alerts.length}</span></span></div>
+                <div className="panel-heading"><span><AlertTriangle size={18} /> Live alerts</span><span className="alert-tools"><select aria-label="Alert language" value={alertLanguage} onChange={(event) => setAlertLanguage(event.target.value as typeof alertLanguage)}><option value="en">EN</option><option value="hi">हिं</option><option value="as">অসমীয়া</option></select><button className="button compact" type="button" onClick={enableBrowserNotifications}>Notify</button><span className="step-chip">{alerts.length}</span></span></div>
                 {alerts.slice(0, 3).map((alert) => (
                   <div className="operation-alert" key={alert.id}>
                     <i className={alert.severity >= 0.75 ? "critical" : "warning"} />
@@ -816,6 +822,7 @@ export default function App() {
                   </div>
                 ))}
                 {operationsErrors.alerts ? <p className="source-error" role="alert">{operationsErrors.alerts}</p> : alerts.length === 0 && <small className="muted-copy">{operationsBusy ? "Checking alerts…" : "No active alerts returned for your account scope."}</small>}
+                {notificationMessage && <small className="muted-copy" role="status">{notificationMessage}</small>}
               </div>
               <div className="connectivity-summary">
                 <div className="panel-heading"><span><Activity size={18} /> Regional road reports</span><span className="step-chip">{connectivity.length}</span></div>
