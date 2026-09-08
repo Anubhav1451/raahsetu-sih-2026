@@ -202,7 +202,7 @@ export type ConnectivitySummary = {
   active_events: number;
   blocked_events: number;
   restricted_events: number;
-  status: "open" | "restricted" | "blocked";
+  status: "unknown" | "open" | "restricted" | "blocked";
   last_event_at: string | null;
 };
 export type VehicleAsset = { id: string; region_code: string; registration: string; vehicle_type: Vehicle; active: boolean; metadata: Record<string, unknown> };

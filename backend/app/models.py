@@ -277,5 +277,5 @@ class ConnectivitySummary(StrictModel):
     active_events: int
     blocked_events: int
     restricted_events: int
-    status: Literal["open", "restricted", "blocked"]
+    status: Literal["unknown", "open", "restricted", "blocked"]
     last_event_at: datetime | None

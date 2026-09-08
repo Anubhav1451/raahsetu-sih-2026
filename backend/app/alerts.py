@@ -44,7 +44,11 @@ class PostgresAlertStore:
                 count(e.id)::int active_events,
                 count(e.id) filter (where e.accessibility_status='blocked')::int blocked_events,
                 count(e.id) filter (where e.accessibility_status='restricted')::int restricted_events,
-                case when count(e.id)=0 then 'open' when count(e.id) filter (where e.accessibility_status='blocked')>0 then 'blocked' else 'restricted' end status,
+                case when count(e.id)=0 then 'unknown'
+                when count(e.id) filter (where e.accessibility_status='blocked')>0 then 'blocked'
+                when count(e.id) filter (where e.accessibility_status='restricted')>0 then 'restricted'
+                when count(e.id) filter (where e.accessibility_status='unknown')>0 then 'unknown'
+                else 'open' end status,
                 max(e.starts_at) last_event_at
                 from region_catalog r left join accessibility_events e on e.region_code=r.code
                 and e.starts_at<=now() and (e.ends_at is null or e.ends_at>now()) {where}
