@@ -116,6 +116,11 @@ function RouteCard({
           <div className="risk-meter">
             <i style={{ width: `${route.mean_risk_score * 100}%` }} />
           </div>
+          <div className="telemetry-bars" aria-label="Route telemetry">
+            <div><span>Landslide / road risk</span><b>{Math.round(route.mean_risk_score * 100)}%</b><i><em style={{ width: `${route.mean_risk_score * 100}%` }} /></i></div>
+            <div title="Composite weather and surface signal; not a flood probability"><span>Weather exposure signal</span><b>{route.unknown_risk_segments ? "Unknown" : `${Math.min(100, Math.round(route.risk_exposure * 12))}%`}</b><i><em className="weather" style={{ width: `${route.unknown_risk_segments ? 22 : Math.min(100, route.risk_exposure * 12)}%` }} /></i></div>
+            <div><span>Travel duration</span><b>{route.duration_min.toFixed(1)} min</b><i><em className="duration" style={{ width: `${Math.min(100, route.duration_min / 2)}%` }} /></i></div>
+          </div>
           <div className="route-card-foot">
             <span>{route.high_risk_segments} high-risk segments</span>
             {safe && <span className="tiny-tag">A* route</span>}
@@ -184,6 +189,7 @@ export default function App() {
   const [locationBusy, setLocationBusy] = useState(false);
   const [liveTracking, setLiveTracking] = useState(false);
   const gpsWatch = useRef<number | null>(null);
+  const gpsGeneration = useRef(0);
   const currentAccount = useRef<string | undefined>(undefined);
   const [alertLanguage, setAlertLanguage] = useState<"en" | "hi" | "as">("en");
   const [notificationMessage, setNotificationMessage] = useState("");
@@ -242,9 +248,12 @@ export default function App() {
     getAccessibilityEvents(regionCode).then((payload) => setEvents(payload.events)).catch(() => setEvents([]));
   }, [regionCode]);
   useEffect(() => {
+    let cancelled = false;
+    setLiveWeather(null);
     const point = bootstrap?.locations.find((location) => location.id === bootstrap.dataset.default_origin) || bootstrap?.locations[0];
     if (!point) return;
-    getLiveWeather(point.lat, point.lon).then(setLiveWeather).catch(() => setLiveWeather(null));
+    getLiveWeather(point.lat, point.lon).then(value => { if (!cancelled) setLiveWeather(value); }).catch(() => { if (!cancelled) setLiveWeather(null); });
+    return () => { cancelled = true; };
   }, [bootstrap]);
   useEffect(() => {
     let cancelled = false;
@@ -318,40 +327,58 @@ export default function App() {
     if (!session?.access_token || !fleetSelectedVehicle || locationBusy) return;
     if (!navigator.geolocation) { setLocationMessage("Location is unavailable on this device."); return; }
     const accountId = session.user.id;
+    const generation = gpsGeneration.current;
     setLocationBusy(true);
     setLocationMessage("Requesting GPS…");
     navigator.geolocation.getCurrentPosition(async (position) => {
       try {
-        if (currentAccount.current !== accountId) return;
+        if (currentAccount.current !== accountId || gpsGeneration.current !== generation) return;
         await sendFleetPosition(session.access_token, { vehicle_id: fleetSelectedVehicle, recorded_at: new Date(position.timestamp).toISOString(), lon: position.coords.longitude, lat: position.coords.latitude, accuracy_m: position.coords.accuracy });
-        if (currentAccount.current === accountId) setLocationMessage("Location shared securely.");
-      } catch (cause) { if (currentAccount.current === accountId) setLocationMessage(cause instanceof Error ? cause.message : "Location update failed."); }
-      finally { setLocationBusy(false); }
-    }, () => { setLocationBusy(false); if (currentAccount.current === accountId) setLocationMessage("GPS permission was denied or unavailable."); }, { enableHighAccuracy: true, timeout: 10000, maximumAge: 30000 });
+        if (currentAccount.current === accountId && gpsGeneration.current === generation) setLocationMessage("Location shared securely.");
+      } catch (cause) { if (gpsGeneration.current === generation) setLocationMessage(cause instanceof Error ? cause.message : "Location update failed."); }
+      finally { if (gpsGeneration.current === generation) setLocationBusy(false); }
+    }, () => { if (gpsGeneration.current === generation) { setLocationBusy(false); setLocationMessage("GPS permission was denied or unavailable."); } }, { enableHighAccuracy: true, timeout: 10000, maximumAge: 30000 });
   };
   const stopLiveTracking = () => {
+    gpsGeneration.current += 1;
     if (gpsWatch.current !== null) navigator.geolocation.clearWatch(gpsWatch.current);
-    gpsWatch.current = null; setLiveTracking(false); setLocationMessage("Live GPS sharing stopped.");
+    gpsWatch.current = null; setLiveTracking(false); setLocationBusy(false); setLocationMessage("Live GPS sharing stopped.");
   };
   const enableBrowserNotifications = async () => {
     if (!("Notification" in window)) { setNotificationMessage("Browser notifications are unavailable on this device."); return; }
     const permission = await Notification.requestPermission();
-    setNotificationMessage(permission === "granted" ? "Browser alerts enabled for this session." : "Notification permission was not granted.");
+    setNotificationMessage(permission === "granted" ? "Permission granted. Push delivery is not connected yet; use the in-app alerts." : "Notification permission was not granted.");
   };
   const startLiveTracking = () => {
     if (!session?.access_token || !fleetSelectedVehicle || liveTracking) return;
     if (!navigator.geolocation) { setLocationMessage("Location is unavailable on this device."); return; }
     const accountId = session.user.id;
+    const generation = ++gpsGeneration.current;
+    let sending = false;
+    let lastSent = 0;
     setLiveTracking(true); setLocationMessage("Requesting live GPS permission…");
     gpsWatch.current = navigator.geolocation.watchPosition(async (position) => {
-      if (currentAccount.current !== accountId || !session?.access_token) return;
+      if (currentAccount.current !== accountId || gpsGeneration.current !== generation || sending || Date.now() - lastSent < 15000) return;
+      sending = true;
       try {
         await sendFleetPosition(session.access_token, { vehicle_id: fleetSelectedVehicle, recorded_at: new Date(position.timestamp).toISOString(), lon: position.coords.longitude, lat: position.coords.latitude, accuracy_m: position.coords.accuracy });
-        setLocationMessage(`Live location shared · ±${Math.round(position.coords.accuracy)} m accuracy`);
-      } catch (cause) { setLocationMessage(cause instanceof Error ? cause.message : "Live GPS update failed."); }
-    }, () => { setLiveTracking(false); setLocationMessage("GPS permission was denied or became unavailable."); }, { enableHighAccuracy: true, timeout: 15000, maximumAge: 15000 });
+        lastSent = Date.now();
+        if (gpsGeneration.current === generation) setLocationMessage(`Live location shared · ±${Math.round(position.coords.accuracy)} m accuracy`);
+      } catch (cause) { if (gpsGeneration.current === generation) setLocationMessage(cause instanceof Error ? cause.message : "Live GPS update failed."); }
+      finally { sending = false; }
+    }, () => { if (gpsGeneration.current === generation) { stopLiveTracking(); setLocationMessage("GPS permission was denied or became unavailable."); } }, { enableHighAccuracy: true, timeout: 15000, maximumAge: 15000 });
   };
-  useEffect(() => () => { if (gpsWatch.current !== null) navigator.geolocation.clearWatch(gpsWatch.current); }, []);
+  useEffect(() => {
+    gpsGeneration.current += 1;
+    if (gpsWatch.current !== null) navigator.geolocation.clearWatch(gpsWatch.current);
+    gpsWatch.current = null;
+    setLiveTracking(false); setLocationBusy(false); setLocationMessage("");
+    return () => {
+      gpsGeneration.current += 1;
+      if (gpsWatch.current !== null) navigator.geolocation.clearWatch(gpsWatch.current);
+      gpsWatch.current = null;
+    };
+  }, [session?.access_token, fleetSelectedVehicle, showOperations]);
   const [operatorRole, setOperatorRole] = useState("");
   const [reviewNotes, setReviewNotes] = useState<Record<string, string>>({});
   const [reviewing, setReviewing] = useState<string | null>(null);
@@ -1088,7 +1115,7 @@ export default function App() {
                   Heavy rain
                 </button>
               </div>
-              {liveWeather && <small className="muted-copy live-weather" role="status">Live Open-Meteo · {liveWeather.temperature_c ?? "—"}°C · {liveWeather.rain_mm.toFixed(1)} mm rain · {liveWeather.wind_kph.toFixed(0)} km/h wind · {liveWeather.routing_scenario === "heavy_rain" ? "Risk uplift active" : "Normal conditions"}</small>}
+              {liveWeather && <small className="muted-copy live-weather" role="status">Open-Meteo snapshot · {liveWeather.temperature_c ?? "—"}°C · {liveWeather.rain_mm.toFixed(1)} mm rain · {liveWeather.wind_kph.toFixed(0)} km/h wind. Weather is context only; routing uses the manually selected scenario. Timestamp: {liveWeather.observed_at || "unavailable"} UTC.</small>}
               <label className="field-label compact" htmlFor="closure">
                 Road disruption
               </label>
