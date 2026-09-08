@@ -41,8 +41,8 @@ class PostgresFleetStore:
         if region_code:
             where, params = "where v.region_code=%s", [region_code]
         with self._connect() as conn:
-            rows = conn.execute(f"""select v.id::text vehicle_id,v.region_code,v.registration,v.vehicle_type,
-                p.recorded_at,st_x(p.geom) lon,st_y(p.geom) lat,p.speed_kph,p.heading,p.status,p.accuracy_m
+            rows = conn.execute(f"""select p.id::text,v.id::text vehicle_id,v.region_code,v.registration,v.vehicle_type,
+                p.recorded_at,st_x(p.geom) lon,st_y(p.geom) lat,p.speed_kph,p.heading,p.status,p.accuracy_m,p.metadata
                 from vehicle_assets v join lateral (select * from vehicle_positions p where p.vehicle_id=v.id
                 order by p.recorded_at desc limit 1) p on true {where} and v.active order by p.recorded_at desc limit %s""",
                 (*params, limit)).fetchall()
