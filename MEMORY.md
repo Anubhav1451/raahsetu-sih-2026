@@ -25,11 +25,22 @@ Risk belongs in edge cost; heuristic remains an admissible lower bound. Missing 
 
 ## Next Steps
 
-1. Implement durable offline report and photo synchronization with account isolation and retry handling.
-2. Add a mobile/driver GPS client and delivery creation/update workflow over the fleet API.
-3. Add alert generation, district drill-down and multilingual notifications.
-4. Integrate permitted current weather feeds; train disruption prediction only after labelled-data validation.
-5. Verify Docker/Kubernetes deployment and rehearse the full field-report-to-rerouting demo.
+1. Official coordinate-level blackspot/eDAR data and domain review of provisional matches.
+2. Public HTTPS deployment (Vercel/Render or team VM) for phone GPS, PWA install and push testing.
+3. Physical-device checks: Android PWA install, offline restart, weak-network sync, FPS profiling.
+4. Trained ML disruption model only after verified negative road-day samples and held-out evaluation.
+5. Rehearse the full field-report-to-rerouting demo with the demo accounts recorded below.
+
+## September 8 milestones
+
+- All five Supabase migrations applied live; fleet, delivery and alert tables verified.
+- Full live closure workflow proven: field report (photo evidence) -> reviewer accept + edge bind -> blocked_route alert -> connectivity Assam=blocked -> delivery en_route->delivered.
+- Reroute proof: closing Lokhra-Lalganesh Road edge `653996576>653996523:0` changes the u->v journey from 0.99 min/0.645 km to unreachable; reopen restores it.
+- Demo accounts (provisioned via `backend/scripts/provision_demo_users.py`, password `DemoSih!2026`):
+  officer.demo.0ba846@gmail.com (field_official, assam) and
+  reviewer.demo.0ba846@gmail.com (reviewer, assam); vehicles AS01-DEMO-0BA846 (light), AS02-DEMO-0BA846 (heavy).
+- Installable PWA (192/512 maskable icons, offline shell v4), mission-control dashboard, Docker/K8s static contract checks in verify pipeline; 44 tests, PWA/SW/deployment checks and frontend build all pass.
+- Idea deck rebuilt on the official SIH six-slide format with live prototype screenshots in `docs/presentation/`.
 
 ## September 7 security follow-up
 
