@@ -1,6 +1,5 @@
 """Live E2E: Supabase password login -> role lookup -> fleet -> delivery -> field report -> alerts."""
 import os
-import time
 import uuid
 
 import httpx

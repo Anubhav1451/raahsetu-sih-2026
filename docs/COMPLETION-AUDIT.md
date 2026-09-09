@@ -31,13 +31,15 @@ This file separates implemented work from work that needs accounts, restricted d
 
 ## Fresh verification result
 
-- Backend tests: 43 passed. Two dependency deprecation warnings do not affect results. Candidate-access and fleet validation cases use mocked or local dependencies; they do not constitute a fresh live Supabase authorization test.
+- Backend tests: 44 passed. Two dependency deprecation warnings do not affect results. Candidate-access and fleet validation cases use mocked or local dependencies; they do not constitute a fresh live Supabase authorization test.
 - Frontend production build: passed after the fleet and alert API foundation changes.
 - Frontend production build: passed after adding the IndexedDB offline report queue and retry flow.
 - Algorithm oracle checks: 300 randomized comparisons passed.
 - Synthetic evaluation: 56 journeys available; 34 had lower modelled exposure at the default preference.
 - Data audit: 61 source downloads and all 45 planned HGT tiles verified; no terrain tile is missing.
 - Frontend: TypeScript and production build passed. The large Three.js bundle produces a performance advisory, not a build failure.
+- Frontend live pass: the map-first redesign rendered at phone, tablet and desktop widths without horizontal overflow. Guwahati OSM place selection recalculated both routes, map perspective controls worked and a clean browser session reported no console errors.
+- PWA and deployment contracts: install icons, public shell caching, private/API cache bypass and Docker/Kubernetes YAML security structure now run in the standard verification command.
 - Local HTTP: frontend and API responded successfully for the prepared runtime.
 - Guwahati corridor pilot: two historical 1 km observations matched to OSM candidate edges at 308.0 m and 26.3 m; versioned snapshot loaded by API and route comparison returned available results.
 - Eight state runtime graphs: every snapshot passed model/reference validation and fastest plus Risk-A* smoke routing; API discovery and bounded on-demand loading were verified with Sikkim.

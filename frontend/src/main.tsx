@@ -4,6 +4,7 @@ import App from "./App";
 import "./styles.css";
 import "./workspace.css";
 import "./premium.css";
+import "./mission.css";
 
 if ("serviceWorker" in navigator && import.meta.env.PROD) {
   window.addEventListener("load", () => {

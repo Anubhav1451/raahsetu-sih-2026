@@ -1,8 +1,18 @@
-const CACHE = "raahsetu-shell-v2";
-const SHELL = ["/", "/index.html", "/manifest.webmanifest", "/favicon.svg"];
+const CACHE = "raahsetu-shell-v4";
+const SHELL = ["/", "/index.html", "/manifest.webmanifest", "/favicon.svg", "/apple-touch-icon.png", "/pwa-192.png", "/pwa-512.png"];
 
 self.addEventListener("install", (event) => {
-  event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(SHELL)));
+   event.waitUntil((async () => {
+    const cache = await caches.open(CACHE);
+    await cache.addAll(SHELL);
+    // Vite fingerprints production assets. Discover them from the built shell so
+    // the very first installation is usable after the server goes offline.
+    const response = await fetch("/index.html");
+    if (!response.ok) return;
+    const html = await response.text();
+    const assets = [...html.matchAll(/(?:src|href)="(\/assets\/[^"?]+)"/g)].map((match) => match[1]);
+    if (assets.length) await cache.addAll([...new Set(assets)]);
+  })());
   self.skipWaiting();
 });
 

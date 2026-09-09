@@ -58,10 +58,12 @@ npm.cmd run dev
 
 The synthetic network has fictional roads and hazards. The real OSM network does not yet have reviewed blackspot/landslide matches, so it explicitly reports missing risk evidence. Weather controls simulate conditions. Travel time is estimated without live traffic. Risk exposure is an index, not an accident probability. The current scoring is rule-based, not a trained predictive ML model.
 
-The app is a hackathon prototype, not operational dispatch or navigation. Authenticated
-GPS tracking, offline client sync, alerts, turn
-restrictions and live government feeds remain backlog work. The team Supabase project is
-connected; VM/Kubernetes deployment still requires the team's cloud account.
+The app is a hackathon prototype, not operational dispatch or navigation. A packaged
+field mobile client, push/SMS alert delivery, turn restrictions, sustained load testing
+and live government feeds remain backlog work. Authenticated browser GPS sharing,
+delivery status, reviewed alerts, installable PWA assets and an offline field-report queue
+are implemented. The team Supabase project is connected; VM/Kubernetes deployment still
+requires the team's cloud account.
 
 ## Repository map
 

@@ -154,15 +154,24 @@ function Ground({ heightAt }: { heightAt: (x: number, z: number) => number }) {
 
 function CameraRig({ mode, reset }: Pick<Props, "mode" | "reset">) {
   const { camera } = useThree();
+  const goal = useRef(new THREE.Vector3());
+  const transitioning = useRef(true);
+  const reducedMotion = useMemo(() => window.matchMedia("(prefers-reduced-motion: reduce)").matches, []);
   useEffect(() => {
-    camera.position.set(
+    goal.current.set(
       0,
       mode === "flat" ? 200 : 155,
       mode === "flat" ? 0.01 : 145,
     );
+    transitioning.current = true;
+  }, [mode, reset]);
+  useFrame(() => {
+    if (!transitioning.current) return;
+    camera.position.lerp(goal.current, reducedMotion ? 1 : 0.075);
     camera.lookAt(0, 0, 0);
     camera.updateProjectionMatrix();
-  }, [camera, mode, reset]);
+    if (camera.position.distanceTo(goal.current) < 0.08) transitioning.current = false;
+  });
   return (
     <OrbitControls
       key={`${mode}-${reset}`}
@@ -180,9 +189,13 @@ function CameraRig({ mode, reset }: Pick<Props, "mode" | "reset">) {
 
 function SceneMotion() {
   const beacon = useRef<THREE.Group>(null);
+  const reducedMotion = useMemo(
+    () => window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+    [],
+  );
   useFrame(({ clock }) => {
     if (!beacon.current) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (reducedMotion) return;
     const t = clock.getElapsedTime();
     beacon.current.rotation.y = t * 0.08;
     beacon.current.position.y = Math.sin(t * 0.7) * 0.18;
@@ -202,6 +215,10 @@ function SceneMotion() {
 }
 
 function RouteTube({ points, color, selected, pulse }: { points: Point[]; color: string; selected: boolean; pulse: boolean }) {
+  const reducedMotion = useMemo(
+    () => window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+    [],
+  );
   const material = useMemo(() => new THREE.ShaderMaterial({
     transparent: true,
     depthWrite: false,
@@ -209,7 +226,9 @@ function RouteTube({ points, color, selected, pulse }: { points: Point[]; color:
     vertexShader: `varying vec2 vUv; void main(){ vUv=uv; gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0); }`,
     fragmentShader: `uniform float uTime; uniform vec3 uColor; uniform float uPulse; varying vec2 vUv; void main(){ float beam=0.72+0.28*sin(vUv.x*45.0-uTime*3.2); float highlight=1.0+uPulse*0.55*smoothstep(0.94,1.0,sin(vUv.x*6.283-uTime*1.6)*0.5+0.5); gl_FragColor=vec4(uColor*beam*highlight,${selected ? 0.96 : 0.56}); }`,
   }), [color, pulse, selected]);
-  useFrame(({ clock }) => { if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) material.uniforms.uTime.value = clock.getElapsedTime(); });
+  useFrame(({ clock }) => {
+    if (!reducedMotion) material.uniforms.uTime.value = clock.getElapsedTime();
+  });
   useEffect(() => () => material.dispose(), [material]);
   const geometry = useMemo(() => {
     const curve = new THREE.CatmullRomCurve3(points.map(([x, y, z]) => new THREE.Vector3(x, y, z)), false, 'centripetal', 0.45);

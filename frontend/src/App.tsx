@@ -1,4 +1,4 @@
-import { type FormEvent, lazy, Suspense, useEffect, useRef, useState } from "react";
+import { type FormEvent, type PointerEvent, lazy, Suspense, useEffect, useRef, useState } from "react";
 import {
   Activity,
   ArrowDownUp,
@@ -758,9 +758,14 @@ export default function App() {
     } as const;
     return labels[alertLanguage][alert.message_key as keyof typeof labels.en] ?? alert.title;
   };
+  const trackSpotlight = (event: PointerEvent<HTMLDivElement>) => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce), (pointer: coarse)").matches) return;
+    event.currentTarget.style.setProperty("--pointer-x", `${event.clientX}px`);
+    event.currentTarget.style.setProperty("--pointer-y", `${event.clientY}px`);
+  };
 
   return (
-    <div className="app-shell">
+    <div className="app-shell" onPointerMove={trackSpotlight}>
       <aside className="rail" aria-label="Workspace navigation">
         <div className="brand-symbol" aria-label="RaahSetu">
           <RouteIcon size={27} strokeWidth={2.4} />
@@ -817,11 +822,11 @@ export default function App() {
           </div>
         </header>
         <main>
-          <div className="page-heading">
+          <div className="page-heading mission-hero">
             <div>
-              <div className="eyebrow">NORTH EAST · CORRIDOR INTELLIGENCE</div>
-              <h1>Plan with the road ahead in view.</h1>
-              <p>Compare routes, inspect road evidence and coordinate essential supplies.</p>
+              <div className="eyebrow"><span className="eyebrow-pulse" /> NORTH EAST · CORRIDOR INTELLIGENCE</div>
+              <h1>See the risk.<br /><span>Move with confidence.</span></h1>
+              <p>Compare time, terrain and reviewed road evidence before essential supplies move.</p>
             </div>
             <div className="heading-actions">
               <button className="button secondary" onClick={openReportDialog}>
@@ -838,6 +843,12 @@ export default function App() {
               </button>
             </div>
           </div>
+          <section className="system-strip" aria-label="Routing system status">
+            <div><span>Network</span><strong>{bootstrap?.dataset.is_synthetic === false ? "OSM snapshot" : "Demo network"}</strong><small>{bootstrap?.counts.edges?.toLocaleString() ?? "—"} directed edges</small></div>
+            <div><span>Decision engine</span><strong>Enhanced A*</strong><small>Time + risk objective</small></div>
+            <div><span>Environment</span><strong>{weather === "heavy_rain" ? "Heavy rain" : "Normal weather"}</strong><small>Manual scenario</small></div>
+            <div><span>Evidence state</span><strong>{events.length ? `${events.length} active events` : "No active events"}</strong><small>{bootstrap?.dataset.is_synthetic ? "Illustrative evidence" : "Reviewed data only"}</small></div>
+          </section>
           <div className="workspace-toolbar">
             <div className="workspace-context"><MapPinned size={19} aria-hidden="true" /><span><strong>{bootstrap?.dataset.title || "Loading road network"}</strong><small>{bootstrap?.dataset.is_synthetic ? "Synthetic sandbox · illustrative roads and hazards" : "OSM snapshot · risk evidence may be incomplete"}</small></span></div>
             <button className="button secondary" aria-expanded={showOperations} aria-controls="operations-panel" onClick={() => setShowOperations((value) => !value)}><Activity size={16} />Operations {showOperations ? "−" : "+"}</button>
@@ -898,7 +909,7 @@ export default function App() {
               <div className="panel-heading">
                 <span>
                   <RouteIcon size={19} />
-                  Plan a journey
+                  <span className="heading-copy">Plan a journey<small>Mission parameters</small></span>
                 </span>
                 <span className="step-chip">01</span>
               </div>
@@ -1216,6 +1227,11 @@ export default function App() {
                   </div>
                 )}
               </div>
+              <div className="map-vitals" aria-label="Map telemetry">
+                <span><small>VISIBLE ROADS</small><strong>{network?.metadata.returned_features?.toLocaleString() ?? "—"}</strong></span>
+                <span><small>ROUTE COMPUTE</small><strong>{activeRoute?.status === "available" ? `${activeRoute.compute_ms.toFixed(1)} ms` : "—"}</strong></span>
+                <span><small>SNAPSHOT</small><strong>{result?.dataset_version?.slice(0, 12) || bootstrap?.dataset_version?.slice(0, 12) || "—"}</strong></span>
+              </div>
               <div className="map-tools">
                 <button
                   className="map-tool"
@@ -1275,7 +1291,7 @@ export default function App() {
               aria-busy={busy}
             >
               <div className="panel-heading">
-                <span>Route comparison</span>
+                <span><span className="heading-copy">Route comparison<small>Decision telemetry</small></span></span>
                 <span className="step-chip">02</span>
               </div>
               {error ? (

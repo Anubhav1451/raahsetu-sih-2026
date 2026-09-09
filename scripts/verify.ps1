@@ -22,8 +22,17 @@ try {
     & $python scripts\audit_data.py
     if ($LASTEXITCODE -ne 0) { throw "Dataset integrity audit failed." }
 
+    & $python scripts\validate_deployment.py
+    if ($LASTEXITCODE -ne 0) { throw "Deployment contract validation failed." }
+
     Push-Location frontend
     try {
+        & node test-sw-security.cjs
+        if ($LASTEXITCODE -ne 0) { throw "Service worker security checks failed." }
+
+        & node test-pwa.cjs
+        if ($LASTEXITCODE -ne 0) { throw "PWA contract checks failed." }
+
         & npm.cmd run build
         if ($LASTEXITCODE -ne 0) { throw "Frontend production build failed." }
     }
