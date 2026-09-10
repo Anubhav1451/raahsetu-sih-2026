@@ -12,11 +12,13 @@
     "@react-three/drei": "^10.7.0",
     "@react-three/fiber": "^9.3.0",
     "lucide-react": "^0.468.0",
+    "mapbox-gl": "^3.30.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "three": "^0.180.0"
   },
   "devDependencies": {
+    "@types/geojson": "^7946.0.16",
     "@types/react": "^19.1.0",
     "@types/react-dom": "^19.1.0",
     "@types/three": "^0.180.0",

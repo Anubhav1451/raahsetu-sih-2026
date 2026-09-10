@@ -7,8 +7,9 @@ Use `scripts/setup.ps1` on a new machine, then `scripts/start.ps1`. The dashboar
 ## Supabase
 
 1. Create or select the team's Supabase project in Mumbai and enable PostGIS.
-2. Apply migrations `001`, `002` and `003`. They add spatial routing data,
-   eight-state operations, authenticated roles, the profile trigger and private evidence bucket.
+2. Apply migrations `001` through `006`. They add spatial routing data, eight-state
+   operations, authenticated roles, fleet tracking, alerts, private evidence storage and
+   evidence corroboration views.
 3. Copy `.env.example` to `.env`. Set `DATABASE_URL`, `SUPABASE_URL` and
    `SUPABASE_PUBLISHABLE_KEY`. The publishable key reaches the browser through the backend;
    database credentials never do.
@@ -32,6 +33,10 @@ For the provisional Guwahati pilot, use `supabase/hazards-guwahati-reviewed.csv`
 `GET /api/v1/accessibility-events` exposes only currently active reviewer-approved field events for map overlays. It does not close a road automatically; an explicit dataset and road-edge match is required before routing changes.
 
 Reviewers can request `/api/v1/field-reports/{id}/road-candidates` and must submit the selected `dataset_id` and `edge_id` with an acceptance decision. The backend verifies that edge remains within 2 km of the report before creating the accessibility event.
+
+`006_report_credibility.sql` adds a 1 km / 6-hour corroboration view. It counts nearby
+independent reporters and labels reports as pending evidence or corroborated. It never
+accepts a report or closes a road automatically: reviewer/admin approval remains required.
 
 The app uses immutable local graph snapshots for repeatable routing. The live Supabase
 project has been verified with eight region records, versioned demo and Guwahati graphs,

@@ -199,3 +199,29 @@ def test_review_requires_reviewer_and_updates_pending_report(client):
         app.dependency_overrides.pop(require_reviewer, None)
     assert reviewed.status_code == 200
     assert reviewed.json()["review_status"] == "accepted"
+    assert reviewed.json()["requires_human_review"] is True
+
+
+def test_field_report_credibility_defaults_to_human_review(client):
+    store = MemoryFieldReports()
+    app.dependency_overrides[get_field_report_store] = lambda: store
+    payload = {
+        "client_report_id": "device-17:report-credibility",
+        "region_code": "assam",
+        "kind": "flood",
+        "accessibility_status": "restricted",
+        "severity": 0.6,
+        "lon": 91.7,
+        "lat": 26.1,
+        "description": "Field observation awaiting confirmation.",
+        "observed_at": "2026-09-07T06:00:00Z",
+    }
+    try:
+        response = client.post("/api/v1/field-reports", json=payload)
+    finally:
+        app.dependency_overrides.pop(get_field_report_store, None)
+    assert response.status_code == 201
+    body = response.json()
+    assert body["credibility_status"] == "pending_evidence"
+    assert body["corroborating_reporters"] == 0
+    assert body["requires_human_review"] is True

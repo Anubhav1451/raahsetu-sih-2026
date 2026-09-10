@@ -63,6 +63,8 @@ def discover_dataset_paths() -> dict[str, Path]:
         # The reviewed pilot intentionally has a versioned dataset id.
         if path.name == "osm-guwahati-corridor-reviewed.json":
             dataset_id = "osm-guwahati-corridor-reviewed-v1"
+        if path.name == "osm-siliguri-gateway-reviewed.json":
+            dataset_id = "osm-siliguri-gateway-reviewed-v1"
         paths[dataset_id] = path
     return paths
 
@@ -282,7 +284,12 @@ def dataset_label(dataset_id: str) -> str:
 
 
 def search_catalog(dataset_id: str) -> list[dict]:
-    slug = "assam" if dataset_id.startswith("osm-guwahati") else dataset_id.removeprefix("osm-")
+    if dataset_id.startswith("osm-guwahati"):
+        slug = "assam"
+    elif dataset_id.startswith("osm-siliguri-gateway"):
+        slug = "siliguri-gateway"
+    else:
+        slug = dataset_id.removeprefix("osm-")
     if slug in app.state.search_catalogs:
         return app.state.search_catalogs[slug]
     base = ROOT.parent / "datasets" / "processed" / "osm"
@@ -313,9 +320,7 @@ def search_catalog(dataset_id: str) -> list[dict]:
 
 def named_locations(graph: RoadGraph) -> list[dict]:
     record = app.state.region_catalog.get(graph.dataset.id)
-    if record is None:
-        return [node.model_dump() for node in graph.dataset.nodes if node.label]
-    capital = record["capital"]
+    capital = record["capital"] if record else ""
 
     def population(item: dict) -> int:
         try:
@@ -324,10 +329,13 @@ def named_locations(graph: RoadGraph) -> list[dict]:
             return 0
 
     places = [item for item in search_catalog(graph.dataset.id) if item["kind"] == "place"]
+    if not places:
+        return [node.model_dump() for node in graph.dataset.nodes if node.label]
     places.sort(
         key=lambda item: (
-            item["label"].casefold() != capital.casefold(),
-            item["detail"] not in {"city", "town"},
+            bool(capital) and item["label"].casefold() != capital.casefold(),
+            item["detail"] != "city",
+            item["detail"] != "town",
             -population(item),
             item["label"].casefold(),
         )
@@ -363,7 +371,7 @@ def bootstrap(dataset: str = "demo"):
     dataset = graph.dataset
     locations = named_locations(graph)
     dataset_metadata = dataset.model_dump(exclude={"nodes", "edges", "scenarios"})
-    if len(locations) >= 2 and graph.dataset.id in app.state.region_catalog:
+    if len(locations) >= 2 and search_catalog(graph.dataset.id):
         dataset_metadata["default_origin"] = locations[0]["id"]
         origin = graph.nodes[locations[0]["id"]]
         destination = max(

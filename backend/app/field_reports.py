@@ -65,8 +65,12 @@ class PostgresFieldReportStore:
         with self._connect() as conn:
             select = """select id::text,client_report_id,region_code,district,place_name,kind,
                 accessibility_status,severity,st_x(geom) lon,st_y(geom) lat,description,
-                observed_at,submitted_at,review_status,valid_until,offline_created_at,details
-                from field_reports"""
+                observed_at,submitted_at,review_status,valid_until,offline_created_at,details,
+                coalesce(c.corroborating_reporters, 0) corroborating_reporters,
+                coalesce(c.corroborating_reports, 0) corroborating_reports,
+                coalesce(c.credibility_status, 'pending_evidence') credibility_status,
+                true requires_human_review
+                from field_reports left join field_report_credibility c on c.report_id=field_reports.id"""
             if region_code:
                 rows = conn.execute(
                     select + " where region_code=%s order by observed_at desc limit %s",

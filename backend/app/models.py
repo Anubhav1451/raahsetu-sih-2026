@@ -164,6 +164,10 @@ class FieldReport(StrictModel):
     valid_until: datetime | None
     offline_created_at: datetime | None
     details: dict
+    corroborating_reporters: int = Field(default=0, ge=0)
+    corroborating_reports: int = Field(default=0, ge=0)
+    credibility_status: Literal["pending_evidence", "corroborated", "verified", "rejected"] = "pending_evidence"
+    requires_human_review: bool = True
 
 
 class FieldReportReview(StrictModel):

@@ -46,6 +46,8 @@ npm.cmd run dev
   hazard observations, and geo-tagged field-report APIs.
 - Responsive field-official incident form with mapped origin coordinates, offline-safe
   client IDs, validation, pending moderation state and recent regional reports.
+- Nearby independent reports are counted in a 1 km / 6-hour evidence window; they remain
+  warnings until an assigned reviewer or admin confirms the incident and road edge.
 - Reviewer-approved accessibility events are exposed as active map markers; evidence
   storage is private and scoped to the submitting user's folder.
 - Reviewers explicitly match accepted incidents to nearby versioned road edges; accepted

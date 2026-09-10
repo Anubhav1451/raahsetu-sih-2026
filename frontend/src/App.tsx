@@ -50,6 +50,7 @@ import {
   AuthError,
 } from "./api";
 const TerrainMap = lazy(() => import("./TerrainMap"));
+const MapboxMap = lazy(() => import("./MapboxMap"));
 import type {
   Bootstrap,
   AuthSession,
@@ -154,7 +155,7 @@ export default function App() {
   const [busy, setBusy] = useState(true);
   const [error, setError] = useState("");
   const [selected, setSelected] = useState("risk_aware");
-  const [mode, setMode] = useState<"3d" | "flat">("3d");
+  const [mode, setMode] = useState<"map" | "3d" | "flat">("map");
   const [reset, setReset] = useState(0);
   const [showRisk, setShowRisk] = useState(true);
   const [retry, setRetry] = useState(0);
@@ -1126,7 +1127,10 @@ export default function App() {
                   Heavy rain
                 </button>
               </div>
-              {liveWeather && <small className="muted-copy live-weather" role="status">Open-Meteo snapshot · {liveWeather.temperature_c ?? "—"}°C · {liveWeather.rain_mm.toFixed(1)} mm rain · {liveWeather.wind_kph.toFixed(0)} km/h wind. Weather is context only; routing uses the manually selected scenario. Timestamp: {liveWeather.observed_at || "unavailable"} UTC.</small>}
+              {liveWeather && <div className="live-weather" role="status">
+                <small className="muted-copy">Open-Meteo snapshot · {liveWeather.temperature_c ?? "—"}°C · {liveWeather.rain_mm.toFixed(1)} mm rain · {liveWeather.wind_kph.toFixed(0)} km/h wind. Suggested routing scenario: {liveWeather.routing_scenario === "heavy_rain" ? "heavy rain" : "normal"}. Timestamp: {liveWeather.observed_at || "unavailable"} UTC.</small>
+                <button type="button" className="button compact" onClick={() => setWeather(liveWeather.routing_scenario)} disabled={weather === liveWeather.routing_scenario}>Apply weather suggestion</button>
+              </div>}
               <label className="field-label compact" htmlFor="closure">
                 Road disruption
               </label>
@@ -1184,6 +1188,14 @@ export default function App() {
                   aria-label="Map perspective"
                 >
                   <button
+                    className={mode === "map" ? "on" : ""}
+                    aria-pressed={mode === "map"}
+                    onClick={() => setMode("map")}
+                  >
+                    <MapPinned size={14} />
+                    Live map
+                  </button>
+                  <button
                     className={mode === "flat" ? "on" : ""}
                     aria-pressed={mode === "flat"}
                     onClick={() => setMode("flat")}
@@ -1202,7 +1214,17 @@ export default function App() {
               </div>
               <div className="map-canvas">
                 {network && bootstrap ? (
-                  <Suspense fallback={<div className="map-loading" role="status"><Compass size={42} /><span>Loading map renderer…</span></div>}><TerrainMap
+                  <Suspense fallback={<div className="map-loading" role="status"><Compass size={42} /><span>Loading map renderer…</span></div>}>{mode === "map" ? <MapboxMap
+                    network={network}
+                    locations={bootstrap.locations}
+                    result={result}
+                    origin={origin}
+                    destination={destination}
+                    reset={reset}
+                    showRisk={showRisk}
+                    selected={selected}
+                    events={events.filter((event) => !event.dataset_id || event.dataset_id === datasetId)}
+                  /> : <TerrainMap
                     network={network}
                     locations={bootstrap.locations}
                     result={result}
@@ -1215,7 +1237,7 @@ export default function App() {
                     selected={selected}
                     terrain={terrain}
                     events={events.filter((event) => !event.dataset_id || event.dataset_id === datasetId)}
-                  /></Suspense>
+                  />}</Suspense>
                 ) : (
                   <div className="map-loading">
                     <Compass size={42} />
@@ -1748,9 +1770,16 @@ export default function App() {
               <span className={`status-dot ${report.accessibility_status}`} />
               <div>
                 <strong>{report.place_name || report.district || report.region_code}</strong>
-                <small>{report.kind.replaceAll("_", " ")} · {report.review_status}</small>
+                <small>{report.kind.replaceAll("_", " ")} · {report.review_status} · {report.credibility_status.replaceAll("_", " ")}</small>
                 <p>{report.description}</p>
                 <small>{report.lat.toFixed(5)}, {report.lon.toFixed(5)} · {new Date(report.observed_at).toLocaleString()}</small>
+                {report.review_status === "pending" && (
+                  <small className="muted-copy">
+                    {report.corroborating_reporters
+                      ? `${report.corroborating_reporters} independent nearby reporter${report.corroborating_reporters === 1 ? "" : "s"} in the 1 km / 6 h evidence window. Human review is still required.`
+                      : "Uncorroborated field report. It remains a warning until human review."}
+                  </small>
+                )}
                 {report.review_status === "pending" && ["reviewer", "admin"].includes(operatorRole) && (
                   <div className="review-controls">
                     <label>

@@ -159,6 +159,10 @@ export type FieldReport = FieldReportInput & {
   submitted_at: string;
   review_status: "pending" | "accepted" | "rejected" | "expired";
   valid_until: string | null;
+  corroborating_reporters: number;
+  corroborating_reports: number;
+  credibility_status: "pending_evidence" | "corroborated" | "verified" | "rejected";
+  requires_human_review: boolean;
 };
 export type FieldReportAttachment = {
   id: string;
