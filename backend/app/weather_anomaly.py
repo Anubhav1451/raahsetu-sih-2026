@@ -7,8 +7,22 @@ from datetime import UTC, datetime
 from functools import lru_cache
 from pathlib import Path
 
-MODEL_PATH=Path(__file__).resolve().parents[1]/"data/weather_anomaly_model.json"
-FEATURES=("precipitation_mm_24h","wind_kph","temperature_range_c","humidity_pct")
+def _find_weather_model() -> Path:
+    direct = Path(__file__).resolve().parents[1] / "data/weather_anomaly_model.json"
+    if direct.exists():
+        return direct
+    for fallback in [
+        Path("/app/backend/data/weather_anomaly_model.json"),
+        Path.cwd() / "data/weather_anomaly_model.json",
+        Path.cwd() / "backend/data/weather_anomaly_model.json",
+    ]:
+        if fallback.exists():
+            return fallback
+    return direct
+
+
+MODEL_PATH = _find_weather_model()
+FEATURES = ("precipitation_mm_24h", "wind_kph", "temperature_range_c", "humidity_pct")
 @lru_cache(maxsize=1)
 def load_weather_anomaly_model():
     return json.loads(MODEL_PATH.read_text(encoding="utf-8")) if MODEL_PATH.exists() else None

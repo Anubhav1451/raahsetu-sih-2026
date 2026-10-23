@@ -125,6 +125,15 @@ def load_disruption_model() -> dict[str, Any] | None:
     if _disruption_model_cache is not None:
         return _disruption_model_cache
     path = Path(__file__).resolve().parents[1] / "data" / "disruption_model.json"
+    if not path.exists():
+        for fallback in [
+            Path("/app/backend/data/disruption_model.json"),
+            Path.cwd() / "data" / "disruption_model.json",
+            Path.cwd() / "backend" / "data" / "disruption_model.json",
+        ]:
+            if fallback.exists():
+                path = fallback
+                break
     if path.exists():
         try:
             _disruption_model_cache = json.loads(path.read_text(encoding="utf-8"))

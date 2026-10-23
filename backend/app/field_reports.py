@@ -642,6 +642,11 @@ class InMemoryFieldReportStore:
             raise PermissionError("Report is outside the assigned reviewer region")
 
         root = Path(__file__).resolve().parents[1]
+        if not (root / "data").exists():
+            for fallback in [Path("/app/backend"), Path.cwd(), Path.cwd() / "backend"]:
+                if (fallback / "data").exists():
+                    root = fallback
+                    break
         graph_file = root / "data" / f"{dataset_id}.json"
         if not graph_file.exists():
             graph_file = root / "data" / "osm-northeast.json"

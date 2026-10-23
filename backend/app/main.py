@@ -79,7 +79,24 @@ from .telematics import (
 from .weather import get_all_live_weather, get_station_weather
 from .weather_anomaly import load_weather_anomaly_model
 
-ROOT = Path(__file__).resolve().parents[1]
+def _resolve_root() -> Path:
+    configured = os.getenv("RAAHSETU_ROOT") or os.getenv("APP_ROOT")
+    if configured and Path(configured).exists():
+        return Path(configured).resolve()
+    module_root = Path(__file__).resolve().parents[1]
+    if (module_root / "data" / "demo-network.json").exists():
+        return module_root
+    if Path("/app/backend/data/demo-network.json").exists():
+        return Path("/app/backend")
+    cwd = Path.cwd()
+    if (cwd / "backend" / "data" / "demo-network.json").exists():
+        return cwd / "backend"
+    if (cwd / "data" / "demo-network.json").exists():
+        return cwd
+    return module_root
+
+
+ROOT = _resolve_root()
 logger = logging.getLogger("raahsetu")
 load_dotenv(ROOT.parent / ".env")
 _public_candidates: dict[str, PublicCandidate] = {}
@@ -103,9 +120,12 @@ DEMO_CITY_ALIASES = {
 
 def load_graph() -> RoadGraph:
     configured = os.getenv("DATASET_PATH")
-    path = Path(configured) if configured else ROOT / "data" / "demo-network.json"
-    if not path.is_absolute():
-        path = ROOT.parent / path
+    if configured:
+        path = Path(configured)
+        if not path.is_absolute():
+            path = (ROOT.parent / configured) if (ROOT.parent / configured).exists() else (ROOT / configured)
+    else:
+        path = ROOT / "data" / "demo-network.json"
     return RoadGraph(Dataset.model_validate(json.loads(path.read_text(encoding="utf-8"))))
 
 
