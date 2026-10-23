@@ -31,6 +31,8 @@ idna==3.19
     # via
     #   anyio
     #   httpx
+ijson==3.3.0
+    # via raahsetu-api (backend/pyproject.toml)
 psycopg==3.3.5
     # via raahsetu-api (backend/pyproject.toml)
 psycopg-binary==3.3.5 ; implementation_name != 'pypy'
