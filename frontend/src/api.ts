@@ -37,7 +37,7 @@ export const getPublicCandidates = (token: string, status?: string) =>
 export const reviewPublicCandidate = (token: string, candidateId: string, body: { decision: string; road_segment_id?: string; incident_started_at?: string; incident_ended_at?: string; restriction_effective_at?: string; reopening_effective_at?: string; review_note: string }) =>
   request<PublicCandidate>(`/api/v1/admin/public-candidates/${encodeURIComponent(candidateId)}/review`, { method: "PATCH", headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` }, body: JSON.stringify(body) });
 
-const API = import.meta.env.VITE_API_BASE_URL ?? "";
+const API = (import.meta.env.VITE_API_BASE_URL ?? "").replace(/\/+$/, "");
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const response = await fetch(`${API}${path}`, {
     ...init,
