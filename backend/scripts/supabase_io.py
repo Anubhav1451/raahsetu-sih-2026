@@ -40,7 +40,7 @@ def main():
         raise SystemExit(
             "Set DATABASE_URL in the root .env file; never put it in frontend settings."
         )
-    with psycopg.connect(url, sslmode="require") as conn:
+    with psycopg.connect(url, sslmode=os.getenv("DATABASE_SSLMODE", "require")) as conn:
         conn.execute("set search_path = public, extensions")
         if args.action == "apply-migration":
             if args.path is None:

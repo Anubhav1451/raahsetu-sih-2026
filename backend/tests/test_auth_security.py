@@ -19,9 +19,23 @@ def test_field_official_cannot_review():
     assert error.value.status_code == 403
 
 
+def test_local_demo_auth_is_explicit_and_non_production(monkeypatch):
+    monkeypatch.setenv("ALLOW_DEMO_AUTH", "true")
+    monkeypatch.setenv("APP_ENV", "development")
+    assert require_user("Bearer demo:reviewer").role == "reviewer"
+    assert require_user("Bearer demo:admin").role == "admin"
+
+    monkeypatch.setenv("APP_ENV", "production")
+    monkeypatch.setenv("SUPABASE_URL", "")
+    monkeypatch.setenv("SUPABASE_PUBLISHABLE_KEY", "")
+    with pytest.raises(HTTPException) as error:
+        require_user("Bearer demo:reviewer")
+    assert error.value.status_code == 503
+
+
 def test_region_restriction_and_cors():
     class Store:
-        def list(self, region_code, limit):
+        def list(self, region_code, limit, *args, **kwargs):
             assert region_code == "sikkim"
             return []
 

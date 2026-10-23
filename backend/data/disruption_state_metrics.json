@@ -1,0 +1,215 @@
+{
+  "evaluation_type": "descriptive_sample_metrics_only",
+  "generalization_claim": false,
+  "disclaimer": "State-level metrics are descriptive sample summaries over available localized segments. They do NOT constitute statistical population generalization or certified field accuracy.",
+  "minimum_state_samples_threshold": 25,
+  "minimum_class_samples_threshold": 5,
+  "states": {
+    "arunachal-pradesh": {
+      "state": "arunachal-pradesh",
+      "status": "sufficient_sample_size",
+      "samples": 133,
+      "positives": 62,
+      "negatives": 71,
+      "hard_negatives": 42,
+      "confusion_matrix": {
+        "tp": 55,
+        "fp": 26,
+        "tn": 45,
+        "fn": 7
+      },
+      "accuracy": 0.7519,
+      "accuracy_ci_95": [
+        0.6721,
+        0.8175
+      ],
+      "precision": 0.679,
+      "recall": 0.8871,
+      "f1": 0.7692,
+      "brier_score": 0.1638,
+      "roc_auc": 0.8139,
+      "descriptive_only": true,
+      "eligible_for_standalone_claims": true
+    },
+    "assam": {
+      "state": "assam",
+      "status": "insufficient_data",
+      "samples": 7,
+      "positives": 7,
+      "negatives": 0,
+      "hard_negatives": 0,
+      "insufficient_reason": "State has 7 positive records and 0 negative controls; binary classification metrics are undefined without class diversity.",
+      "confusion_matrix": {
+        "tp": 7,
+        "fp": 0,
+        "tn": 0,
+        "fn": 0
+      },
+      "accuracy": null,
+      "accuracy_ci_95": null,
+      "precision": null,
+      "recall": null,
+      "f1": null,
+      "brier_score": null,
+      "roc_auc": null,
+      "descriptive_only": true,
+      "eligible_for_standalone_claims": false
+    },
+    "manipur": {
+      "state": "manipur",
+      "status": "sufficient_sample_size",
+      "samples": 183,
+      "positives": 89,
+      "negatives": 94,
+      "hard_negatives": 51,
+      "confusion_matrix": {
+        "tp": 74,
+        "fp": 36,
+        "tn": 58,
+        "fn": 15
+      },
+      "accuracy": 0.7213,
+      "accuracy_ci_95": [
+        0.6523,
+        0.7812
+      ],
+      "precision": 0.6727,
+      "recall": 0.8315,
+      "f1": 0.7437,
+      "brier_score": 0.1753,
+      "roc_auc": 0.7833,
+      "descriptive_only": true,
+      "eligible_for_standalone_claims": true
+    },
+    "meghalaya": {
+      "state": "meghalaya",
+      "status": "sufficient_sample_size",
+      "samples": 85,
+      "positives": 40,
+      "negatives": 45,
+      "hard_negatives": 26,
+      "confusion_matrix": {
+        "tp": 27,
+        "fp": 15,
+        "tn": 30,
+        "fn": 13
+      },
+      "accuracy": 0.6706,
+      "accuracy_ci_95": [
+        0.5652,
+        0.7612
+      ],
+      "precision": 0.6429,
+      "recall": 0.675,
+      "f1": 0.6586,
+      "brier_score": 0.1839,
+      "roc_auc": 0.775,
+      "descriptive_only": true,
+      "eligible_for_standalone_claims": true
+    },
+    "mizoram": {
+      "state": "mizoram",
+      "status": "sufficient_sample_size",
+      "samples": 86,
+      "positives": 37,
+      "negatives": 49,
+      "hard_negatives": 32,
+      "confusion_matrix": {
+        "tp": 32,
+        "fp": 17,
+        "tn": 32,
+        "fn": 5
+      },
+      "accuracy": 0.7442,
+      "accuracy_ci_95": [
+        0.6429,
+        0.8246
+      ],
+      "precision": 0.6531,
+      "recall": 0.8649,
+      "f1": 0.7442,
+      "brier_score": 0.1706,
+      "roc_auc": 0.8147,
+      "descriptive_only": true,
+      "eligible_for_standalone_claims": true
+    },
+    "nagaland": {
+      "state": "nagaland",
+      "status": "sufficient_sample_size",
+      "samples": 171,
+      "positives": 81,
+      "negatives": 90,
+      "hard_negatives": 51,
+      "confusion_matrix": {
+        "tp": 68,
+        "fp": 30,
+        "tn": 60,
+        "fn": 13
+      },
+      "accuracy": 0.7485,
+      "accuracy_ci_95": [
+        0.6785,
+        0.8076
+      ],
+      "precision": 0.6939,
+      "recall": 0.8395,
+      "f1": 0.7598,
+      "brier_score": 0.1663,
+      "roc_auc": 0.8056,
+      "descriptive_only": true,
+      "eligible_for_standalone_claims": true
+    },
+    "sikkim": {
+      "state": "sikkim",
+      "status": "sufficient_sample_size",
+      "samples": 110,
+      "positives": 49,
+      "negatives": 61,
+      "hard_negatives": 38,
+      "confusion_matrix": {
+        "tp": 37,
+        "fp": 23,
+        "tn": 38,
+        "fn": 12
+      },
+      "accuracy": 0.6818,
+      "accuracy_ci_95": [
+        0.5899,
+        0.7615
+      ],
+      "precision": 0.6167,
+      "recall": 0.7551,
+      "f1": 0.6789,
+      "brier_score": 0.178,
+      "roc_auc": 0.7899,
+      "descriptive_only": true,
+      "eligible_for_standalone_claims": true
+    },
+    "tripura": {
+      "state": "tripura",
+      "status": "marginal_sample_size",
+      "samples": 19,
+      "positives": 5,
+      "negatives": 14,
+      "hard_negatives": 4,
+      "confusion_matrix": {
+        "tp": 3,
+        "fp": 2,
+        "tn": 12,
+        "fn": 2
+      },
+      "accuracy": 0.7895,
+      "accuracy_ci_95": [
+        0.5667,
+        0.9149
+      ],
+      "precision": 0.6,
+      "recall": 0.6,
+      "f1": 0.6,
+      "brier_score": 0.1251,
+      "roc_auc": 0.9,
+      "descriptive_only": true,
+      "eligible_for_standalone_claims": false
+    }
+  }
+}

@@ -19,6 +19,22 @@ class AuthUser(BaseModel):
 def require_user(authorization: Annotated[str | None, Header()] = None) -> AuthUser:
     if not authorization or not authorization.startswith("Bearer "):
         raise HTTPException(401, detail="Sign in as a field official")
+    token = authorization.removeprefix("Bearer ").strip()
+    # Explicitly local-only demo tokens. Never enable this in production.
+    demo_enabled = os.getenv("ALLOW_DEMO_AUTH", "false").lower() == "true"
+    production = os.getenv("APP_ENV", "development").lower() in {"production", "prod"}
+    if demo_enabled and not production and token.startswith("demo:"):
+        role_key = token.removeprefix("demo:").split(":", 1)[0].lower()
+        role = "admin" if role_key == "admin" else "reviewer" if role_key == "reviewer" else "field_official"
+        return AuthUser(
+            id=f"demo-{role_key}",
+            email=f"{role_key}@demo.local",
+            role=role,
+            # The demo reviewer is deliberately scoped to the seeded Meghalaya
+            # candidates. Production reviewers still come from their provisioned
+            # database profile and never inherit this demo scope.
+            region_code="meghalaya" if role == "reviewer" else None,
+        )
     base_url = os.getenv("SUPABASE_URL")
     api_key = os.getenv("SUPABASE_PUBLISHABLE_KEY")
     if not base_url or not api_key:
@@ -36,8 +52,10 @@ def require_user(authorization: Annotated[str | None, Header()] = None) -> AuthU
     identity = response.json()
     database_url = os.getenv("DATABASE_URL")
     if not database_url:
-        raise HTTPException(503, detail="Role database is not configured")
-    with psycopg.connect(database_url, sslmode="require") as conn:
+        return AuthUser(id=identity["id"], email=identity.get("email"), role="field_official", region_code=None)
+    with psycopg.connect(database_url, sslmode=os.getenv("DATABASE_SSLMODE", "require"),
+                         connect_timeout=int(os.getenv("DB_CONNECT_TIMEOUT_SECONDS", "5")),
+                         options=f"-c statement_timeout={int(os.getenv('DB_STATEMENT_TIMEOUT_MS', '5000'))} -c idle_in_transaction_session_timeout=10000") as conn:
         profile = conn.execute(
             "select role,region_code from profiles where id=%s", (identity["id"],)
         ).fetchone()
@@ -49,4 +67,10 @@ def require_user(authorization: Annotated[str | None, Header()] = None) -> AuthU
 def require_reviewer(user: Annotated[AuthUser, Depends(require_user)]) -> AuthUser:
     if user.role not in {"reviewer", "admin"}:
         raise HTTPException(403, detail="Reviewer role required")
+    return user
+
+
+def require_admin(user: Annotated[AuthUser, Depends(require_user)]) -> AuthUser:
+    if user.role != "admin":
+        raise HTTPException(403, detail="Admin role required")
     return user

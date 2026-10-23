@@ -6,6 +6,10 @@ export type QueuedReport = {
   payload: FieldReportInput;
   evidence?: QueuedEvidence;
   queuedAt: string;
+  attempts?: number;
+  lastAttemptAt?: string;
+  nextAttemptAt?: string;
+  lastError?: string;
 };
 
 const DB_NAME = "raahsetu-offline";
@@ -24,11 +28,27 @@ export async function queueReport(item: QueuedReport): Promise<void> {
   const db = await openDb();
   await new Promise<void>((resolve, reject) => {
     const tx = db.transaction(STORE, "readwrite");
-    tx.objectStore(STORE).put(item);
+    tx.objectStore(STORE).put({ attempts: 0, ...item });
     tx.oncomplete = () => resolve();
     tx.onerror = () => reject(tx.error ?? new Error("Could not queue report"));
   });
   db.close();
+}
+
+export async function markQueuedReportFailure(item: QueuedReport, error: unknown): Promise<void> {
+  const attempts = (item.attempts ?? 0) + 1;
+  const delayMs = Math.min(30 * 60_000, 2 ** Math.min(attempts, 8) * 5_000);
+  await queueReport({
+    ...item,
+    attempts,
+    lastAttemptAt: new Date().toISOString(),
+    nextAttemptAt: new Date(Date.now() + delayMs).toISOString(),
+    lastError: error instanceof Error ? error.message.slice(0, 240) : "Sync failed",
+  });
+}
+
+export function isQueuedReportReady(item: QueuedReport): boolean {
+  return !item.nextAttemptAt || Date.parse(item.nextAttemptAt) <= Date.now();
 }
 
 export async function listQueuedReports(): Promise<QueuedReport[]> {

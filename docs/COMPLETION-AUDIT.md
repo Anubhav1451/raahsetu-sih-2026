@@ -22,7 +22,7 @@ This file separates implemented work from work that needs accounts, restricted d
 | Kubernetes on cloud VMs | Ready for environment configuration | Two-replica manifests, probes, resource limits and ingress example are present; registry, domain, cluster and TLS belong to the team environment |
 | Northeast public data and OSM | Complete for the documented public-source acquisition scope | Eight state OSM extracts and eight validated runtime graph snapshots, 45 terrain tiles, boundaries, 467 historical landslide records, 14,608 weather point-days and road-safety source documents |
 | Verified blackspots on every Northeast road | Blocked by evidence availability and human review | Public coordinate-level coverage for all eight states was not found; unreviewed records are deliberately not mapped as facts |
-| AI/ML claim | Architecture defined; training not yet defensible | Current scoring is rule-based. A labelled target, reviewed road matches and held-out evaluation are required before training or claiming prediction performance |
+| AI/ML claim | Weather anomaly model trained; road-disruption model not yet defensible | Real 2021–2024 weather trains a state-wise anomaly detector with a 2025 temporal holdout. Risk-A* remains rule-based. Labelled, reviewed road outcomes are still required before claiming disruption probability or field safety. |
 | Presentation and six-person execution plan | Complete | Editable 10-slide deck, architecture, evidence boundaries and six ownership tracks |
 | Local reproducible demo | Complete | Synthetic decision scenario plus real Guwahati OSM/elevation view; start/stop/setup scripts included |
 | One versioned corridor comparison | Complete as a provisional pilot | `backend/scripts/build_guwahati_corridor.py` produces `osm-guwahati-corridor-reviewed-v1`; API loads it and returns available fastest/Risk-A* responses |
@@ -31,15 +31,13 @@ This file separates implemented work from work that needs accounts, restricted d
 
 ## Fresh verification result
 
-- Backend tests: 44 passed. Two dependency deprecation warnings do not affect results. Candidate-access and fleet validation cases use mocked or local dependencies; they do not constitute a fresh live Supabase authorization test.
+- Backend tests: 43 passed. Two dependency deprecation warnings do not affect results. Candidate-access and fleet validation cases use mocked or local dependencies; they do not constitute a fresh live Supabase authorization test.
 - Frontend production build: passed after the fleet and alert API foundation changes.
 - Frontend production build: passed after adding the IndexedDB offline report queue and retry flow.
 - Algorithm oracle checks: 300 randomized comparisons passed.
 - Synthetic evaluation: 56 journeys available; 34 had lower modelled exposure at the default preference.
 - Data audit: 61 source downloads and all 45 planned HGT tiles verified; no terrain tile is missing.
 - Frontend: TypeScript and production build passed. The large Three.js bundle produces a performance advisory, not a build failure.
-- Frontend live pass: the map-first redesign rendered at phone, tablet and desktop widths without horizontal overflow. Guwahati OSM place selection recalculated both routes, map perspective controls worked and a clean browser session reported no console errors.
-- PWA and deployment contracts: install icons, public shell caching, private/API cache bypass and Docker/Kubernetes YAML security structure now run in the standard verification command.
 - Local HTTP: frontend and API responded successfully for the prepared runtime.
 - Guwahati corridor pilot: two historical 1 km observations matched to OSM candidate edges at 308.0 m and 26.3 m; versioned snapshot loaded by API and route comparison returned available results.
 - Eight state runtime graphs: every snapshot passed model/reference validation and fastest plus Risk-A* smoke routing; API discovery and bounded on-demand loading were verified with Sikkim.

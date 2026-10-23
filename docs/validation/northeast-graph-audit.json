@@ -1,0 +1,396 @@
+{
+  "audited_at": "2026-09-16T14:21:20.665492+00:00",
+  "scope": "Eight Northeast states; real OSM graph snapshots present in this checkout",
+  "limitations": [
+    "OSM road geometry is a snapshot and requires scheduled refreshes.",
+    "Hazard and weather layers are separate from the road graph and must be freshness-checked.",
+    "A successful route solve proves graph connectivity, not live road availability.",
+    "OSM restriction coverage is incomplete; percentages are reported per graph and strict mode fails closed."
+  ],
+  "graphs": [
+    {
+      "file": "osm-arunachal-pradesh-real.json",
+      "dataset_id": "osm-arunachal-pradesh-real",
+      "region": "Arunachal-Pradesh-Real",
+      "source": "OpenStreetMap contributors / Geofabrik; ODbL 1.0",
+      "is_synthetic": false,
+      "generated_at": "2026-09-14T15:20:12.215611+00:00",
+      "sha256": "2c4bda7a11ddf7c4df367ca189ef81867f8969c270b4e99412fca53c9b54b21c",
+      "dataset_version": "4f3f0069672b",
+      "nodes": 16660,
+      "directed_edges": 37843,
+      "default_origin": "9081163644",
+      "default_destination": "8345500151",
+      "fastest_status": "available",
+      "risk_aware_status": "available",
+      "fastest_distance_km": 1441.687,
+      "risk_aware_distance_km": 1441.687,
+      "fastest_duration_min": 1777.02,
+      "risk_aware_duration_min": 1777.02,
+      "route_compare_ms": 288.88,
+      "restriction_coverage": {
+        "max_weight": {
+          "edges": 0,
+          "pct": 0.0
+        },
+        "max_height": {
+          "edges": 0,
+          "pct": 0.0
+        },
+        "max_width": {
+          "edges": 0,
+          "pct": 0.0
+        },
+        "max_axle_load": {
+          "edges": 0,
+          "pct": 0.0
+        },
+        "hgv_access": {
+          "edges": 0,
+          "pct": 0.0
+        },
+        "road_class": {
+          "edges": 0,
+          "pct": 0.0
+        }
+      },
+      "missing_restriction_policy": "Known limits are enforced. In strict vehicle mode, an edge with missing height/weight/width/axle/HGV evidence is excluded rather than assumed safe."
+    },
+    {
+      "file": "osm-assam-real.json",
+      "dataset_id": "osm-assam-real",
+      "region": "Assam-Real",
+      "source": "OpenStreetMap contributors / Geofabrik; ODbL 1.0",
+      "is_synthetic": false,
+      "generated_at": "2026-09-14T15:29:27.500563+00:00",
+      "sha256": "0d5f721ef3c4ee3d4e1388011cba079470aada1f09000dffebc2faba8d06e836",
+      "dataset_version": "64f50c4e4df6",
+      "nodes": 236724,
+      "directed_edges": 555935,
+      "default_origin": "569366507",
+      "default_destination": "1296580482",
+      "fastest_status": "available",
+      "risk_aware_status": "available",
+      "fastest_distance_km": 790.098,
+      "risk_aware_distance_km": 790.098,
+      "fastest_duration_min": 918.39,
+      "risk_aware_duration_min": 918.39,
+      "route_compare_ms": 2243.18,
+      "restriction_coverage": {
+        "max_weight": {
+          "edges": 0,
+          "pct": 0.0
+        },
+        "max_height": {
+          "edges": 101,
+          "pct": 0.0182
+        },
+        "max_width": {
+          "edges": 0,
+          "pct": 0.0
+        },
+        "max_axle_load": {
+          "edges": 0,
+          "pct": 0.0
+        },
+        "hgv_access": {
+          "edges": 0,
+          "pct": 0.0
+        },
+        "road_class": {
+          "edges": 0,
+          "pct": 0.0
+        }
+      },
+      "missing_restriction_policy": "Known limits are enforced. In strict vehicle mode, an edge with missing height/weight/width/axle/HGV evidence is excluded rather than assumed safe."
+    },
+    {
+      "file": "osm-manipur-real.json",
+      "dataset_id": "osm-manipur-real",
+      "region": "Manipur-Real",
+      "source": "OpenStreetMap contributors / Geofabrik; ODbL 1.0",
+      "is_synthetic": false,
+      "generated_at": "2026-09-14T15:17:58.143290+00:00",
+      "sha256": "aec253417f92a54f02f9df84d13e08c2bd48729cc169f2f2e22c3dac1f7b06ff",
+      "dataset_version": "dc76238a58c5",
+      "nodes": 40611,
+      "directed_edges": 95262,
+      "default_origin": "2455486881",
+      "default_destination": "12778478541",
+      "fastest_status": "available",
+      "risk_aware_status": "available",
+      "fastest_distance_km": 494.687,
+      "risk_aware_distance_km": 494.687,
+      "fastest_duration_min": 572.68,
+      "risk_aware_duration_min": 572.68,
+      "route_compare_ms": 422.56,
+      "restriction_coverage": {
+        "max_weight": {
+          "edges": 0,
+          "pct": 0.0
+        },
+        "max_height": {
+          "edges": 2,
+          "pct": 0.0021
+        },
+        "max_width": {
+          "edges": 0,
+          "pct": 0.0
+        },
+        "max_axle_load": {
+          "edges": 0,
+          "pct": 0.0
+        },
+        "hgv_access": {
+          "edges": 0,
+          "pct": 0.0
+        },
+        "road_class": {
+          "edges": 0,
+          "pct": 0.0
+        }
+      },
+      "missing_restriction_policy": "Known limits are enforced. In strict vehicle mode, an edge with missing height/weight/width/axle/HGV evidence is excluded rather than assumed safe."
+    },
+    {
+      "file": "osm-meghalaya-real.json",
+      "dataset_id": "osm-meghalaya-real",
+      "region": "Meghalaya-Real",
+      "source": "OpenStreetMap contributors / Geofabrik; ODbL 1.0",
+      "is_synthetic": false,
+      "generated_at": "2026-09-14T15:15:23.626815+00:00",
+      "sha256": "9e87166c911177aa68bce24f4aaf36e13085d9c7c639bf2ce9afdda7693a1368",
+      "dataset_version": "fb9bda614899",
+      "nodes": 40030,
+      "directed_edges": 96370,
+      "default_origin": "2623618759",
+      "default_destination": "3878463742",
+      "fastest_status": "available",
+      "risk_aware_status": "available",
+      "fastest_distance_km": 474.242,
+      "risk_aware_distance_km": 474.242,
+      "fastest_duration_min": 848.43,
+      "risk_aware_duration_min": 848.43,
+      "route_compare_ms": 376.61,
+      "restriction_coverage": {
+        "max_weight": {
+          "edges": 0,
+          "pct": 0.0
+        },
+        "max_height": {
+          "edges": 0,
+          "pct": 0.0
+        },
+        "max_width": {
+          "edges": 0,
+          "pct": 0.0
+        },
+        "max_axle_load": {
+          "edges": 0,
+          "pct": 0.0
+        },
+        "hgv_access": {
+          "edges": 0,
+          "pct": 0.0
+        },
+        "road_class": {
+          "edges": 0,
+          "pct": 0.0
+        }
+      },
+      "missing_restriction_policy": "Known limits are enforced. In strict vehicle mode, an edge with missing height/weight/width/axle/HGV evidence is excluded rather than assumed safe."
+    },
+    {
+      "file": "osm-mizoram-real.json",
+      "dataset_id": "osm-mizoram-real",
+      "region": "Mizoram-Real",
+      "source": "OpenStreetMap contributors / Geofabrik; ODbL 1.0",
+      "is_synthetic": false,
+      "generated_at": "2026-09-14T15:09:54.548141+00:00",
+      "sha256": "244718bbd0c1145c0718e108affb22ef2f149f19dc259126239c3d3410f08a18",
+      "dataset_version": "e84e0d2beb32",
+      "nodes": 24148,
+      "directed_edges": 56231,
+      "default_origin": "3173660340",
+      "default_destination": "3692006944",
+      "fastest_status": "available",
+      "risk_aware_status": "available",
+      "fastest_distance_km": 416.917,
+      "risk_aware_distance_km": 416.917,
+      "fastest_duration_min": 535.43,
+      "risk_aware_duration_min": 535.43,
+      "route_compare_ms": 154.4,
+      "restriction_coverage": {
+        "max_weight": {
+          "edges": 0,
+          "pct": 0.0
+        },
+        "max_height": {
+          "edges": 0,
+          "pct": 0.0
+        },
+        "max_width": {
+          "edges": 0,
+          "pct": 0.0
+        },
+        "max_axle_load": {
+          "edges": 0,
+          "pct": 0.0
+        },
+        "hgv_access": {
+          "edges": 0,
+          "pct": 0.0
+        },
+        "road_class": {
+          "edges": 0,
+          "pct": 0.0
+        }
+      },
+      "missing_restriction_policy": "Known limits are enforced. In strict vehicle mode, an edge with missing height/weight/width/axle/HGV evidence is excluded rather than assumed safe."
+    },
+    {
+      "file": "osm-nagaland-real.json",
+      "dataset_id": "osm-nagaland-real",
+      "region": "Nagaland-Real",
+      "source": "OpenStreetMap contributors / Geofabrik; ODbL 1.0",
+      "is_synthetic": false,
+      "generated_at": "2026-09-14T15:12:23.809646+00:00",
+      "sha256": "dc9f833e7465f6a820f54a90929a058985407d586446bf161a7979659845a368",
+      "dataset_version": "a4a43f800d2c",
+      "nodes": 22049,
+      "directed_edges": 51177,
+      "default_origin": "5937530465",
+      "default_destination": "6880492482",
+      "fastest_status": "available",
+      "risk_aware_status": "available",
+      "fastest_distance_km": 475.513,
+      "risk_aware_distance_km": 475.513,
+      "fastest_duration_min": 825.99,
+      "risk_aware_duration_min": 825.99,
+      "route_compare_ms": 224.03,
+      "restriction_coverage": {
+        "max_weight": {
+          "edges": 0,
+          "pct": 0.0
+        },
+        "max_height": {
+          "edges": 0,
+          "pct": 0.0
+        },
+        "max_width": {
+          "edges": 0,
+          "pct": 0.0
+        },
+        "max_axle_load": {
+          "edges": 0,
+          "pct": 0.0
+        },
+        "hgv_access": {
+          "edges": 0,
+          "pct": 0.0
+        },
+        "road_class": {
+          "edges": 0,
+          "pct": 0.0
+        }
+      },
+      "missing_restriction_policy": "Known limits are enforced. In strict vehicle mode, an edge with missing height/weight/width/axle/HGV evidence is excluded rather than assumed safe."
+    },
+    {
+      "file": "osm-sikkim-real.json",
+      "dataset_id": "osm-sikkim-real",
+      "region": "Sikkim-Real",
+      "source": "OpenStreetMap contributors / Geofabrik; ODbL 1.0",
+      "is_synthetic": false,
+      "generated_at": "2026-09-14T13:23:28.239228+00:00",
+      "sha256": "5eb98cde6afcfc99e096b39eaf3c25d8f66174c4e890c28d6111a0e92c4869a9",
+      "dataset_version": "76e3b36cf107",
+      "nodes": 7165,
+      "directed_edges": 15771,
+      "default_origin": "11610289025",
+      "default_destination": "6579408003",
+      "fastest_status": "available",
+      "risk_aware_status": "available",
+      "fastest_distance_km": 221.753,
+      "risk_aware_distance_km": 221.753,
+      "fastest_duration_min": 285.42,
+      "risk_aware_duration_min": 285.42,
+      "route_compare_ms": 66.12,
+      "restriction_coverage": {
+        "max_weight": {
+          "edges": 0,
+          "pct": 0.0
+        },
+        "max_height": {
+          "edges": 0,
+          "pct": 0.0
+        },
+        "max_width": {
+          "edges": 0,
+          "pct": 0.0
+        },
+        "max_axle_load": {
+          "edges": 0,
+          "pct": 0.0
+        },
+        "hgv_access": {
+          "edges": 4,
+          "pct": 0.0254
+        },
+        "road_class": {
+          "edges": 0,
+          "pct": 0.0
+        }
+      },
+      "missing_restriction_policy": "Known limits are enforced. In strict vehicle mode, an edge with missing height/weight/width/axle/HGV evidence is excluded rather than assumed safe."
+    },
+    {
+      "file": "osm-tripura-real.json",
+      "dataset_id": "osm-tripura-real",
+      "region": "Tripura-Real",
+      "source": "OpenStreetMap contributors / Geofabrik; ODbL 1.0",
+      "is_synthetic": false,
+      "generated_at": "2026-09-14T15:06:51.813771+00:00",
+      "sha256": "4bed58b085c37b3cb251635e130740aacfb4f36ab60e3595362a1c1cc336c8c4",
+      "dataset_version": "2b0b4a0bfe05",
+      "nodes": 44544,
+      "directed_edges": 104976,
+      "default_origin": "10564349557",
+      "default_destination": "6001384530",
+      "fastest_status": "available",
+      "risk_aware_status": "available",
+      "fastest_distance_km": 212.932,
+      "risk_aware_distance_km": 212.932,
+      "fastest_duration_min": 250.35,
+      "risk_aware_duration_min": 250.35,
+      "route_compare_ms": 904.3,
+      "restriction_coverage": {
+        "max_weight": {
+          "edges": 0,
+          "pct": 0.0
+        },
+        "max_height": {
+          "edges": 0,
+          "pct": 0.0
+        },
+        "max_width": {
+          "edges": 0,
+          "pct": 0.0
+        },
+        "max_axle_load": {
+          "edges": 0,
+          "pct": 0.0
+        },
+        "hgv_access": {
+          "edges": 0,
+          "pct": 0.0
+        },
+        "road_class": {
+          "edges": 0,
+          "pct": 0.0
+        }
+      },
+      "missing_restriction_policy": "Known limits are enforced. In strict vehicle mode, an edge with missing height/weight/width/axle/HGV evidence is excluded rather than assumed safe."
+    }
+  ]
+}

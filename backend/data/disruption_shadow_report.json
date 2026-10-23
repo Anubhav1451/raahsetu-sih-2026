@@ -1,0 +1,77 @@
+{
+  "status": "evaluated_in_shadow_mode",
+  "production_ready": false,
+  "generated_at": "2026-09-17T09:37:34.253804+00:00",
+  "model_version": "v1.1-audited-grounded",
+  "artifact_hash": "8ea94c5f1b78235faa2dc197838f609be0d529aad9dbdfd4bd145c386acb6cb8",
+  "hash_verified": true,
+  "holdout_samples_evaluated": 200,
+  "holdout_metrics": {
+    "samples": 200,
+    "confusion_matrix": {
+      "tp": 100,
+      "fp": 43,
+      "tn": 39,
+      "fn": 18
+    },
+    "accuracy": 0.695,
+    "precision": 0.6993,
+    "recall": 0.8475,
+    "f1": 0.7663,
+    "brier_score": 0.2161,
+    "roc_auc": 0.6671,
+    "pr_auc": 0.682,
+    "expected_calibration_error": 0.0868,
+    "calibration_curve": [
+      {
+        "bin": "0.0-0.2",
+        "count": 5,
+        "mean_predicted_prob": 0.1692,
+        "observed_fraction_positive": 0.0,
+        "calibration_gap": -0.1692
+      },
+      {
+        "bin": "0.2-0.4",
+        "count": 29,
+        "mean_predicted_prob": 0.3067,
+        "observed_fraction_positive": 0.2759,
+        "calibration_gap": -0.0309
+      },
+      {
+        "bin": "0.4-0.6",
+        "count": 86,
+        "mean_predicted_prob": 0.5362,
+        "observed_fraction_positive": 0.6744,
+        "calibration_gap": 0.1382
+      },
+      {
+        "bin": "0.6-0.8",
+        "count": 74,
+        "mean_predicted_prob": 0.686,
+        "observed_fraction_positive": 0.6486,
+        "calibration_gap": -0.0374
+      },
+      {
+        "bin": "0.8-1.0",
+        "count": 6,
+        "mean_predicted_prob": 0.8265,
+        "observed_fraction_positive": 0.6667,
+        "calibration_gap": -0.1598
+      }
+    ]
+  },
+  "shadow_comparison": {
+    "baseline_model": "Domain-Calibrated Logistic Disruption Baseline",
+    "supervised_model": "Supervised L2-Regularized Calibrated Classifier",
+    "binary_classification_agreement_rate": 0.745,
+    "mean_absolute_probability_delta": 0.2159,
+    "samples_compared": 200
+  },
+  "safety_review": {
+    "shadow_mode_active": true,
+    "production_routing_impact": "None (advisory shadow mode only)",
+    "fallback_policy": "Deterministic Risk-A* and authority road closures govern all live route decisions",
+    "low_confidence_override_permitted": false,
+    "production_ready": false
+  }
+}

@@ -1,0 +1,127 @@
+{
+  "rows": 794,
+  "empirical_count": 370,
+  "empirical_breakdown": {
+    "nasa_glc_historical": 346,
+    "morth_gsi_verified_hazards": 24
+  },
+  "negative_control_count": 424,
+  "negative_control_breakdown": {
+    "constructed_hard_negatives": 244,
+    "constructed_nominal_controls": 180
+  },
+  "review_statuses": {
+    "authority_verified": 370,
+    "monsoon_stress_control": 244,
+    "nominal_baseline_control": 180
+  },
+  "provenance_types": {
+    "official_authority_hazard": 24,
+    "empirical_catalog_geocoded": 346,
+    "constructed_hard_negative": 244,
+    "constructed_nominal_control": 180
+  },
+  "source_prefixes": {
+    "morth": 24,
+    "glc": 346,
+    "corridor": 204,
+    "monsoon": 40,
+    "nominal": 180
+  },
+  "positive_count": 370,
+  "negative_count": 424,
+  "hard_negative_count": 244,
+  "nominal_control_count": 180,
+  "unique_segments": 715,
+  "exact_duplicate_keys": 0,
+  "feature_grounding": {
+    "topography": "30m NASA SRTM HGT raster terrain tiles (N21-N29, E88-E97)",
+    "modern_weather": "ERA5 / Open-Meteo daily reference points (2021-2025)",
+    "historical_weather_proxy": "NASA GLC trigger-bounded precipitation"
+  },
+  "hard_negatives_evaluated": true,
+  "feature_overlap": {
+    "rainfall_overlap": true,
+    "slope_overlap": true
+  },
+  "state_evaluation_governance": {
+    "evaluation_type": "descriptive_sample_metrics_only",
+    "generalization_claim": false,
+    "min_state_samples_required": 25,
+    "min_class_samples_required": 5,
+    "disclaimer": "State-level metrics are descriptive sample summaries over available localized segments. They do NOT constitute statistical population generalization or certified field accuracy.",
+    "state_sample_adequacy": {
+      "arunachal-pradesh": {
+        "samples": 133,
+        "positives": 62,
+        "negatives": 71,
+        "status": "sufficient_sample_size",
+        "reason": "Meets minimum state sample and class diversity thresholds",
+        "eligible_for_standalone_claims": true
+      },
+      "assam": {
+        "samples": 7,
+        "positives": 7,
+        "negatives": 0,
+        "status": "insufficient_data",
+        "reason": "Single-class distribution (7 positives, 0 negatives); binary classification metrics undefined",
+        "eligible_for_standalone_claims": false
+      },
+      "manipur": {
+        "samples": 183,
+        "positives": 89,
+        "negatives": 94,
+        "status": "sufficient_sample_size",
+        "reason": "Meets minimum state sample and class diversity thresholds",
+        "eligible_for_standalone_claims": true
+      },
+      "meghalaya": {
+        "samples": 85,
+        "positives": 40,
+        "negatives": 45,
+        "status": "sufficient_sample_size",
+        "reason": "Meets minimum state sample and class diversity thresholds",
+        "eligible_for_standalone_claims": true
+      },
+      "mizoram": {
+        "samples": 86,
+        "positives": 37,
+        "negatives": 49,
+        "status": "sufficient_sample_size",
+        "reason": "Meets minimum state sample and class diversity thresholds",
+        "eligible_for_standalone_claims": true
+      },
+      "nagaland": {
+        "samples": 171,
+        "positives": 81,
+        "negatives": 90,
+        "status": "sufficient_sample_size",
+        "reason": "Meets minimum state sample and class diversity thresholds",
+        "eligible_for_standalone_claims": true
+      },
+      "sikkim": {
+        "samples": 110,
+        "positives": 49,
+        "negatives": 61,
+        "status": "sufficient_sample_size",
+        "reason": "Meets minimum state sample and class diversity thresholds",
+        "eligible_for_standalone_claims": true
+      },
+      "tripura": {
+        "samples": 19,
+        "positives": 5,
+        "negatives": 14,
+        "status": "marginal_sample_size",
+        "reason": "Sample count 19 is below recommended threshold (25)",
+        "eligible_for_standalone_claims": false
+      }
+    }
+  },
+  "warnings": [
+    "Constructed hard negatives (244) and nominal controls (180) are synthetic/stress controls and NOT physical field inspection observations.",
+    "Assam has only 7 positive records and 0 negative controls; its state-wise binary classification metrics are INSUFFICIENT.",
+    "Supervised model must remain in advisory shadow mode until human safety review and field testing.",
+    "Live vehicle routing continues to be governed by deterministic Risk-A* and authority road closures."
+  ],
+  "production_ready": false
+}

@@ -1,9 +1,12 @@
 {
   "dataset_id": "ner-synthetic-v1",
-  "dataset_version": "461deabc96ee",
+  "dataset_version": "22853da971bc",
+  "benchmark_type": "controlled_synthetic_benchmark",
+  "field_safety_claim": false,
   "journeys": 56,
   "synthetic": true,
-  "meaning": "Controlled route-cost experiment. Not a field safety study.",
+  "meaning": "Controlled in-silico routing-cost experiment over synthetic/curated graph scenarios. Not a field road safety claim.",
+  "disclaimer": "The 56-journey evaluation is an offline algorithmic Pareto trade-off benchmark. It measures simulated exposure index reduction against transit delay in a controlled graph model. It MUST NOT be represented as an empirical claim of real-world accident reduction or field safety improvement.",
   "available": 56,
   "lower_exposure": 34
 }

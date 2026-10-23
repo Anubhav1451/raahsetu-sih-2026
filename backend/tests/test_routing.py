@@ -82,6 +82,46 @@ def test_vehicle_limits_and_parallel_edges(graph):
     assert any(":bridge" in edge for edge in light["edge_ids"])
 
 
+def test_axle_load_and_allowed_vehicle_type_constraints():
+    dataset = Dataset.model_validate(
+        {
+            "id": "constraint-test",
+            "title": "Constraint test",
+            "region": "NER",
+            "source": "test",
+            "generated_at": "2026-01-01T00:00:00Z",
+            "is_synthetic": True,
+            "hazard_source": "test",
+            "limitations": [],
+            "nodes": [
+                {"id": "a", "lon": 91.0, "lat": 26.0},
+                {"id": "b", "lon": 91.01, "lat": 26.0},
+            ],
+            "edges": [
+                {
+                    "id": "bridge", "u": "a", "v": "b",
+                    "name": "Restricted bridge", "length_m": 1000,
+                    "speed_kph": 40,
+                    "geometry": [[91.0, 26.0], [91.01, 26.0]],
+                    "max_axle_load_t": 5,
+                    "allowed_vehicle_types": ["light", "emergency"],
+                }
+            ],
+            "default_origin": "a",
+            "default_destination": "b",
+        }
+    )
+    constrained = RoadGraph(dataset)
+    heavy = RouteRequest(
+        dataset_id="constraint-test",
+        origin={"node_id": "a"}, destination={"node_id": "b"},
+        vehicle="heavy", axle_load_t=7,
+    )
+    assert constrained.compare(heavy)["routes"][0]["status"] == "unreachable"
+    light = heavy.model_copy(update={"vehicle": "light", "axle_load_t": 1.2})
+    assert constrained.compare(light)["routes"][0]["status"] == "available"
+
+
 @pytest.mark.parametrize("weather", ["normal", "heavy_rain"])
 @pytest.mark.parametrize("vehicle", ["heavy", "emergency", "light"])
 def test_custom_astar_matches_independent_dijkstra(graph, weather, vehicle):

@@ -4,3 +4,4 @@
 *.pdf binary
 *.pbf binary
 *.gz binary
+graphify-out/graph.json merge=graphify

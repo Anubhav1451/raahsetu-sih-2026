@@ -31,7 +31,10 @@ class Edge(StrictModel):
     max_height_m: float | None = Field(default=None, gt=0)
     max_weight_t: float | None = Field(default=None, gt=0)
     max_width_m: float | None = Field(default=None, gt=0)
+    max_axle_load_t: float | None = Field(default=None, gt=0)
     hgv_allowed: bool | None = None
+    road_class: str | None = None
+    allowed_vehicle_types: list[Literal["heavy", "emergency", "light"]] | None = None
     evidence: str = "unknown"
     risk_data_known: bool = True
     observed_at: str | None = None
@@ -102,8 +105,11 @@ class RouteRequest(StrictModel):
     vehicle: Literal["heavy", "emergency", "light"] = "heavy"
     risk_aversion: float = Field(default=1.5, ge=0, le=5)
     weather: Literal["normal", "heavy_rain"] = "normal"
+    weather_anomaly_score: float | None = Field(default=None, ge=0, le=1)
     closed_edge_ids: list[str] = Field(default_factory=list, max_length=500)
     strict_vehicle: bool = False
+    cargo_weight_t: float | None = Field(default=None, gt=0, le=100)
+    axle_load_t: float | None = Field(default=None, gt=0, le=30)
 
 
 class FieldReportCreate(StrictModel):
@@ -164,23 +170,26 @@ class FieldReport(StrictModel):
     valid_until: datetime | None
     offline_created_at: datetime | None
     details: dict
-    corroborating_reporters: int = Field(default=0, ge=0)
-    corroborating_reports: int = Field(default=0, ge=0)
-    credibility_status: Literal["pending_evidence", "corroborated", "verified", "rejected"] = "pending_evidence"
-    requires_human_review: bool = True
 
 
 class FieldReportReview(StrictModel):
-    decision: Literal["accepted", "rejected"]
+    decision: Literal["accepted", "rejected", "evidence_requested"]
     review_note: str = Field(min_length=5, max_length=1000)
     dataset_id: str | None = Field(default=None, max_length=100)
     edge_id: str | None = Field(default=None, max_length=200)
+    valid_until: datetime | None = None
 
     @model_validator(mode="after")
     def requires_match_for_acceptance(self):
         if self.decision == "accepted" and (not self.dataset_id or not self.edge_id):
             raise ValueError("Accepted reports require a reviewed dataset and road edge")
         return self
+
+
+class EventUpdate(StrictModel):
+    status: Literal["resolved", "active"] | None = None
+    ends_at: datetime | None = None
+    note: str = Field(min_length=3, max_length=1000)
 
 
 class FieldReportAttachment(StrictModel):
@@ -190,6 +199,36 @@ class FieldReportAttachment(StrictModel):
     mime_type: str
     byte_size: int
     sha256: str
+
+
+class PublicCandidate(StrictModel):
+    candidate_id: str
+    region_code: str
+    road_text: str
+    source_url: str
+    source_type: str
+    published_at: str
+    reported_status: str | None = None
+    review_status: Literal["pending", "needs_location", "needs_time", "needs_second_review", "approved", "rejected", "duplicate", "non_operational"] = "pending"
+    coordinates_verified: bool = False
+    road_segment_id: str | None = None
+    incident_started_at: datetime | None = None
+    incident_ended_at: datetime | None = None
+    restriction_effective_at: datetime | None = None
+    reopening_effective_at: datetime | None = None
+    evidence_note: str = ""
+    reviewer_id: str | None = None
+    review_note: str = ""
+
+
+class PublicCandidateReview(StrictModel):
+    decision: Literal["needs_location", "needs_time", "needs_second_review", "approved", "rejected", "duplicate", "non_operational"]
+    road_segment_id: str | None = None
+    incident_started_at: datetime | None = None
+    incident_ended_at: datetime | None = None
+    restriction_effective_at: datetime | None = None
+    reopening_effective_at: datetime | None = None
+    review_note: str = Field(min_length=5, max_length=2000)
     captured_at: datetime | None = None
 
 
@@ -281,5 +320,5 @@ class ConnectivitySummary(StrictModel):
     active_events: int
     blocked_events: int
     restricted_events: int
-    status: Literal["unknown", "open", "restricted", "blocked"]
+    status: Literal["open", "restricted", "blocked"]
     last_event_at: datetime | None

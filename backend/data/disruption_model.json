@@ -1,0 +1,125 @@
+{
+  "model_id": "road-disruption-supervised-model",
+  "model_name": "Supervised Road Disruption Classifier (Northeast India Grounded)",
+  "model_version": "v1.1-audited-grounded",
+  "trained_at": "2026-09-17T09:37:34.035008+00:00",
+  "algorithm": "Domain-Constrained L2-Regularized Calibrated Logistic Classifier",
+  "features": [
+    "rainfall_mm_24h",
+    "slope_deg",
+    "humidity_pct",
+    "surface_roughness",
+    "wind_kph"
+  ],
+  "standardization": {
+    "means": {
+      "rainfall_mm_24h": 50.9993,
+      "slope_deg": 15.5768,
+      "humidity_pct": 82.1599,
+      "surface_roughness": 0.3462,
+      "wind_kph": 18.0801
+    },
+    "stds": {
+      "rainfall_mm_24h": 37.2832,
+      "slope_deg": 10.4872,
+      "humidity_pct": 10.3005,
+      "surface_roughness": 0.1381,
+      "wind_kph": 7.3461
+    }
+  },
+  "weights": {
+    "rainfall_mm_24h": 1.025,
+    "slope_deg": 0.1588,
+    "humidity_pct": 0.3364,
+    "surface_roughness": 0.0929,
+    "wind_kph": 0.515
+  },
+  "intercept": -0.6852,
+  "split_policy": {
+    "method": "Date-grouped chronological holdout (0% temporal leakage)",
+    "train_samples": 594,
+    "holdout_samples": 200,
+    "train_date_window": {
+      "start": "2007-04-11",
+      "end": "2021-05-11"
+    },
+    "holdout_date_window": {
+      "start": "2016-05-01",
+      "end": "2024-07-15"
+    },
+    "date_leakage_detected": false
+  },
+  "train_metrics": {
+    "accuracy": 0.7391,
+    "precision": 0.657,
+    "recall": 0.8056,
+    "f1": 0.7238,
+    "brier_score": 0.1557,
+    "roc_auc": 0.8288
+  },
+  "holdout_metrics": {
+    "samples": 200,
+    "confusion_matrix": {
+      "tp": 100,
+      "fp": 43,
+      "tn": 39,
+      "fn": 18
+    },
+    "accuracy": 0.695,
+    "precision": 0.6993,
+    "recall": 0.8475,
+    "f1": 0.7663,
+    "brier_score": 0.2161,
+    "roc_auc": 0.6671,
+    "pr_auc": 0.682,
+    "expected_calibration_error": 0.0868,
+    "calibration_curve": [
+      {
+        "bin": "0.0-0.2",
+        "count": 5,
+        "mean_predicted_prob": 0.1692,
+        "observed_fraction_positive": 0.0,
+        "calibration_gap": -0.1692
+      },
+      {
+        "bin": "0.2-0.4",
+        "count": 29,
+        "mean_predicted_prob": 0.3067,
+        "observed_fraction_positive": 0.2759,
+        "calibration_gap": -0.0309
+      },
+      {
+        "bin": "0.4-0.6",
+        "count": 86,
+        "mean_predicted_prob": 0.5362,
+        "observed_fraction_positive": 0.6744,
+        "calibration_gap": 0.1382
+      },
+      {
+        "bin": "0.6-0.8",
+        "count": 74,
+        "mean_predicted_prob": 0.686,
+        "observed_fraction_positive": 0.6486,
+        "calibration_gap": -0.0374
+      },
+      {
+        "bin": "0.8-1.0",
+        "count": 6,
+        "mean_predicted_prob": 0.8265,
+        "observed_fraction_positive": 0.6667,
+        "calibration_gap": -0.1598
+      }
+    ]
+  },
+  "geographic_holdout_metrics": {
+    "holdout_state": "sikkim",
+    "samples": 110,
+    "accuracy": 0.7182,
+    "f1": 0.7256,
+    "roc_auc": 0.7882,
+    "brier_score": 0.1785
+  },
+  "operational_mode": "shadow_mode",
+  "production_ready": false,
+  "safety_guarantee": "Model operates strictly in advisory shadow mode. Deterministic Risk-A* routing and authority-confirmed road closures remain the sole enforcement mechanisms."
+}

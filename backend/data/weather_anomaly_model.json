@@ -1,0 +1,3051 @@
+{
+  "model_version": "weather-anomaly-v2-24e82a1bd0",
+  "model_type": "state-wise seasonal standardized-distance anomaly detector",
+  "trained_at": "2026-09-17T07:51:37.701792+00:00",
+  "training_window": {
+    "start": "2021-01-01",
+    "end": "2024-12-31"
+  },
+  "holdout_window": {
+    "start": "2025-01-01",
+    "end": "2025-12-31"
+  },
+  "source": "datasets/processed/weather/ne-reference-points-daily-2021-2025.csv",
+  "source_sha256": "24e82a1bd02e6fbb51b30a129721393d9a426e1cbd2e859fe3bb56101c038247",
+  "source_date": "2026-09-17",
+  "coverage": "one Open-Meteo reanalysis reference point per Northeast state; not statewide station coverage",
+  "features": [
+    "precipitation_mm_24h",
+    "wind_kph",
+    "temperature_range_c",
+    "humidity_pct"
+  ],
+  "humidity_definition": "daily mean relative humidity at 2 m (%)",
+  "seasonal_baseline": "calendar-month baseline estimated from 2021-2024 training data",
+  "target": "weather anomaly, not road disruption or landslide occurrence",
+  "states": {
+    "arunachal-pradesh": {
+      "sample_count": 1461,
+      "features": [
+        "precipitation_mm_24h",
+        "wind_kph",
+        "temperature_range_c",
+        "humidity_pct"
+      ],
+      "global": {
+        "precipitation_mm_24h": {
+          "mean": 9.776,
+          "std": 17.9789,
+          "p95": 43.8,
+          "p99": 87.7
+        },
+        "wind_kph": {
+          "mean": 10.1024,
+          "std": 3.7273,
+          "p95": 17.9,
+          "p99": 21.9
+        },
+        "temperature_range_c": {
+          "mean": 8.3949,
+          "std": 2.8857,
+          "p95": 12.9,
+          "p99": 14.2
+        },
+        "humidity_pct": {
+          "mean": 78.3368,
+          "std": 9.677,
+          "p95": 92.0,
+          "p99": 94.0
+        }
+      },
+      "seasonal_baseline": {
+        "1": {
+          "precipitation_mm_24h": {
+            "mean": 1.2879,
+            "std": 3.5578,
+            "p95": 9.1,
+            "p99": 16.8
+          },
+          "wind_kph": {
+            "mean": 7.5823,
+            "std": 1.5463,
+            "p95": 10.1,
+            "p99": 11.6
+          },
+          "temperature_range_c": {
+            "mean": 9.8371,
+            "std": 2.5036,
+            "p95": 12.7,
+            "p99": 13.1
+          },
+          "humidity_pct": {
+            "mean": 71.2742,
+            "std": 7.9111,
+            "p95": 86.0,
+            "p99": 91.0
+          }
+        },
+        "2": {
+          "precipitation_mm_24h": {
+            "mean": 4.7823,
+            "std": 9.8117,
+            "p95": 28.6,
+            "p99": 42.4
+          },
+          "wind_kph": {
+            "mean": 9.2018,
+            "std": 2.5346,
+            "p95": 14.3,
+            "p99": 16.9
+          },
+          "temperature_range_c": {
+            "mean": 9.8425,
+            "std": 3.0828,
+            "p95": 13.4,
+            "p99": 14.4
+          },
+          "humidity_pct": {
+            "mean": 73.7257,
+            "std": 8.9643,
+            "p95": 89.0,
+            "p99": 91.0
+          }
+        },
+        "3": {
+          "precipitation_mm_24h": {
+            "mean": 6.6468,
+            "std": 12.2832,
+            "p95": 32.0,
+            "p99": 52.5
+          },
+          "wind_kph": {
+            "mean": 9.9242,
+            "std": 2.7191,
+            "p95": 15.6,
+            "p99": 17.0
+          },
+          "temperature_range_c": {
+            "mean": 10.0944,
+            "std": 3.1666,
+            "p95": 14.6,
+            "p99": 15.5
+          },
+          "humidity_pct": {
+            "mean": 73.2016,
+            "std": 9.979,
+            "p95": 90.0,
+            "p99": 93.0
+          }
+        },
+        "4": {
+          "precipitation_mm_24h": {
+            "mean": 18.3183,
+            "std": 28.4738,
+            "p95": 95.4,
+            "p99": 127.4
+          },
+          "wind_kph": {
+            "mean": 11.5225,
+            "std": 3.156,
+            "p95": 16.9,
+            "p99": 17.9
+          },
+          "temperature_range_c": {
+            "mean": 8.235,
+            "std": 2.5695,
+            "p95": 12.7,
+            "p99": 13.8
+          },
+          "humidity_pct": {
+            "mean": 80.3667,
+            "std": 8.6823,
+            "p95": 93.0,
+            "p99": 95.0
+          }
+        },
+        "5": {
+          "precipitation_mm_24h": {
+            "mean": 17.8839,
+            "std": 25.3665,
+            "p95": 66.3,
+            "p99": 121.3
+          },
+          "wind_kph": {
+            "mean": 11.6121,
+            "std": 3.851,
+            "p95": 19.1,
+            "p99": 23.8
+          },
+          "temperature_range_c": {
+            "mean": 7.5919,
+            "std": 2.3828,
+            "p95": 11.6,
+            "p99": 13.5
+          },
+          "humidity_pct": {
+            "mean": 82.2903,
+            "std": 7.8255,
+            "p95": 94.0,
+            "p99": 96.0
+          }
+        },
+        "6": {
+          "precipitation_mm_24h": {
+            "mean": 25.8075,
+            "std": 25.8247,
+            "p95": 71.5,
+            "p99": 86.0
+          },
+          "wind_kph": {
+            "mean": 11.9142,
+            "std": 4.0156,
+            "p95": 19.3,
+            "p99": 23.2
+          },
+          "temperature_range_c": {
+            "mean": 6.2967,
+            "std": 1.8284,
+            "p95": 9.1,
+            "p99": 10.7
+          },
+          "humidity_pct": {
+            "mean": 86.4833,
+            "std": 5.2883,
+            "p95": 94.0,
+            "p99": 95.0
+          }
+        },
+        "7": {
+          "precipitation_mm_24h": {
+            "mean": 13.9339,
+            "std": 15.0643,
+            "p95": 41.3,
+            "p99": 64.1
+          },
+          "wind_kph": {
+            "mean": 12.3387,
+            "std": 4.5464,
+            "p95": 21.4,
+            "p99": 25.0
+          },
+          "temperature_range_c": {
+            "mean": 6.2815,
+            "std": 1.6033,
+            "p95": 8.7,
+            "p99": 9.4
+          },
+          "humidity_pct": {
+            "mean": 84.7258,
+            "std": 5.3602,
+            "p95": 92.0,
+            "p99": 93.0
+          }
+        },
+        "8": {
+          "precipitation_mm_24h": {
+            "mean": 10.8339,
+            "std": 13.4263,
+            "p95": 41.2,
+            "p99": 48.2
+          },
+          "wind_kph": {
+            "mean": 12.7911,
+            "std": 4.5096,
+            "p95": 20.6,
+            "p99": 22.4
+          },
+          "temperature_range_c": {
+            "mean": 6.0411,
+            "std": 1.7316,
+            "p95": 8.3,
+            "p99": 10.7
+          },
+          "humidity_pct": {
+            "mean": 85.6694,
+            "std": 4.9526,
+            "p95": 93.0,
+            "p99": 95.0
+          }
+        },
+        "9": {
+          "precipitation_mm_24h": {
+            "mean": 7.8533,
+            "std": 13.2183,
+            "p95": 33.9,
+            "p99": 59.4
+          },
+          "wind_kph": {
+            "mean": 9.8533,
+            "std": 3.4042,
+            "p95": 16.4,
+            "p99": 19.8
+          },
+          "temperature_range_c": {
+            "mean": 7.2242,
+            "std": 1.751,
+            "p95": 10.1,
+            "p99": 10.6
+          },
+          "humidity_pct": {
+            "mean": 81.8333,
+            "std": 6.9646,
+            "p95": 92.0,
+            "p99": 93.0
+          }
+        },
+        "10": {
+          "precipitation_mm_24h": {
+            "mean": 8.7073,
+            "std": 14.5291,
+            "p95": 43.8,
+            "p99": 58.4
+          },
+          "wind_kph": {
+            "mean": 9.0581,
+            "std": 3.463,
+            "p95": 17.0,
+            "p99": 20.0
+          },
+          "temperature_range_c": {
+            "mean": 7.8153,
+            "std": 2.5765,
+            "p95": 11.7,
+            "p99": 12.2
+          },
+          "humidity_pct": {
+            "mean": 81.4597,
+            "std": 7.6088,
+            "p95": 92.0,
+            "p99": 93.0
+          }
+        },
+        "11": {
+          "precipitation_mm_24h": {
+            "mean": 0.335,
+            "std": 1.6367,
+            "p95": 1.3,
+            "p99": 10.2
+          },
+          "wind_kph": {
+            "mean": 7.645,
+            "std": 1.557,
+            "p95": 10.9,
+            "p99": 11.9
+          },
+          "temperature_range_c": {
+            "mean": 10.9983,
+            "std": 1.9101,
+            "p95": 13.0,
+            "p99": 13.6
+          },
+          "humidity_pct": {
+            "mean": 69.95,
+            "std": 6.6393,
+            "p95": 80.0,
+            "p99": 85.0
+          }
+        },
+        "12": {
+          "precipitation_mm_24h": {
+            "mean": 0.9048,
+            "std": 4.0104,
+            "p95": 3.1,
+            "p99": 19.6
+          },
+          "wind_kph": {
+            "mean": 7.7226,
+            "std": 1.4141,
+            "p95": 10.2,
+            "p99": 10.9
+          },
+          "temperature_range_c": {
+            "mean": 10.5823,
+            "std": 2.0814,
+            "p95": 12.8,
+            "p99": 13.4
+          },
+          "humidity_pct": {
+            "mean": 68.8226,
+            "std": 7.191,
+            "p95": 82.0,
+            "p99": 90.0
+          }
+        }
+      },
+      "thresholds": {
+        "feature_p95": {
+          "precipitation_mm_24h": 43.8,
+          "wind_kph": 17.9,
+          "temperature_range_c": 12.9,
+          "humidity_pct": 92.0
+        },
+        "feature_p99": {
+          "precipitation_mm_24h": 87.7,
+          "wind_kph": 21.9,
+          "temperature_range_c": 14.2,
+          "humidity_pct": 94.0
+        },
+        "score_p95": 0.6183,
+        "score_p99": 0.7935,
+        "level_cutoffs": {
+          "elevated": 0.55,
+          "extreme": 0.8
+        }
+      }
+    },
+    "assam": {
+      "sample_count": 1461,
+      "features": [
+        "precipitation_mm_24h",
+        "wind_kph",
+        "temperature_range_c",
+        "humidity_pct"
+      ],
+      "global": {
+        "precipitation_mm_24h": {
+          "mean": 6.516,
+          "std": 12.3914,
+          "p95": 30.3,
+          "p99": 58.6
+        },
+        "wind_kph": {
+          "mean": 10.5695,
+          "std": 3.4286,
+          "p95": 16.8,
+          "p99": 22.0
+        },
+        "temperature_range_c": {
+          "mean": 8.9485,
+          "std": 3.1028,
+          "p95": 13.7,
+          "p99": 15.5
+        },
+        "humidity_pct": {
+          "mean": 79.8631,
+          "std": 10.4189,
+          "p95": 92.0,
+          "p99": 95.0
+        }
+      },
+      "seasonal_baseline": {
+        "1": {
+          "precipitation_mm_24h": {
+            "mean": 0.6097,
+            "std": 1.8185,
+            "p95": 3.1,
+            "p99": 11.3
+          },
+          "wind_kph": {
+            "mean": 8.6516,
+            "std": 1.8567,
+            "p95": 11.5,
+            "p99": 15.2
+          },
+          "temperature_range_c": {
+            "mean": 10.8016,
+            "std": 1.865,
+            "p95": 13.0,
+            "p99": 13.6
+          },
+          "humidity_pct": {
+            "mean": 78.7097,
+            "std": 5.3488,
+            "p95": 87.0,
+            "p99": 89.0
+          }
+        },
+        "2": {
+          "precipitation_mm_24h": {
+            "mean": 1.1496,
+            "std": 3.6153,
+            "p95": 4.4,
+            "p99": 19.6
+          },
+          "wind_kph": {
+            "mean": 10.5593,
+            "std": 2.4619,
+            "p95": 14.8,
+            "p99": 20.0
+          },
+          "temperature_range_c": {
+            "mean": 11.2611,
+            "std": 2.1544,
+            "p95": 14.3,
+            "p99": 15.5
+          },
+          "humidity_pct": {
+            "mean": 72.0973,
+            "std": 8.8867,
+            "p95": 85.0,
+            "p99": 91.0
+          }
+        },
+        "3": {
+          "precipitation_mm_24h": {
+            "mean": 1.3516,
+            "std": 3.3715,
+            "p95": 8.2,
+            "p99": 17.3
+          },
+          "wind_kph": {
+            "mean": 12.0653,
+            "std": 3.6002,
+            "p95": 18.5,
+            "p99": 22.3
+          },
+          "temperature_range_c": {
+            "mean": 12.0129,
+            "std": 2.782,
+            "p95": 15.7,
+            "p99": 16.5
+          },
+          "humidity_pct": {
+            "mean": 65.3226,
+            "std": 14.5849,
+            "p95": 88.0,
+            "p99": 93.0
+          }
+        },
+        "4": {
+          "precipitation_mm_24h": {
+            "mean": 3.2225,
+            "std": 6.8079,
+            "p95": 14.4,
+            "p99": 36.9
+          },
+          "wind_kph": {
+            "mean": 13.59,
+            "std": 3.1927,
+            "p95": 18.9,
+            "p99": 20.6
+          },
+          "temperature_range_c": {
+            "mean": 11.0067,
+            "std": 2.7618,
+            "p95": 14.8,
+            "p99": 16.1
+          },
+          "humidity_pct": {
+            "mean": 72.1417,
+            "std": 12.3141,
+            "p95": 90.0,
+            "p99": 94.0
+          }
+        },
+        "5": {
+          "precipitation_mm_24h": {
+            "mean": 9.5113,
+            "std": 13.4999,
+            "p95": 40.9,
+            "p99": 65.3
+          },
+          "wind_kph": {
+            "mean": 13.0306,
+            "std": 4.8028,
+            "p95": 22.3,
+            "p99": 30.2
+          },
+          "temperature_range_c": {
+            "mean": 8.4742,
+            "std": 2.7264,
+            "p95": 13.5,
+            "p99": 16.2
+          },
+          "humidity_pct": {
+            "mean": 80.1694,
+            "std": 9.6551,
+            "p95": 92.0,
+            "p99": 96.0
+          }
+        },
+        "6": {
+          "precipitation_mm_24h": {
+            "mean": 16.5308,
+            "std": 17.37,
+            "p95": 55.2,
+            "p99": 71.5
+          },
+          "wind_kph": {
+            "mean": 10.7192,
+            "std": 2.999,
+            "p95": 16.3,
+            "p99": 17.7
+          },
+          "temperature_range_c": {
+            "mean": 6.0433,
+            "std": 1.8844,
+            "p95": 9.7,
+            "p99": 11.2
+          },
+          "humidity_pct": {
+            "mean": 87.7583,
+            "std": 6.0346,
+            "p95": 95.0,
+            "p99": 96.0
+          }
+        },
+        "7": {
+          "precipitation_mm_24h": {
+            "mean": 15.925,
+            "std": 15.0876,
+            "p95": 40.0,
+            "p99": 57.5
+          },
+          "wind_kph": {
+            "mean": 9.8452,
+            "std": 2.8551,
+            "p95": 15.3,
+            "p99": 16.8
+          },
+          "temperature_range_c": {
+            "mean": 6.1524,
+            "std": 1.5192,
+            "p95": 8.9,
+            "p99": 9.7
+          },
+          "humidity_pct": {
+            "mean": 87.4274,
+            "std": 4.1817,
+            "p95": 93.0,
+            "p99": 94.0
+          }
+        },
+        "8": {
+          "precipitation_mm_24h": {
+            "mean": 14.4895,
+            "std": 16.953,
+            "p95": 45.4,
+            "p99": 86.9
+          },
+          "wind_kph": {
+            "mean": 10.35,
+            "std": 3.4154,
+            "p95": 17.6,
+            "p99": 20.1
+          },
+          "temperature_range_c": {
+            "mean": 5.9524,
+            "std": 1.6259,
+            "p95": 8.5,
+            "p99": 9.8
+          },
+          "humidity_pct": {
+            "mean": 87.379,
+            "std": 4.5518,
+            "p95": 94.0,
+            "p99": 95.0
+          }
+        },
+        "9": {
+          "precipitation_mm_24h": {
+            "mean": 8.325,
+            "std": 14.063,
+            "p95": 27.3,
+            "p99": 39.1
+          },
+          "wind_kph": {
+            "mean": 9.9333,
+            "std": 2.7648,
+            "p95": 15.0,
+            "p99": 16.9
+          },
+          "temperature_range_c": {
+            "mean": 6.7092,
+            "std": 1.6501,
+            "p95": 9.4,
+            "p99": 10.3
+          },
+          "humidity_pct": {
+            "mean": 85.0583,
+            "std": 4.8636,
+            "p95": 91.0,
+            "p99": 93.0
+          }
+        },
+        "10": {
+          "precipitation_mm_24h": {
+            "mean": 6.0032,
+            "std": 10.9324,
+            "p95": 30.0,
+            "p99": 53.6
+          },
+          "wind_kph": {
+            "mean": 10.3129,
+            "std": 3.3724,
+            "p95": 15.7,
+            "p99": 22.3
+          },
+          "temperature_range_c": {
+            "mean": 7.4234,
+            "std": 2.2354,
+            "p95": 10.8,
+            "p99": 11.7
+          },
+          "humidity_pct": {
+            "mean": 85.3468,
+            "std": 5.3007,
+            "p95": 93.0,
+            "p99": 96.0
+          }
+        },
+        "11": {
+          "precipitation_mm_24h": {
+            "mean": 0.3033,
+            "std": 1.2159,
+            "p95": 1.6,
+            "p99": 5.1
+          },
+          "wind_kph": {
+            "mean": 9.3658,
+            "std": 2.2949,
+            "p95": 12.4,
+            "p99": 16.9
+          },
+          "temperature_range_c": {
+            "mean": 10.845,
+            "std": 1.6578,
+            "p95": 13.1,
+            "p99": 14.2
+          },
+          "humidity_pct": {
+            "mean": 77.4333,
+            "std": 4.9762,
+            "p95": 85.0,
+            "p99": 88.0
+          }
+        },
+        "12": {
+          "precipitation_mm_24h": {
+            "mean": 0.3694,
+            "std": 1.0457,
+            "p95": 2.8,
+            "p99": 4.6
+          },
+          "wind_kph": {
+            "mean": 8.4524,
+            "std": 1.8736,
+            "p95": 11.8,
+            "p99": 14.8
+          },
+          "temperature_range_c": {
+            "mean": 10.8669,
+            "std": 1.7798,
+            "p95": 13.3,
+            "p99": 13.7
+          },
+          "humidity_pct": {
+            "mean": 78.9194,
+            "std": 3.8742,
+            "p95": 85.0,
+            "p99": 89.0
+          }
+        }
+      },
+      "thresholds": {
+        "feature_p95": {
+          "precipitation_mm_24h": 30.3,
+          "wind_kph": 16.8,
+          "temperature_range_c": 13.7,
+          "humidity_pct": 92.0
+        },
+        "feature_p99": {
+          "precipitation_mm_24h": 58.6,
+          "wind_kph": 22.0,
+          "temperature_range_c": 15.5,
+          "humidity_pct": 95.0
+        },
+        "score_p95": 0.6222,
+        "score_p99": 0.8299,
+        "level_cutoffs": {
+          "elevated": 0.55,
+          "extreme": 0.8
+        }
+      }
+    },
+    "manipur": {
+      "sample_count": 1461,
+      "features": [
+        "precipitation_mm_24h",
+        "wind_kph",
+        "temperature_range_c",
+        "humidity_pct"
+      ],
+      "global": {
+        "precipitation_mm_24h": {
+          "mean": 3.2155,
+          "std": 7.117,
+          "p95": 17.3,
+          "p99": 35.0
+        },
+        "wind_kph": {
+          "mean": 11.6731,
+          "std": 3.7467,
+          "p95": 18.6,
+          "p99": 21.2
+        },
+        "temperature_range_c": {
+          "mean": 10.7317,
+          "std": 3.7494,
+          "p95": 16.8,
+          "p99": 18.2
+        },
+        "humidity_pct": {
+          "mean": 74.345,
+          "std": 11.603,
+          "p95": 89.0,
+          "p99": 91.0
+        }
+      },
+      "seasonal_baseline": {
+        "1": {
+          "precipitation_mm_24h": {
+            "mean": 0.3621,
+            "std": 1.8233,
+            "p95": 1.6,
+            "p99": 8.4
+          },
+          "wind_kph": {
+            "mean": 10.3435,
+            "std": 2.5553,
+            "p95": 15.6,
+            "p99": 16.3
+          },
+          "temperature_range_c": {
+            "mean": 13.8734,
+            "std": 2.1927,
+            "p95": 16.5,
+            "p99": 17.5
+          },
+          "humidity_pct": {
+            "mean": 69.0645,
+            "std": 7.324,
+            "p95": 82.0,
+            "p99": 88.0
+          }
+        },
+        "2": {
+          "precipitation_mm_24h": {
+            "mean": 0.5814,
+            "std": 2.1257,
+            "p95": 2.5,
+            "p99": 11.1
+          },
+          "wind_kph": {
+            "mean": 13.3478,
+            "std": 3.7761,
+            "p95": 19.2,
+            "p99": 21.2
+          },
+          "temperature_range_c": {
+            "mean": 14.3133,
+            "std": 2.4191,
+            "p95": 17.1,
+            "p99": 17.5
+          },
+          "humidity_pct": {
+            "mean": 64.8584,
+            "std": 8.1522,
+            "p95": 81.0,
+            "p99": 85.0
+          }
+        },
+        "3": {
+          "precipitation_mm_24h": {
+            "mean": 0.9185,
+            "std": 2.7244,
+            "p95": 6.0,
+            "p99": 15.3
+          },
+          "wind_kph": {
+            "mean": 14.7734,
+            "std": 3.3275,
+            "p95": 19.5,
+            "p99": 21.6
+          },
+          "temperature_range_c": {
+            "mean": 14.8766,
+            "std": 3.181,
+            "p95": 18.6,
+            "p99": 19.5
+          },
+          "humidity_pct": {
+            "mean": 60.9919,
+            "std": 12.3377,
+            "p95": 82.0,
+            "p99": 85.0
+          }
+        },
+        "4": {
+          "precipitation_mm_24h": {
+            "mean": 0.7608,
+            "std": 1.517,
+            "p95": 3.5,
+            "p99": 8.4
+          },
+          "wind_kph": {
+            "mean": 16.8742,
+            "std": 3.6261,
+            "p95": 22.2,
+            "p99": 24.3
+          },
+          "temperature_range_c": {
+            "mean": 13.455,
+            "std": 2.5113,
+            "p95": 17.8,
+            "p99": 18.7
+          },
+          "humidity_pct": {
+            "mean": 63.8333,
+            "std": 11.9278,
+            "p95": 81.0,
+            "p99": 82.0
+          }
+        },
+        "5": {
+          "precipitation_mm_24h": {
+            "mean": 4.3355,
+            "std": 9.8177,
+            "p95": 23.3,
+            "p99": 35.7
+          },
+          "wind_kph": {
+            "mean": 13.9484,
+            "std": 3.6014,
+            "p95": 19.9,
+            "p99": 23.6
+          },
+          "temperature_range_c": {
+            "mean": 10.55,
+            "std": 2.906,
+            "p95": 14.9,
+            "p99": 16.0
+          },
+          "humidity_pct": {
+            "mean": 72.9194,
+            "std": 10.0744,
+            "p95": 88.0,
+            "p99": 91.0
+          }
+        },
+        "6": {
+          "precipitation_mm_24h": {
+            "mean": 7.8133,
+            "std": 10.3134,
+            "p95": 29.8,
+            "p99": 50.7
+          },
+          "wind_kph": {
+            "mean": 12.1633,
+            "std": 2.6972,
+            "p95": 16.2,
+            "p99": 18.0
+          },
+          "temperature_range_c": {
+            "mean": 7.5683,
+            "std": 1.9723,
+            "p95": 10.9,
+            "p99": 13.0
+          },
+          "humidity_pct": {
+            "mean": 82.6583,
+            "std": 6.6577,
+            "p95": 91.0,
+            "p99": 93.0
+          }
+        },
+        "7": {
+          "precipitation_mm_24h": {
+            "mean": 8.3427,
+            "std": 10.9006,
+            "p95": 34.0,
+            "p99": 49.0
+          },
+          "wind_kph": {
+            "mean": 10.929,
+            "std": 2.7519,
+            "p95": 15.5,
+            "p99": 17.2
+          },
+          "temperature_range_c": {
+            "mean": 6.9911,
+            "std": 1.5515,
+            "p95": 9.4,
+            "p99": 11.1
+          },
+          "humidity_pct": {
+            "mean": 83.9516,
+            "std": 3.9182,
+            "p95": 90.0,
+            "p99": 92.0
+          }
+        },
+        "8": {
+          "precipitation_mm_24h": {
+            "mean": 6.4306,
+            "std": 8.1528,
+            "p95": 22.6,
+            "p99": 36.7
+          },
+          "wind_kph": {
+            "mean": 10.6839,
+            "std": 2.511,
+            "p95": 15.2,
+            "p99": 16.1
+          },
+          "temperature_range_c": {
+            "mean": 6.5968,
+            "std": 1.5773,
+            "p95": 9.5,
+            "p99": 9.9
+          },
+          "humidity_pct": {
+            "mean": 85.5161,
+            "std": 3.2836,
+            "p95": 91.0,
+            "p99": 92.0
+          }
+        },
+        "9": {
+          "precipitation_mm_24h": {
+            "mean": 4.0133,
+            "std": 5.1728,
+            "p95": 13.6,
+            "p99": 22.5
+          },
+          "wind_kph": {
+            "mean": 9.5642,
+            "std": 2.3828,
+            "p95": 14.1,
+            "p99": 15.5
+          },
+          "temperature_range_c": {
+            "mean": 7.7825,
+            "std": 1.6002,
+            "p95": 10.6,
+            "p99": 11.3
+          },
+          "humidity_pct": {
+            "mean": 83.2833,
+            "std": 4.0706,
+            "p95": 90.0,
+            "p99": 91.0
+          }
+        },
+        "10": {
+          "precipitation_mm_24h": {
+            "mean": 2.8169,
+            "std": 6.0178,
+            "p95": 18.8,
+            "p99": 30.4
+          },
+          "wind_kph": {
+            "mean": 9.7081,
+            "std": 2.4895,
+            "p95": 14.1,
+            "p99": 15.6
+          },
+          "temperature_range_c": {
+            "mean": 8.8508,
+            "std": 2.2526,
+            "p95": 12.8,
+            "p99": 13.1
+          },
+          "humidity_pct": {
+            "mean": 81.5726,
+            "std": 5.5738,
+            "p95": 89.0,
+            "p99": 89.0
+          }
+        },
+        "11": {
+          "precipitation_mm_24h": {
+            "mean": 0.8933,
+            "std": 4.3659,
+            "p95": 3.5,
+            "p99": 12.9
+          },
+          "wind_kph": {
+            "mean": 9.1592,
+            "std": 1.9495,
+            "p95": 13.5,
+            "p99": 16.2
+          },
+          "temperature_range_c": {
+            "mean": 12.1292,
+            "std": 2.366,
+            "p95": 15.6,
+            "p99": 16.4
+          },
+          "humidity_pct": {
+            "mean": 70.3167,
+            "std": 8.6371,
+            "p95": 85.0,
+            "p99": 88.0
+          }
+        },
+        "12": {
+          "precipitation_mm_24h": {
+            "mean": 1.1032,
+            "std": 4.4899,
+            "p95": 3.9,
+            "p99": 24.0
+          },
+          "wind_kph": {
+            "mean": 8.7653,
+            "std": 1.7391,
+            "p95": 11.6,
+            "p99": 14.6
+          },
+          "temperature_range_c": {
+            "mean": 12.0468,
+            "std": 2.6261,
+            "p95": 14.8,
+            "p99": 15.9
+          },
+          "humidity_pct": {
+            "mean": 72.4194,
+            "std": 7.8884,
+            "p95": 89.0,
+            "p99": 91.0
+          }
+        }
+      },
+      "thresholds": {
+        "feature_p95": {
+          "precipitation_mm_24h": 17.3,
+          "wind_kph": 18.6,
+          "temperature_range_c": 16.8,
+          "humidity_pct": 89.0
+        },
+        "feature_p99": {
+          "precipitation_mm_24h": 35.0,
+          "wind_kph": 21.2,
+          "temperature_range_c": 18.2,
+          "humidity_pct": 91.0
+        },
+        "score_p95": 0.597,
+        "score_p99": 0.8011,
+        "level_cutoffs": {
+          "elevated": 0.55,
+          "extreme": 0.8
+        }
+      }
+    },
+    "meghalaya": {
+      "sample_count": 1461,
+      "features": [
+        "precipitation_mm_24h",
+        "wind_kph",
+        "temperature_range_c",
+        "humidity_pct"
+      ],
+      "global": {
+        "precipitation_mm_24h": {
+          "mean": 4.0366,
+          "std": 9.2616,
+          "p95": 17.7,
+          "p99": 50.5
+        },
+        "wind_kph": {
+          "mean": 12.3315,
+          "std": 5.1077,
+          "p95": 22.9,
+          "p99": 28.4
+        },
+        "temperature_range_c": {
+          "mean": 8.2243,
+          "std": 2.7152,
+          "p95": 12.4,
+          "p99": 13.4
+        },
+        "humidity_pct": {
+          "mean": 77.4476,
+          "std": 11.6537,
+          "p95": 92.0,
+          "p99": 94.0
+        }
+      },
+      "seasonal_baseline": {
+        "1": {
+          "precipitation_mm_24h": {
+            "mean": 0.4798,
+            "std": 1.692,
+            "p95": 2.1,
+            "p99": 6.4
+          },
+          "wind_kph": {
+            "mean": 9.496,
+            "std": 2.6246,
+            "p95": 13.9,
+            "p99": 19.5
+          },
+          "temperature_range_c": {
+            "mean": 10.6919,
+            "std": 1.3282,
+            "p95": 12.4,
+            "p99": 14.1
+          },
+          "humidity_pct": {
+            "mean": 71.4839,
+            "std": 8.1225,
+            "p95": 82.0,
+            "p99": 84.0
+          }
+        },
+        "2": {
+          "precipitation_mm_24h": {
+            "mean": 0.8478,
+            "std": 2.3401,
+            "p95": 3.0,
+            "p99": 13.3
+          },
+          "wind_kph": {
+            "mean": 12.6027,
+            "std": 4.7086,
+            "p95": 22.1,
+            "p99": 24.8
+          },
+          "temperature_range_c": {
+            "mean": 10.669,
+            "std": 1.85,
+            "p95": 12.9,
+            "p99": 13.7
+          },
+          "humidity_pct": {
+            "mean": 69.4425,
+            "std": 7.7184,
+            "p95": 81.0,
+            "p99": 86.0
+          }
+        },
+        "3": {
+          "precipitation_mm_24h": {
+            "mean": 1.2282,
+            "std": 2.9067,
+            "p95": 5.3,
+            "p99": 16.5
+          },
+          "wind_kph": {
+            "mean": 13.3282,
+            "std": 4.6719,
+            "p95": 22.9,
+            "p99": 27.0
+          },
+          "temperature_range_c": {
+            "mean": 10.5145,
+            "std": 2.2311,
+            "p95": 13.4,
+            "p99": 14.0
+          },
+          "humidity_pct": {
+            "mean": 64.6613,
+            "std": 11.4313,
+            "p95": 84.0,
+            "p99": 86.0
+          }
+        },
+        "4": {
+          "precipitation_mm_24h": {
+            "mean": 1.6133,
+            "std": 2.6331,
+            "p95": 7.1,
+            "p99": 12.9
+          },
+          "wind_kph": {
+            "mean": 17.89,
+            "std": 5.5116,
+            "p95": 26.9,
+            "p99": 29.2
+          },
+          "temperature_range_c": {
+            "mean": 9.0,
+            "std": 1.9791,
+            "p95": 12.0,
+            "p99": 12.9
+          },
+          "humidity_pct": {
+            "mean": 67.1667,
+            "std": 12.1136,
+            "p95": 85.0,
+            "p99": 89.0
+          }
+        },
+        "5": {
+          "precipitation_mm_24h": {
+            "mean": 5.8137,
+            "std": 11.9083,
+            "p95": 16.5,
+            "p99": 71.6
+          },
+          "wind_kph": {
+            "mean": 14.8565,
+            "std": 6.4226,
+            "p95": 28.1,
+            "p99": 29.7
+          },
+          "temperature_range_c": {
+            "mean": 7.4855,
+            "std": 1.8916,
+            "p95": 10.7,
+            "p99": 12.2
+          },
+          "humidity_pct": {
+            "mean": 79.3226,
+            "std": 8.1107,
+            "p95": 89.0,
+            "p99": 94.0
+          }
+        },
+        "6": {
+          "precipitation_mm_24h": {
+            "mean": 11.1283,
+            "std": 18.2778,
+            "p95": 52.2,
+            "p99": 90.6
+          },
+          "wind_kph": {
+            "mean": 16.1908,
+            "std": 5.3759,
+            "p95": 27.1,
+            "p99": 30.5
+          },
+          "temperature_range_c": {
+            "mean": 5.5733,
+            "std": 1.5128,
+            "p95": 8.4,
+            "p99": 10.6
+          },
+          "humidity_pct": {
+            "mean": 86.4833,
+            "std": 5.6421,
+            "p95": 93.0,
+            "p99": 94.0
+          }
+        },
+        "7": {
+          "precipitation_mm_24h": {
+            "mean": 8.8508,
+            "std": 12.1101,
+            "p95": 32.0,
+            "p99": 63.0
+          },
+          "wind_kph": {
+            "mean": 12.5016,
+            "std": 3.8014,
+            "p95": 19.7,
+            "p99": 23.1
+          },
+          "temperature_range_c": {
+            "mean": 5.729,
+            "std": 1.3355,
+            "p95": 8.0,
+            "p99": 8.7
+          },
+          "humidity_pct": {
+            "mean": 87.5403,
+            "std": 2.8748,
+            "p95": 92.0,
+            "p99": 93.0
+          }
+        },
+        "8": {
+          "precipitation_mm_24h": {
+            "mean": 7.2032,
+            "std": 8.8013,
+            "p95": 21.9,
+            "p99": 50.5
+          },
+          "wind_kph": {
+            "mean": 12.6847,
+            "std": 4.1194,
+            "p95": 19.6,
+            "p99": 21.3
+          },
+          "temperature_range_c": {
+            "mean": 5.4435,
+            "std": 1.557,
+            "p95": 8.1,
+            "p99": 8.8
+          },
+          "humidity_pct": {
+            "mean": 88.1613,
+            "std": 2.9165,
+            "p95": 92.0,
+            "p99": 94.0
+          }
+        },
+        "9": {
+          "precipitation_mm_24h": {
+            "mean": 4.9425,
+            "std": 5.1893,
+            "p95": 15.4,
+            "p99": 19.4
+          },
+          "wind_kph": {
+            "mean": 10.6892,
+            "std": 2.8088,
+            "p95": 15.1,
+            "p99": 18.0
+          },
+          "temperature_range_c": {
+            "mean": 6.3167,
+            "std": 1.3842,
+            "p95": 8.5,
+            "p99": 9.0
+          },
+          "humidity_pct": {
+            "mean": 86.7833,
+            "std": 3.9941,
+            "p95": 92.0,
+            "p99": 94.0
+          }
+        },
+        "10": {
+          "precipitation_mm_24h": {
+            "mean": 5.1105,
+            "std": 10.7094,
+            "p95": 24.9,
+            "p99": 56.8
+          },
+          "wind_kph": {
+            "mean": 10.5024,
+            "std": 4.3618,
+            "p95": 18.3,
+            "p99": 30.7
+          },
+          "temperature_range_c": {
+            "mean": 7.1242,
+            "std": 2.1645,
+            "p95": 10.3,
+            "p99": 11.1
+          },
+          "humidity_pct": {
+            "mean": 83.4032,
+            "std": 6.9176,
+            "p95": 94.0,
+            "p99": 95.0
+          }
+        },
+        "11": {
+          "precipitation_mm_24h": {
+            "mean": 0.42,
+            "std": 2.4225,
+            "p95": 1.6,
+            "p99": 2.6
+          },
+          "wind_kph": {
+            "mean": 8.4942,
+            "std": 2.0366,
+            "p95": 12.0,
+            "p99": 15.1
+          },
+          "temperature_range_c": {
+            "mean": 10.2217,
+            "std": 1.6002,
+            "p95": 12.5,
+            "p99": 13.3
+          },
+          "humidity_pct": {
+            "mean": 72.875,
+            "std": 9.0236,
+            "p95": 84.0,
+            "p99": 87.0
+          }
+        },
+        "12": {
+          "precipitation_mm_24h": {
+            "mean": 0.5815,
+            "std": 2.22,
+            "p95": 2.6,
+            "p99": 6.6
+          },
+          "wind_kph": {
+            "mean": 8.8927,
+            "std": 2.4028,
+            "p95": 12.6,
+            "p99": 17.5
+          },
+          "temperature_range_c": {
+            "mean": 10.0815,
+            "std": 1.8664,
+            "p95": 12.4,
+            "p99": 13.4
+          },
+          "humidity_pct": {
+            "mean": 71.4516,
+            "std": 10.8087,
+            "p95": 87.0,
+            "p99": 93.0
+          }
+        }
+      },
+      "thresholds": {
+        "feature_p95": {
+          "precipitation_mm_24h": 17.7,
+          "wind_kph": 22.9,
+          "temperature_range_c": 12.4,
+          "humidity_pct": 92.0
+        },
+        "feature_p99": {
+          "precipitation_mm_24h": 50.5,
+          "wind_kph": 28.4,
+          "temperature_range_c": 13.4,
+          "humidity_pct": 94.0
+        },
+        "score_p95": 0.5997,
+        "score_p99": 0.8341,
+        "level_cutoffs": {
+          "elevated": 0.55,
+          "extreme": 0.8
+        }
+      }
+    },
+    "mizoram": {
+      "sample_count": 1461,
+      "features": [
+        "precipitation_mm_24h",
+        "wind_kph",
+        "temperature_range_c",
+        "humidity_pct"
+      ],
+      "global": {
+        "precipitation_mm_24h": {
+          "mean": 3.7838,
+          "std": 7.5505,
+          "p95": 16.8,
+          "p99": 35.9
+        },
+        "wind_kph": {
+          "mean": 8.9963,
+          "std": 3.0044,
+          "p95": 14.4,
+          "p99": 18.2
+        },
+        "temperature_range_c": {
+          "mean": 12.1611,
+          "std": 4.4833,
+          "p95": 19.3,
+          "p99": 21.0
+        },
+        "humidity_pct": {
+          "mean": 77.1451,
+          "std": 12.6269,
+          "p95": 93.0,
+          "p99": 97.0
+        }
+      },
+      "seasonal_baseline": {
+        "1": {
+          "precipitation_mm_24h": {
+            "mean": 0.1484,
+            "std": 0.717,
+            "p95": 0.7,
+            "p99": 4.7
+          },
+          "wind_kph": {
+            "mean": 7.779,
+            "std": 1.6014,
+            "p95": 10.5,
+            "p99": 11.5
+          },
+          "temperature_range_c": {
+            "mean": 16.5347,
+            "std": 2.9908,
+            "p95": 20.7,
+            "p99": 22.7
+          },
+          "humidity_pct": {
+            "mean": 69.4758,
+            "std": 6.5678,
+            "p95": 82.0,
+            "p99": 87.0
+          }
+        },
+        "2": {
+          "precipitation_mm_24h": {
+            "mean": 0.5664,
+            "std": 2.8535,
+            "p95": 1.8,
+            "p99": 7.7
+          },
+          "wind_kph": {
+            "mean": 9.6584,
+            "std": 2.2405,
+            "p95": 14.1,
+            "p99": 15.7
+          },
+          "temperature_range_c": {
+            "mean": 17.0097,
+            "std": 2.9534,
+            "p95": 21.0,
+            "p99": 21.7
+          },
+          "humidity_pct": {
+            "mean": 62.5133,
+            "std": 8.6353,
+            "p95": 77.0,
+            "p99": 87.0
+          }
+        },
+        "3": {
+          "precipitation_mm_24h": {
+            "mean": 0.6661,
+            "std": 2.1946,
+            "p95": 4.4,
+            "p99": 9.0
+          },
+          "wind_kph": {
+            "mean": 10.425,
+            "std": 2.4439,
+            "p95": 14.3,
+            "p99": 19.1
+          },
+          "temperature_range_c": {
+            "mean": 16.6339,
+            "std": 3.3604,
+            "p95": 20.9,
+            "p99": 21.8
+          },
+          "humidity_pct": {
+            "mean": 60.4194,
+            "std": 12.6581,
+            "p95": 82.0,
+            "p99": 94.0
+          }
+        },
+        "4": {
+          "precipitation_mm_24h": {
+            "mean": 2.025,
+            "std": 5.0299,
+            "p95": 11.6,
+            "p99": 28.1
+          },
+          "wind_kph": {
+            "mean": 12.1158,
+            "std": 2.6755,
+            "p95": 17.7,
+            "p99": 21.1
+          },
+          "temperature_range_c": {
+            "mean": 14.565,
+            "std": 2.7046,
+            "p95": 18.5,
+            "p99": 19.7
+          },
+          "humidity_pct": {
+            "mean": 66.0833,
+            "std": 11.9322,
+            "p95": 84.0,
+            "p99": 90.0
+          }
+        },
+        "5": {
+          "precipitation_mm_24h": {
+            "mean": 4.6605,
+            "std": 8.5737,
+            "p95": 17.1,
+            "p99": 40.0
+          },
+          "wind_kph": {
+            "mean": 10.3081,
+            "std": 3.1702,
+            "p95": 16.3,
+            "p99": 19.0
+          },
+          "temperature_range_c": {
+            "mean": 11.4419,
+            "std": 2.7262,
+            "p95": 15.1,
+            "p99": 16.7
+          },
+          "humidity_pct": {
+            "mean": 77.1613,
+            "std": 9.3657,
+            "p95": 89.0,
+            "p99": 95.0
+          }
+        },
+        "6": {
+          "precipitation_mm_24h": {
+            "mean": 6.4083,
+            "std": 6.604,
+            "p95": 18.1,
+            "p99": 33.7
+          },
+          "wind_kph": {
+            "mean": 11.1592,
+            "std": 3.2424,
+            "p95": 17.4,
+            "p99": 19.5
+          },
+          "temperature_range_c": {
+            "mean": 8.415,
+            "std": 2.1029,
+            "p95": 11.7,
+            "p99": 12.7
+          },
+          "humidity_pct": {
+            "mean": 84.2083,
+            "std": 6.1737,
+            "p95": 94.0,
+            "p99": 97.0
+          }
+        },
+        "7": {
+          "precipitation_mm_24h": {
+            "mean": 9.9774,
+            "std": 12.7221,
+            "p95": 34.0,
+            "p99": 60.0
+          },
+          "wind_kph": {
+            "mean": 9.5484,
+            "std": 2.9397,
+            "p95": 14.5,
+            "p99": 16.1
+          },
+          "temperature_range_c": {
+            "mean": 8.2927,
+            "std": 2.2039,
+            "p95": 11.3,
+            "p99": 13.7
+          },
+          "humidity_pct": {
+            "mean": 87.0645,
+            "std": 4.561,
+            "p95": 95.0,
+            "p99": 99.0
+          }
+        },
+        "8": {
+          "precipitation_mm_24h": {
+            "mean": 8.2218,
+            "std": 9.3902,
+            "p95": 31.5,
+            "p99": 44.2
+          },
+          "wind_kph": {
+            "mean": 9.0839,
+            "std": 3.0471,
+            "p95": 14.7,
+            "p99": 15.7
+          },
+          "temperature_range_c": {
+            "mean": 7.1702,
+            "std": 2.1704,
+            "p95": 10.4,
+            "p99": 12.3
+          },
+          "humidity_pct": {
+            "mean": 89.1613,
+            "std": 4.3633,
+            "p95": 97.0,
+            "p99": 99.0
+          }
+        },
+        "9": {
+          "precipitation_mm_24h": {
+            "mean": 6.54,
+            "std": 7.0734,
+            "p95": 23.3,
+            "p99": 28.6
+          },
+          "wind_kph": {
+            "mean": 7.0517,
+            "std": 1.7749,
+            "p95": 10.3,
+            "p99": 11.7
+          },
+          "temperature_range_c": {
+            "mean": 8.41,
+            "std": 1.8354,
+            "p95": 11.1,
+            "p99": 11.7
+          },
+          "humidity_pct": {
+            "mean": 89.3833,
+            "std": 3.4957,
+            "p95": 94.0,
+            "p99": 97.0
+          }
+        },
+        "10": {
+          "precipitation_mm_24h": {
+            "mean": 3.6048,
+            "std": 5.8586,
+            "p95": 14.7,
+            "p99": 26.8
+          },
+          "wind_kph": {
+            "mean": 7.1621,
+            "std": 1.9509,
+            "p95": 11.3,
+            "p99": 12.8
+          },
+          "temperature_range_c": {
+            "mean": 9.8976,
+            "std": 2.6887,
+            "p95": 14.4,
+            "p99": 15.1
+          },
+          "humidity_pct": {
+            "mean": 85.6129,
+            "std": 5.9007,
+            "p95": 95.0,
+            "p99": 96.0
+          }
+        },
+        "11": {
+          "precipitation_mm_24h": {
+            "mean": 1.3633,
+            "std": 6.8729,
+            "p95": 4.1,
+            "p99": 28.6
+          },
+          "wind_kph": {
+            "mean": 6.7433,
+            "std": 1.6181,
+            "p95": 9.5,
+            "p99": 11.1
+          },
+          "temperature_range_c": {
+            "mean": 13.7725,
+            "std": 3.2003,
+            "p95": 17.6,
+            "p99": 19.5
+          },
+          "humidity_pct": {
+            "mean": 76.325,
+            "std": 7.2275,
+            "p95": 91.0,
+            "p99": 96.0
+          }
+        },
+        "12": {
+          "precipitation_mm_24h": {
+            "mean": 0.9774,
+            "std": 4.2998,
+            "p95": 3.0,
+            "p99": 25.6
+          },
+          "wind_kph": {
+            "mean": 7.0145,
+            "std": 1.7345,
+            "p95": 10.0,
+            "p99": 11.8
+          },
+          "temperature_range_c": {
+            "mean": 14.1073,
+            "std": 3.8364,
+            "p95": 18.5,
+            "p99": 19.3
+          },
+          "humidity_pct": {
+            "mean": 77.2742,
+            "std": 6.8807,
+            "p95": 92.0,
+            "p99": 98.0
+          }
+        }
+      },
+      "thresholds": {
+        "feature_p95": {
+          "precipitation_mm_24h": 16.8,
+          "wind_kph": 14.4,
+          "temperature_range_c": 19.3,
+          "humidity_pct": 93.0
+        },
+        "feature_p99": {
+          "precipitation_mm_24h": 35.9,
+          "wind_kph": 18.2,
+          "temperature_range_c": 21.0,
+          "humidity_pct": 97.0
+        },
+        "score_p95": 0.6112,
+        "score_p99": 0.7974,
+        "level_cutoffs": {
+          "elevated": 0.55,
+          "extreme": 0.8
+        }
+      }
+    },
+    "nagaland": {
+      "sample_count": 1461,
+      "features": [
+        "precipitation_mm_24h",
+        "wind_kph",
+        "temperature_range_c",
+        "humidity_pct"
+      ],
+      "global": {
+        "precipitation_mm_24h": {
+          "mean": 11.3374,
+          "std": 16.5652,
+          "p95": 46.8,
+          "p99": 67.8
+        },
+        "wind_kph": {
+          "mean": 8.9146,
+          "std": 1.8754,
+          "p95": 11.9,
+          "p99": 13.9
+        },
+        "temperature_range_c": {
+          "mean": 8.9274,
+          "std": 2.5274,
+          "p95": 12.7,
+          "p99": 13.7
+        },
+        "humidity_pct": {
+          "mean": 81.9521,
+          "std": 9.6777,
+          "p95": 93.0,
+          "p99": 96.0
+        }
+      },
+      "seasonal_baseline": {
+        "1": {
+          "precipitation_mm_24h": {
+            "mean": 1.5234,
+            "std": 3.1937,
+            "p95": 8.4,
+            "p99": 14.0
+          },
+          "wind_kph": {
+            "mean": 9.3976,
+            "std": 1.2833,
+            "p95": 11.2,
+            "p99": 11.9
+          },
+          "temperature_range_c": {
+            "mean": 10.4427,
+            "std": 1.4996,
+            "p95": 12.5,
+            "p99": 13.3
+          },
+          "humidity_pct": {
+            "mean": 75.6613,
+            "std": 9.5781,
+            "p95": 89.0,
+            "p99": 91.0
+          }
+        },
+        "2": {
+          "precipitation_mm_24h": {
+            "mean": 2.8814,
+            "std": 5.9072,
+            "p95": 12.0,
+            "p99": 26.1
+          },
+          "wind_kph": {
+            "mean": 9.8478,
+            "std": 1.4988,
+            "p95": 11.9,
+            "p99": 13.3
+          },
+          "temperature_range_c": {
+            "mean": 11.0947,
+            "std": 1.4567,
+            "p95": 13.4,
+            "p99": 13.9
+          },
+          "humidity_pct": {
+            "mean": 75.4248,
+            "std": 9.0845,
+            "p95": 89.0,
+            "p99": 92.0
+          }
+        },
+        "3": {
+          "precipitation_mm_24h": {
+            "mean": 2.6718,
+            "std": 5.4097,
+            "p95": 15.2,
+            "p99": 25.2
+          },
+          "wind_kph": {
+            "mean": 10.1718,
+            "std": 1.7061,
+            "p95": 13.1,
+            "p99": 14.5
+          },
+          "temperature_range_c": {
+            "mean": 11.2927,
+            "std": 1.6467,
+            "p95": 14.0,
+            "p99": 15.2
+          },
+          "humidity_pct": {
+            "mean": 71.8306,
+            "std": 10.0038,
+            "p95": 86.0,
+            "p99": 91.0
+          }
+        },
+        "4": {
+          "precipitation_mm_24h": {
+            "mean": 5.5125,
+            "std": 9.6903,
+            "p95": 20.6,
+            "p99": 30.3
+          },
+          "wind_kph": {
+            "mean": 10.6608,
+            "std": 2.3864,
+            "p95": 14.1,
+            "p99": 17.1
+          },
+          "temperature_range_c": {
+            "mean": 10.7017,
+            "std": 1.8827,
+            "p95": 13.4,
+            "p99": 13.6
+          },
+          "humidity_pct": {
+            "mean": 73.975,
+            "std": 9.1035,
+            "p95": 86.0,
+            "p99": 89.0
+          }
+        },
+        "5": {
+          "precipitation_mm_24h": {
+            "mean": 14.5444,
+            "std": 16.3352,
+            "p95": 41.2,
+            "p99": 59.1
+          },
+          "wind_kph": {
+            "mean": 8.8911,
+            "std": 1.7054,
+            "p95": 12.0,
+            "p99": 15.0
+          },
+          "temperature_range_c": {
+            "mean": 8.5806,
+            "std": 1.9289,
+            "p95": 11.8,
+            "p99": 12.9
+          },
+          "humidity_pct": {
+            "mean": 84.5645,
+            "std": 6.4411,
+            "p95": 92.0,
+            "p99": 95.0
+          }
+        },
+        "6": {
+          "precipitation_mm_24h": {
+            "mean": 27.8983,
+            "std": 20.2393,
+            "p95": 67.8,
+            "p99": 73.1
+          },
+          "wind_kph": {
+            "mean": 7.6642,
+            "std": 1.5065,
+            "p95": 10.1,
+            "p99": 11.6
+          },
+          "temperature_range_c": {
+            "mean": 6.8033,
+            "std": 1.5455,
+            "p95": 9.6,
+            "p99": 10.3
+          },
+          "humidity_pct": {
+            "mean": 89.35,
+            "std": 3.9489,
+            "p95": 94.0,
+            "p99": 96.0
+          }
+        },
+        "7": {
+          "precipitation_mm_24h": {
+            "mean": 29.054,
+            "std": 20.4209,
+            "p95": 63.3,
+            "p99": 67.0
+          },
+          "wind_kph": {
+            "mean": 8.0185,
+            "std": 1.5411,
+            "p95": 10.4,
+            "p99": 11.0
+          },
+          "temperature_range_c": {
+            "mean": 6.5694,
+            "std": 1.6946,
+            "p95": 9.4,
+            "p99": 10.0
+          },
+          "humidity_pct": {
+            "mean": 89.0,
+            "std": 4.3496,
+            "p95": 94.0,
+            "p99": 97.0
+          }
+        },
+        "8": {
+          "precipitation_mm_24h": {
+            "mean": 24.9508,
+            "std": 20.5618,
+            "p95": 62.1,
+            "p99": 98.8
+          },
+          "wind_kph": {
+            "mean": 7.8968,
+            "std": 1.683,
+            "p95": 11.2,
+            "p99": 12.1
+          },
+          "temperature_range_c": {
+            "mean": 6.1484,
+            "std": 1.7707,
+            "p95": 9.4,
+            "p99": 10.0
+          },
+          "humidity_pct": {
+            "mean": 89.8952,
+            "std": 3.9469,
+            "p95": 95.0,
+            "p99": 97.0
+          }
+        },
+        "9": {
+          "precipitation_mm_24h": {
+            "mean": 13.2683,
+            "std": 12.3471,
+            "p95": 38.6,
+            "p99": 48.4
+          },
+          "wind_kph": {
+            "mean": 8.0633,
+            "std": 1.6395,
+            "p95": 11.3,
+            "p99": 13.0
+          },
+          "temperature_range_c": {
+            "mean": 7.215,
+            "std": 1.5411,
+            "p95": 9.8,
+            "p99": 10.9
+          },
+          "humidity_pct": {
+            "mean": 87.125,
+            "std": 5.5566,
+            "p95": 93.0,
+            "p99": 95.0
+          }
+        },
+        "10": {
+          "precipitation_mm_24h": {
+            "mean": 9.7387,
+            "std": 11.9107,
+            "p95": 32.9,
+            "p99": 51.2
+          },
+          "wind_kph": {
+            "mean": 7.8266,
+            "std": 1.4135,
+            "p95": 10.1,
+            "p99": 11.1
+          },
+          "temperature_range_c": {
+            "mean": 7.7371,
+            "std": 1.6776,
+            "p95": 10.4,
+            "p99": 11.1
+          },
+          "humidity_pct": {
+            "mean": 87.75,
+            "std": 5.6777,
+            "p95": 94.0,
+            "p99": 96.0
+          }
+        },
+        "11": {
+          "precipitation_mm_24h": {
+            "mean": 1.5275,
+            "std": 4.9538,
+            "p95": 4.8,
+            "p99": 24.4
+          },
+          "wind_kph": {
+            "mean": 9.2225,
+            "std": 1.2603,
+            "p95": 10.9,
+            "p99": 11.4
+          },
+          "temperature_range_c": {
+            "mean": 10.2467,
+            "std": 1.5894,
+            "p95": 12.5,
+            "p99": 13.1
+          },
+          "humidity_pct": {
+            "mean": 80.2417,
+            "std": 6.8763,
+            "p95": 89.0,
+            "p99": 91.0
+          }
+        },
+        "12": {
+          "precipitation_mm_24h": {
+            "mean": 1.8194,
+            "std": 4.5384,
+            "p95": 12.0,
+            "p99": 22.2
+          },
+          "wind_kph": {
+            "mean": 9.396,
+            "std": 1.3243,
+            "p95": 11.5,
+            "p99": 11.9
+          },
+          "temperature_range_c": {
+            "mean": 10.4645,
+            "std": 2.0133,
+            "p95": 12.8,
+            "p99": 13.5
+          },
+          "humidity_pct": {
+            "mean": 78.121,
+            "std": 8.0828,
+            "p95": 93.0,
+            "p99": 96.0
+          }
+        }
+      },
+      "thresholds": {
+        "feature_p95": {
+          "precipitation_mm_24h": 46.8,
+          "wind_kph": 11.9,
+          "temperature_range_c": 12.7,
+          "humidity_pct": 93.0
+        },
+        "feature_p99": {
+          "precipitation_mm_24h": 67.8,
+          "wind_kph": 13.9,
+          "temperature_range_c": 13.7,
+          "humidity_pct": 96.0
+        },
+        "score_p95": 0.5748,
+        "score_p99": 0.7482,
+        "level_cutoffs": {
+          "elevated": 0.55,
+          "extreme": 0.8
+        }
+      }
+    },
+    "sikkim": {
+      "sample_count": 1461,
+      "features": [
+        "precipitation_mm_24h",
+        "wind_kph",
+        "temperature_range_c",
+        "humidity_pct"
+      ],
+      "global": {
+        "precipitation_mm_24h": {
+          "mean": 11.8375,
+          "std": 20.1833,
+          "p95": 51.8,
+          "p99": 85.3
+        },
+        "wind_kph": {
+          "mean": 6.171,
+          "std": 1.3443,
+          "p95": 8.4,
+          "p99": 9.3
+        },
+        "temperature_range_c": {
+          "mean": 9.631,
+          "std": 3.3087,
+          "p95": 14.5,
+          "p99": 15.8
+        },
+        "humidity_pct": {
+          "mean": 79.6516,
+          "std": 11.5504,
+          "p95": 95.0,
+          "p99": 98.0
+        }
+      },
+      "seasonal_baseline": {
+        "1": {
+          "precipitation_mm_24h": {
+            "mean": 3.7427,
+            "std": 7.8543,
+            "p95": 21.0,
+            "p99": 30.5
+          },
+          "wind_kph": {
+            "mean": 6.954,
+            "std": 0.9726,
+            "p95": 8.6,
+            "p99": 9.2
+          },
+          "temperature_range_c": {
+            "mean": 11.0387,
+            "std": 2.6059,
+            "p95": 14.6,
+            "p99": 16.5
+          },
+          "humidity_pct": {
+            "mean": 73.6855,
+            "std": 11.5761,
+            "p95": 93.0,
+            "p99": 98.0
+          }
+        },
+        "2": {
+          "precipitation_mm_24h": {
+            "mean": 6.8513,
+            "std": 10.6163,
+            "p95": 25.3,
+            "p99": 47.4
+          },
+          "wind_kph": {
+            "mean": 7.2265,
+            "std": 1.4585,
+            "p95": 9.5,
+            "p99": 11.0
+          },
+          "temperature_range_c": {
+            "mean": 11.1655,
+            "std": 2.8016,
+            "p95": 15.0,
+            "p99": 16.4
+          },
+          "humidity_pct": {
+            "mean": 75.8407,
+            "std": 12.8563,
+            "p95": 95.0,
+            "p99": 97.0
+          }
+        },
+        "3": {
+          "precipitation_mm_24h": {
+            "mean": 9.4556,
+            "std": 14.0963,
+            "p95": 38.4,
+            "p99": 58.4
+          },
+          "wind_kph": {
+            "mean": 6.7,
+            "std": 1.0306,
+            "p95": 8.4,
+            "p99": 9.2
+          },
+          "temperature_range_c": {
+            "mean": 11.8661,
+            "std": 2.8667,
+            "p95": 15.8,
+            "p99": 17.0
+          },
+          "humidity_pct": {
+            "mean": 75.3548,
+            "std": 12.0397,
+            "p95": 91.0,
+            "p99": 92.0
+          }
+        },
+        "4": {
+          "precipitation_mm_24h": {
+            "mean": 8.1375,
+            "std": 13.6537,
+            "p95": 41.1,
+            "p99": 52.6
+          },
+          "wind_kph": {
+            "mean": 7.0917,
+            "std": 1.1487,
+            "p95": 8.8,
+            "p99": 9.9
+          },
+          "temperature_range_c": {
+            "mean": 12.13,
+            "std": 2.5457,
+            "p95": 15.2,
+            "p99": 16.4
+          },
+          "humidity_pct": {
+            "mean": 74.35,
+            "std": 10.9876,
+            "p95": 92.0,
+            "p99": 95.0
+          }
+        },
+        "5": {
+          "precipitation_mm_24h": {
+            "mean": 16.6694,
+            "std": 19.6695,
+            "p95": 59.9,
+            "p99": 80.7
+          },
+          "wind_kph": {
+            "mean": 6.4274,
+            "std": 1.2401,
+            "p95": 8.6,
+            "p99": 9.1
+          },
+          "temperature_range_c": {
+            "mean": 10.0056,
+            "std": 2.8551,
+            "p95": 14.3,
+            "p99": 15.3
+          },
+          "humidity_pct": {
+            "mean": 80.5484,
+            "std": 9.4215,
+            "p95": 91.0,
+            "p99": 97.0
+          }
+        },
+        "6": {
+          "precipitation_mm_24h": {
+            "mean": 26.865,
+            "std": 26.9784,
+            "p95": 77.4,
+            "p99": 129.0
+          },
+          "wind_kph": {
+            "mean": 5.8925,
+            "std": 1.1626,
+            "p95": 7.9,
+            "p99": 8.5
+          },
+          "temperature_range_c": {
+            "mean": 7.5375,
+            "std": 2.621,
+            "p95": 12.3,
+            "p99": 13.8
+          },
+          "humidity_pct": {
+            "mean": 88.55,
+            "std": 5.7819,
+            "p95": 96.0,
+            "p99": 98.0
+          }
+        },
+        "7": {
+          "precipitation_mm_24h": {
+            "mean": 20.1065,
+            "std": 20.267,
+            "p95": 68.5,
+            "p99": 89.5
+          },
+          "wind_kph": {
+            "mean": 5.0161,
+            "std": 1.2385,
+            "p95": 7.4,
+            "p99": 7.6
+          },
+          "temperature_range_c": {
+            "mean": 5.9395,
+            "std": 1.9338,
+            "p95": 8.8,
+            "p99": 10.0
+          },
+          "humidity_pct": {
+            "mean": 89.129,
+            "std": 4.9448,
+            "p95": 96.0,
+            "p99": 97.0
+          }
+        },
+        "8": {
+          "precipitation_mm_24h": {
+            "mean": 24.6597,
+            "std": 36.0823,
+            "p95": 83.3,
+            "p99": 172.6
+          },
+          "wind_kph": {
+            "mean": 4.9702,
+            "std": 1.0351,
+            "p95": 6.8,
+            "p99": 7.2
+          },
+          "temperature_range_c": {
+            "mean": 5.9524,
+            "std": 2.1856,
+            "p95": 9.3,
+            "p99": 10.4
+          },
+          "humidity_pct": {
+            "mean": 88.9677,
+            "std": 5.6411,
+            "p95": 96.0,
+            "p99": 98.0
+          }
+        },
+        "9": {
+          "precipitation_mm_24h": {
+            "mean": 11.8675,
+            "std": 19.0232,
+            "p95": 53.8,
+            "p99": 85.3
+          },
+          "wind_kph": {
+            "mean": 5.2175,
+            "std": 1.0602,
+            "p95": 7.1,
+            "p99": 8.3
+          },
+          "temperature_range_c": {
+            "mean": 7.5017,
+            "std": 2.4365,
+            "p95": 11.1,
+            "p99": 11.9
+          },
+          "humidity_pct": {
+            "mean": 84.175,
+            "std": 7.3967,
+            "p95": 96.0,
+            "p99": 99.0
+          }
+        },
+        "10": {
+          "precipitation_mm_24h": {
+            "mean": 9.35,
+            "std": 17.1076,
+            "p95": 34.1,
+            "p99": 82.1
+          },
+          "wind_kph": {
+            "mean": 5.7968,
+            "std": 0.8703,
+            "p95": 7.1,
+            "p99": 7.9
+          },
+          "temperature_range_c": {
+            "mean": 9.8766,
+            "std": 2.9759,
+            "p95": 13.8,
+            "p99": 15.3
+          },
+          "humidity_pct": {
+            "mean": 80.5484,
+            "std": 10.5443,
+            "p95": 93.0,
+            "p99": 98.0
+          }
+        },
+        "11": {
+          "precipitation_mm_24h": {
+            "mean": 2.0108,
+            "std": 4.0926,
+            "p95": 11.1,
+            "p99": 16.4
+          },
+          "wind_kph": {
+            "mean": 6.14,
+            "std": 1.0009,
+            "p95": 7.6,
+            "p99": 8.7
+          },
+          "temperature_range_c": {
+            "mean": 11.2125,
+            "std": 1.6273,
+            "p95": 13.3,
+            "p99": 14.5
+          },
+          "humidity_pct": {
+            "mean": 73.0917,
+            "std": 9.7553,
+            "p95": 89.0,
+            "p99": 92.0
+          }
+        },
+        "12": {
+          "precipitation_mm_24h": {
+            "mean": 1.9411,
+            "std": 3.7123,
+            "p95": 10.0,
+            "p99": 16.0
+          },
+          "wind_kph": {
+            "mean": 6.7024,
+            "std": 0.9244,
+            "p95": 8.3,
+            "p99": 9.1
+          },
+          "temperature_range_c": {
+            "mean": 11.4774,
+            "std": 1.7577,
+            "p95": 13.8,
+            "p99": 14.8
+          },
+          "humidity_pct": {
+            "mean": 71.2903,
+            "std": 10.5439,
+            "p95": 89.0,
+            "p99": 94.0
+          }
+        }
+      },
+      "thresholds": {
+        "feature_p95": {
+          "precipitation_mm_24h": 51.8,
+          "wind_kph": 8.4,
+          "temperature_range_c": 14.5,
+          "humidity_pct": 95.0
+        },
+        "feature_p99": {
+          "precipitation_mm_24h": 85.3,
+          "wind_kph": 9.3,
+          "temperature_range_c": 15.8,
+          "humidity_pct": 98.0
+        },
+        "score_p95": 0.6263,
+        "score_p99": 0.7644,
+        "level_cutoffs": {
+          "elevated": 0.55,
+          "extreme": 0.8
+        }
+      }
+    },
+    "tripura": {
+      "sample_count": 1461,
+      "features": [
+        "precipitation_mm_24h",
+        "wind_kph",
+        "temperature_range_c",
+        "humidity_pct"
+      ],
+      "global": {
+        "precipitation_mm_24h": {
+          "mean": 4.6357,
+          "std": 9.7259,
+          "p95": 20.4,
+          "p99": 44.5
+        },
+        "wind_kph": {
+          "mean": 12.9901,
+          "std": 4.9398,
+          "p95": 22.1,
+          "p99": 26.8
+        },
+        "temperature_range_c": {
+          "mean": 9.3253,
+          "std": 3.1772,
+          "p95": 14.4,
+          "p99": 15.6
+        },
+        "humidity_pct": {
+          "mean": 77.9932,
+          "std": 9.4935,
+          "p95": 90.0,
+          "p99": 93.0
+        }
+      },
+      "seasonal_baseline": {
+        "1": {
+          "precipitation_mm_24h": {
+            "mean": 0.1742,
+            "std": 0.7688,
+            "p95": 0.6,
+            "p99": 4.4
+          },
+          "wind_kph": {
+            "mean": 9.4605,
+            "std": 1.2699,
+            "p95": 11.1,
+            "p99": 13.9
+          },
+          "temperature_range_c": {
+            "mean": 11.9605,
+            "std": 1.5105,
+            "p95": 14.3,
+            "p99": 14.7
+          },
+          "humidity_pct": {
+            "mean": 78.5968,
+            "std": 5.9662,
+            "p95": 89.0,
+            "p99": 91.0
+          }
+        },
+        "2": {
+          "precipitation_mm_24h": {
+            "mean": 0.4841,
+            "std": 1.6474,
+            "p95": 2.4,
+            "p99": 7.8
+          },
+          "wind_kph": {
+            "mean": 11.1425,
+            "std": 2.5996,
+            "p95": 16.6,
+            "p99": 20.1
+          },
+          "temperature_range_c": {
+            "mean": 12.5814,
+            "std": 1.9855,
+            "p95": 15.2,
+            "p99": 15.5
+          },
+          "humidity_pct": {
+            "mean": 69.0619,
+            "std": 7.8979,
+            "p95": 80.0,
+            "p99": 90.0
+          }
+        },
+        "3": {
+          "precipitation_mm_24h": {
+            "mean": 2.1613,
+            "std": 4.991,
+            "p95": 13.3,
+            "p99": 24.4
+          },
+          "wind_kph": {
+            "mean": 12.9629,
+            "std": 3.7156,
+            "p95": 21.0,
+            "p99": 26.4
+          },
+          "temperature_range_c": {
+            "mean": 12.6508,
+            "std": 2.6099,
+            "p95": 16.5,
+            "p99": 17.0
+          },
+          "humidity_pct": {
+            "mean": 65.3387,
+            "std": 12.5659,
+            "p95": 86.0,
+            "p99": 88.0
+          }
+        },
+        "4": {
+          "precipitation_mm_24h": {
+            "mean": 3.5108,
+            "std": 8.1989,
+            "p95": 16.8,
+            "p99": 44.6
+          },
+          "wind_kph": {
+            "mean": 15.82,
+            "std": 4.7379,
+            "p95": 22.6,
+            "p99": 27.7
+          },
+          "temperature_range_c": {
+            "mean": 10.9833,
+            "std": 2.1331,
+            "p95": 14.8,
+            "p99": 15.6
+          },
+          "humidity_pct": {
+            "mean": 70.9833,
+            "std": 8.9443,
+            "p95": 83.0,
+            "p99": 90.0
+          }
+        },
+        "5": {
+          "precipitation_mm_24h": {
+            "mean": 6.85,
+            "std": 15.2273,
+            "p95": 23.3,
+            "p99": 80.6
+          },
+          "wind_kph": {
+            "mean": 14.8185,
+            "std": 6.1974,
+            "p95": 24.7,
+            "p99": 43.6
+          },
+          "temperature_range_c": {
+            "mean": 8.6774,
+            "std": 1.9822,
+            "p95": 11.5,
+            "p99": 13.7
+          },
+          "humidity_pct": {
+            "mean": 77.4274,
+            "std": 7.4207,
+            "p95": 87.0,
+            "p99": 89.0
+          }
+        },
+        "6": {
+          "precipitation_mm_24h": {
+            "mean": 9.0467,
+            "std": 9.9425,
+            "p95": 25.4,
+            "p99": 50.1
+          },
+          "wind_kph": {
+            "mean": 18.0558,
+            "std": 4.3633,
+            "p95": 26.0,
+            "p99": 28.9
+          },
+          "temperature_range_c": {
+            "mean": 6.0758,
+            "std": 1.4461,
+            "p95": 8.4,
+            "p99": 10.0
+          },
+          "humidity_pct": {
+            "mean": 84.95,
+            "std": 4.7361,
+            "p95": 92.0,
+            "p99": 93.0
+          }
+        },
+        "7": {
+          "precipitation_mm_24h": {
+            "mean": 6.454,
+            "std": 7.9462,
+            "p95": 20.8,
+            "p99": 43.7
+          },
+          "wind_kph": {
+            "mean": 16.0,
+            "std": 4.2607,
+            "p95": 23.2,
+            "p99": 25.6
+          },
+          "temperature_range_c": {
+            "mean": 6.3903,
+            "std": 1.5165,
+            "p95": 8.8,
+            "p99": 9.6
+          },
+          "humidity_pct": {
+            "mean": 83.1371,
+            "std": 4.5229,
+            "p95": 91.0,
+            "p99": 94.0
+          }
+        },
+        "8": {
+          "precipitation_mm_24h": {
+            "mean": 9.4468,
+            "std": 12.5458,
+            "p95": 40.2,
+            "p99": 59.6
+          },
+          "wind_kph": {
+            "mean": 15.8113,
+            "std": 4.5572,
+            "p95": 24.4,
+            "p99": 27.4
+          },
+          "temperature_range_c": {
+            "mean": 6.021,
+            "std": 1.6774,
+            "p95": 8.4,
+            "p99": 9.2
+          },
+          "humidity_pct": {
+            "mean": 85.5726,
+            "std": 4.8396,
+            "p95": 94.0,
+            "p99": 95.0
+          }
+        },
+        "9": {
+          "precipitation_mm_24h": {
+            "mean": 9.605,
+            "std": 10.7657,
+            "p95": 31.4,
+            "p99": 51.7
+          },
+          "wind_kph": {
+            "mean": 12.5875,
+            "std": 3.8093,
+            "p95": 18.9,
+            "p99": 24.3
+          },
+          "temperature_range_c": {
+            "mean": 6.805,
+            "std": 1.4385,
+            "p95": 8.8,
+            "p99": 9.4
+          },
+          "humidity_pct": {
+            "mean": 85.3917,
+            "std": 3.1604,
+            "p95": 91.0,
+            "p99": 93.0
+          }
+        },
+        "10": {
+          "precipitation_mm_24h": {
+            "mean": 5.2234,
+            "std": 9.6165,
+            "p95": 22.3,
+            "p99": 44.1
+          },
+          "wind_kph": {
+            "mean": 11.0024,
+            "std": 5.0655,
+            "p95": 18.0,
+            "p99": 37.2
+          },
+          "temperature_range_c": {
+            "mean": 7.8032,
+            "std": 2.0271,
+            "p95": 11.1,
+            "p99": 11.9
+          },
+          "humidity_pct": {
+            "mean": 83.2581,
+            "std": 5.5298,
+            "p95": 92.0,
+            "p99": 93.0
+          }
+        },
+        "11": {
+          "precipitation_mm_24h": {
+            "mean": 0.9183,
+            "std": 6.7876,
+            "p95": 0.6,
+            "p99": 12.3
+          },
+          "wind_kph": {
+            "mean": 8.9775,
+            "std": 2.0703,
+            "p95": 11.1,
+            "p99": 13.0
+          },
+          "temperature_range_c": {
+            "mean": 10.9325,
+            "std": 1.9209,
+            "p95": 13.4,
+            "p99": 14.5
+          },
+          "humidity_pct": {
+            "mean": 74.825,
+            "std": 5.3365,
+            "p95": 82.0,
+            "p99": 86.0
+          }
+        },
+        "12": {
+          "precipitation_mm_24h": {
+            "mean": 1.5323,
+            "std": 9.1542,
+            "p95": 1.0,
+            "p99": 44.5
+          },
+          "wind_kph": {
+            "mean": 9.1903,
+            "std": 1.3999,
+            "p95": 11.5,
+            "p99": 14.5
+          },
+          "temperature_range_c": {
+            "mean": 11.2298,
+            "std": 2.4524,
+            "p95": 13.8,
+            "p99": 14.8
+          },
+          "humidity_pct": {
+            "mean": 76.7177,
+            "std": 6.469,
+            "p95": 88.0,
+            "p99": 93.0
+          }
+        }
+      },
+      "thresholds": {
+        "feature_p95": {
+          "precipitation_mm_24h": 20.4,
+          "wind_kph": 22.1,
+          "temperature_range_c": 14.4,
+          "humidity_pct": 90.0
+        },
+        "feature_p99": {
+          "precipitation_mm_24h": 44.5,
+          "wind_kph": 26.8,
+          "temperature_range_c": 15.6,
+          "humidity_pct": 93.0
+        },
+        "score_p95": 0.6067,
+        "score_p99": 0.8458,
+        "level_cutoffs": {
+          "elevated": 0.55,
+          "extreme": 0.8
+        }
+      }
+    }
+  },
+  "holdout_evaluation": {
+    "arunachal-pradesh": {
+      "days": 365,
+      "mean_score": 0.3473,
+      "max_score": 0.9149,
+      "flagged_score_days": 18,
+      "flag_rate_pct": 4.93,
+      "evaluation_type": "2025 temporal holdout; anomaly stability only, no disruption labels"
+    },
+    "assam": {
+      "days": 365,
+      "mean_score": 0.3092,
+      "max_score": 0.999,
+      "flagged_score_days": 13,
+      "flag_rate_pct": 3.56,
+      "evaluation_type": "2025 temporal holdout; anomaly stability only, no disruption labels"
+    },
+    "manipur": {
+      "days": 365,
+      "mean_score": 0.2929,
+      "max_score": 0.9312,
+      "flagged_score_days": 21,
+      "flag_rate_pct": 5.75,
+      "evaluation_type": "2025 temporal holdout; anomaly stability only, no disruption labels"
+    },
+    "meghalaya": {
+      "days": 365,
+      "mean_score": 0.3141,
+      "max_score": 0.9932,
+      "flagged_score_days": 24,
+      "flag_rate_pct": 6.58,
+      "evaluation_type": "2025 temporal holdout; anomaly stability only, no disruption labels"
+    },
+    "mizoram": {
+      "days": 365,
+      "mean_score": 0.3131,
+      "max_score": 0.965,
+      "flagged_score_days": 18,
+      "flag_rate_pct": 4.93,
+      "evaluation_type": "2025 temporal holdout; anomaly stability only, no disruption labels"
+    },
+    "nagaland": {
+      "days": 365,
+      "mean_score": 0.3443,
+      "max_score": 0.8664,
+      "flagged_score_days": 40,
+      "flag_rate_pct": 10.96,
+      "evaluation_type": "2025 temporal holdout; anomaly stability only, no disruption labels"
+    },
+    "sikkim": {
+      "days": 365,
+      "mean_score": 0.3343,
+      "max_score": 0.8438,
+      "flagged_score_days": 32,
+      "flag_rate_pct": 8.77,
+      "evaluation_type": "2025 temporal holdout; anomaly stability only, no disruption labels"
+    },
+    "tripura": {
+      "days": 365,
+      "mean_score": 0.2959,
+      "max_score": 0.889,
+      "flagged_score_days": 21,
+      "flag_rate_pct": 5.75,
+      "evaluation_type": "2025 temporal holdout; anomaly stability only, no disruption labels"
+    }
+  },
+  "limitations": [
+    "No road-disruption labels are available for supervised calibration.",
+    "Anomaly is advisory and cannot close a road.",
+    "Reference-point reanalysis is not a replacement for field gauges."
+  ]
+}

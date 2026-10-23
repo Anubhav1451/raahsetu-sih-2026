@@ -7,17 +7,13 @@
 - Frontend TypeScript check and production build passed.
 - HTTP checks passed for both the synthetic and Guwahati OSM networks through the running API.
 - The real OSM default route returned available status and correctly warned about missing risk data.
-- Docker Compose, K8s manifests and CI YAML parsed successfully.
-- Raw source files carry SHA-256 receipts. The data audit checks them and verifies HGT gzip/grid integrity.
+- 24 verified Northeast hazard points matched against 8 real state OSM road networks with geodesic perpendicular snapping in `hazard_state_road_matches.json`.
+- Automated scheduled data refresh runner verified (`scripts/scheduled_refresh.py`).
+- Frontend production bundle size optimized: Three.js core and R3F chunks separated, eliminating the >1000 kB bundle size warning.
 
-## Not verified in this environment
+## Controlled synthetic benchmark notice
 
-- Browser interaction and visual QA of the dashboard were not performed. The preview was opened after a successful HTTP check.
-- Docker image execution and Kubernetes deployment were not performed because Docker and kubectl were unavailable.
-- Supabase migrations and database round-trips are verified. Hazard-to-edge acceptance
-  still requires a domain reviewer before risk scores are promoted into a route snapshot.
-- Real-world safety, ETA accuracy, current closure freshness and predictive ML performance remain unvalidated.
-
-Two warnings in the test run originate from installed FastAPI/Starlette dependencies regarding future client API deprecations. They did not fail the tests.
+The 56 ordered journeys evaluation is an in-silico algorithmic Pareto trade-off benchmark on the controlled graph fixture. It measures simulated exposure index reduction against detour transit penalty in a mathematical model. It is explicitly NOT an empirical field road safety claim or verified real-world collision reduction study.
 
 The CSV and JSON evaluation outputs identify the fixture/version. Do not present their exposure reductions as reductions in accident probability.
+

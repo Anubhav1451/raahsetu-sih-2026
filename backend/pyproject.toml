@@ -15,10 +15,12 @@ dependencies = [
   "httpx>=0.28,<1",
   "python-multipart>=0.0.20,<1",
   "psycopg[binary]>=3.2,<4",
+  "ijson>=3.3,<4",
 ]
 
 [project.optional-dependencies]
 data = ["osmnx>=2.0,<3", "osmium>=4,<5", "scipy>=1.15,<2", "pypdf>=6,<7"]
+cache = ["redis>=5,<7"]
 dev = ["pytest>=8,<10", "httpx>=0.28,<1", "ruff>=0.11,<1", "networkx>=3.4,<4", "pyyaml>=6,<7"]
 
 [tool.setuptools.packages.find]

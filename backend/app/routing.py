@@ -8,7 +8,9 @@ import math
 import time
 from dataclasses import dataclass
 
+from .ml_prediction import predict_disruption
 from .models import Dataset, Edge, Endpoint, RouteRequest
+from .route_geometry import assemble_geometry
 
 
 def distance_m(lon1: float, lat1: float, lon2: float, lat2: float) -> float:
@@ -24,6 +26,7 @@ VEHICLES = {
         "height_m": 4.0,
         "weight_t": 18.0,
         "width_m": 2.5,
+        "axle_load_t": 7.5,
         "speed_kph": 60,
     },
     "emergency": {
@@ -31,6 +34,7 @@ VEHICLES = {
         "height_m": 2.8,
         "weight_t": 3.5,
         "width_m": 2.1,
+        "axle_load_t": 1.8,
         "speed_kph": 70,
     },
     "light": {
@@ -38,6 +42,7 @@ VEHICLES = {
         "height_m": 2.2,
         "weight_t": 2.5,
         "width_m": 1.9,
+        "axle_load_t": 1.3,
         "speed_kph": 70,
     },
 }
@@ -72,13 +77,15 @@ class RoadGraph:
         # Triangle inequality gives a consistent heuristic even if imported lengths are rounded.
         self.seconds_per_metre = min(lower_bounds, default=0) * (1 - 1e-12)
         # A dataset version identifies graph content, independent of JSON/DB row order.
-        canonical = dataset.model_dump(mode="json")
-        canonical["nodes"] = sorted(canonical["nodes"], key=lambda node: node["id"])
-        canonical["edges"] = sorted(canonical["edges"], key=lambda edge: edge["id"])
-        canonical_json = json.dumps(
-            self._normalise_version_values(canonical), sort_keys=True, separators=(",", ":")
-        )
-        self.version = hashlib.sha256(canonical_json.encode()).hexdigest()[:12]
+        digest = hashlib.sha256()
+        def add_version(value):
+            digest.update(json.dumps(self._normalise_version_values(value),
+                                     sort_keys=True, separators=(",", ":")).encode())
+        add_version(dataset.model_dump(mode="json", exclude={"nodes", "edges"}))
+        for collection in (dataset.nodes, dataset.edges):
+            for item in sorted(collection, key=lambda item: item.id):
+                add_version(item.model_dump(mode="json"))
+        self.version = digest.hexdigest()[:12]
 
     @staticmethod
     def _normalise_version_values(value):
@@ -118,15 +125,25 @@ class RoadGraph:
         return node_id, round(distance, 1)
 
     @staticmethod
-    def risk(edge: Edge, weather: str) -> float:
+    def risk(edge: Edge, weather: str, weather_anomaly_score: float | None = None) -> float:
         weather_score = edge.weather_score
         if weather == "heavy_rain":
             weather_score = min(1, weather_score + 0.8 * edge.flood_susceptibility)
+        if weather_anomaly_score is not None:
+            weather_score = min(1, weather_score + 0.25 * weather_anomaly_score)
         return 0.5 * edge.accident_score + 0.3 * edge.surface_score + 0.2 * weather_score
 
     @staticmethod
     def missing_restrictions(edge: Edge, vehicle: str) -> bool:
-        return any(v is None for v in (edge.max_height_m, edge.max_weight_t, edge.max_width_m)) or (
+        return any(
+            v is None
+            for v in (
+                edge.max_height_m,
+                edge.max_weight_t,
+                edge.max_width_m,
+                edge.max_axle_load_t,
+            )
+        ) or (
             vehicle == "heavy" and edge.hgv_allowed is None
         )
 
@@ -135,12 +152,17 @@ class RoadGraph:
         if edge.closed or edge.id in closed:
             return False
         vehicle = VEHICLES[request.vehicle]
+        if edge.allowed_vehicle_types is not None and request.vehicle not in edge.allowed_vehicle_types:
+            return False
         if request.vehicle == "heavy" and edge.hgv_allowed is False:
             return False
+        gross_weight = request.cargo_weight_t or vehicle["weight_t"]
+        axle_load = request.axle_load_t or vehicle["axle_load_t"]
         for limit, size in (
             (edge.max_height_m, vehicle["height_m"]),
-            (edge.max_weight_t, vehicle["weight_t"]),
+            (edge.max_weight_t, gross_weight),
             (edge.max_width_m, vehicle["width_m"]),
+            (edge.max_axle_load_t, axle_load),
         ):
             if limit is not None and size > limit:
                 return False
@@ -159,7 +181,7 @@ class RoadGraph:
         seconds = self.travel_seconds(edge, request)
         if mode == "fastest":
             return seconds
-        return seconds * (1 + 4 * request.risk_aversion * self.risk(edge, request.weather))
+        return seconds * (1 + 4 * request.risk_aversion * self.risk(edge, request.weather, request.weather_anomaly_score))
 
     def search(
         self,
@@ -225,13 +247,8 @@ class RoadGraph:
                 "reason": "No feasible route under the current closures and vehicle constraints.",
             }
         edges = [self.edges[e] for e in result.edge_ids]
-        coordinates = []
-        for edge in edges:
-            points = list(edge.geometry)
-            u = self.nodes[edge.u]
-            if distance_m(*points[-1], u.lon, u.lat) < distance_m(*points[0], u.lon, u.lat):
-                points.reverse()
-            coordinates.extend(points if not coordinates else points[1:])
+        geometry, geometry_warnings = assemble_geometry(edges, self.nodes)
+        coordinates = geometry["coordinates"]
         if not coordinates:
             node = self.nodes[source]
             coordinates = [(node.lon, node.lat), (node.lon, node.lat)]
@@ -245,6 +262,12 @@ class RoadGraph:
             "status": "available",
             "edge_ids": result.edge_ids,
             "geometry": {"type": "LineString", "coordinates": coordinates},
+            "route_geometry": {"type": "LineString", "coordinates": coordinates},
+            "geometry_source": "synthetic_benchmark" if self.dataset.is_synthetic else "osm_snapshot",
+            "geometry_complete": not self.dataset.is_synthetic and bool(edges),
+            "geometry_coordinate_order": "lon_lat",
+            "dataset_id": self.dataset.id,
+            "dataset_version": self.version,
             "distance_km": round(length / 1000, 3),
             "duration_min": round(sum(self.travel_seconds(e, request) for e in edges) / 60, 2),
             "risk_exposure": round(exposure, 4),
@@ -256,7 +279,10 @@ class RoadGraph:
             "expanded_nodes": result.expanded,
             "compute_ms": round(result.compute_ms, 3),
             "roads": list(dict.fromkeys(e.name for e in edges)),
-            "warnings": (
+            "warnings": geometry_warnings + (
+                ["Synthetic benchmark geometry; not a road navigation route."]
+                if self.dataset.is_synthetic else []
+            ) + (
                 [f"Vehicle restrictions are incomplete on {unknown} directed segments."]
                 if unknown
                 else []
@@ -304,6 +330,12 @@ class RoadGraph:
                         "weather exposure": edge.weather_score
                         + (edge.flood_susceptibility if request.weather == "heavy_rain" else 0),
                     }
+                    pred = predict_disruption(
+                        rainfall_mm_24h=80.0 if request.weather == "heavy_rain" else 15.0,
+                        slope_deg=35.0 if any(k in edge.name.lower() for k in ("ghat", "hill", "pass", "mountain", "gorge")) else 12.0,
+                        historical_incidents=1 if edge.accident_score >= 0.4 else 0,
+                        surface_score=edge.surface_score,
+                    )
                     explanations.append(
                         {
                             "edge_id": edge.id,
@@ -311,6 +343,9 @@ class RoadGraph:
                             "reason": max(drivers, key=drivers.get),
                             "score": round(self.risk(edge, request.weather), 3),
                             "evidence": edge.evidence,
+                            "domain_disruption_prior": pred.disruption_probability,
+                            "domain_primary_factor": pred.primary_factors[0]["factor"] if pred.primary_factors else "Baseline",
+                            "model_status": "domain-informed prior; not empirically calibrated ML",
                         }
                     )
         return {
@@ -324,10 +359,13 @@ class RoadGraph:
                 "destination": target,
                 "origin_distance_m": source_snap,
                 "destination_distance_m": target_snap,
+                "origin_coordinates": [self.nodes[source].lon, self.nodes[source].lat],
+                "destination_coordinates": [self.nodes[target].lon, self.nodes[target].lat],
             },
-            "assumptions": [
+            "assumptions": self.dataset.limitations + [
                 "Travel times are estimates; no live traffic feed.",
                 "Risk exposure is an index in risk-km, not accident probability.",
                 "Weather and request closures are scenario inputs.",
+                "Numeric height, gross-weight, width and axle limits are enforced when present; strict mode rejects unknown restrictions.",
             ],
         }

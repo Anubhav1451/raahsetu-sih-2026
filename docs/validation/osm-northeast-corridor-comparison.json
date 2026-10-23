@@ -1,0 +1,229 @@
+{
+  "generated_at": "2026-09-14T12:08:16.220854+00:00",
+  "corridor": "Guwahati (n2_0) to Imphal (n2_6) benchmark corridor",
+  "dataset_id": "ner-synthetic-v1",
+  "dataset_version": "b965d4145b29",
+  "snapshot_sha256": "2fbcf87377d651018c907950f6ad12bd39c8dbf671d3f4b68af35be227bdb547",
+  "dataset_is_synthetic": true,
+  "hazard_source": "Curated benchmark catalogue structured around published MoRTH blackspots, GSI landslides & PWD bridge load limits",
+  "weather_source": "Open-Meteo scenario input: heavy_rain",
+  "vehicle_profile": "heavy",
+  "routes": [
+    {
+      "id": "fastest",
+      "status": "available",
+      "edge_ids": [
+        "n2_0>n2_1",
+        "n2_1>n2_2",
+        "n2_2>n2_3",
+        "n2_3>n2_4",
+        "n2_4>n2_5",
+        "n2_5>n2_6"
+      ],
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            91.66,
+            26.184
+          ],
+          [
+            91.6707,
+            26.1846
+          ],
+          [
+            91.68,
+            26.184
+          ],
+          [
+            91.69069999999999,
+            26.1846
+          ],
+          [
+            91.7,
+            26.184
+          ],
+          [
+            91.7107,
+            26.1846
+          ],
+          [
+            91.72,
+            26.184
+          ],
+          [
+            91.73069999999998,
+            26.1846
+          ],
+          [
+            91.74,
+            26.184
+          ],
+          [
+            91.7507,
+            26.1846
+          ],
+          [
+            91.76,
+            26.184
+          ],
+          [
+            91.7707,
+            26.1846
+          ],
+          [
+            91.78,
+            26.184
+          ]
+        ]
+      },
+      "distance_km": 12.587,
+      "duration_min": 14.56,
+      "risk_exposure": 4.1336,
+      "mean_risk_score": 0.328,
+      "high_risk_segments": 2,
+      "unknown_restriction_segments": 0,
+      "unknown_risk_segments": 0,
+      "objective_cost": 873.307558,
+      "expanded_nodes": 7,
+      "compute_ms": 0.065,
+      "roads": [
+        "Central freight corridor"
+      ],
+      "warnings": []
+    },
+    {
+      "id": "risk_aware",
+      "status": "available",
+      "edge_ids": [
+        "n2_0>n2_1",
+        "n2_1>n1_1",
+        "n1_1>n1_2",
+        "n1_2>n1_3",
+        "n1_3>n1_4",
+        "n1_4>n1_5",
+        "n1_5>n2_5",
+        "n2_5>n2_6"
+      ],
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            91.66,
+            26.184
+          ],
+          [
+            91.6707,
+            26.1846
+          ],
+          [
+            91.68,
+            26.184
+          ],
+          [
+            91.6807,
+            26.1936
+          ],
+          [
+            91.68,
+            26.202
+          ],
+          [
+            91.69069999999999,
+            26.2026
+          ],
+          [
+            91.7,
+            26.202
+          ],
+          [
+            91.7107,
+            26.2026
+          ],
+          [
+            91.72,
+            26.202
+          ],
+          [
+            91.73069999999998,
+            26.2026
+          ],
+          [
+            91.74,
+            26.202
+          ],
+          [
+            91.7507,
+            26.2026
+          ],
+          [
+            91.76,
+            26.202
+          ],
+          [
+            91.7607,
+            26.1936
+          ],
+          [
+            91.76,
+            26.184
+          ],
+          [
+            91.7707,
+            26.1846
+          ],
+          [
+            91.78,
+            26.184
+          ]
+        ]
+      },
+      "distance_km": 16.794,
+      "duration_min": 22.66,
+      "risk_exposure": 1.4709,
+      "mean_risk_score": 0.088,
+      "high_risk_segments": 0,
+      "unknown_restriction_segments": 0,
+      "unknown_risk_segments": 0,
+      "objective_cost": 2080.226954,
+      "expanded_nodes": 26,
+      "compute_ms": 0.128,
+      "roads": [
+        "Central freight corridor",
+        "Link road 2",
+        "Northern bypass",
+        "Link road 6"
+      ],
+      "warnings": []
+    }
+  ],
+  "comparison": {
+    "extra_minutes": 8.1,
+    "exposure_reduction_pct": 64.4,
+    "same_route": false
+  },
+  "explanations": [
+    {
+      "edge_id": "n2_3>n2_4",
+      "road": "Central freight corridor",
+      "reason": "accident history",
+      "score": 0.819,
+      "evidence": "Synthetic demo scenario",
+      "ml_disruption_probability": 0.804,
+      "ml_primary_factor": "Precipitation (80.0 mm/24h)"
+    },
+    {
+      "edge_id": "n2_2>n2_3",
+      "road": "Central freight corridor",
+      "reason": "accident history",
+      "score": 0.819,
+      "evidence": "Synthetic demo scenario",
+      "ml_disruption_probability": 0.804,
+      "ml_primary_factor": "Precipitation (80.0 mm/24h)"
+    }
+  ],
+  "limitations": [
+    "This is a controlled benchmark comparison, not a field safety outcome study.",
+    "Official NDMA/CWC live warning feeds remain standby until authorised URLs are configured."
+  ]
+}

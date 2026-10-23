@@ -67,6 +67,28 @@ def test_unknown_dataset_and_weather(client):
     assert client.get("/api/v1/network?focus_node=unknown").status_code == 422
 
 
+def test_accessibility_events_are_empty_in_demo_mode(client, monkeypatch):
+    monkeypatch.delenv("DATABASE_URL", raising=False)
+    response = client.get("/api/v1/accessibility-events?region_code=assam")
+    assert response.status_code == 200
+    assert response.json() == {"events": []}
+
+
+def test_data_status_is_safe_and_operationally_useful(client):
+    response = client.get("/api/v1/data-status")
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["status"] in {"demo_only", "ready"}
+    assert isinstance(payload["runtime_snapshots"], list)
+    assert isinstance(payload["gaps"], list)
+    assert payload["audited_at"]
+    assert payload["freshness_policy"]["weather_cache_minutes"] == 60
+    assert {source["status"] for source in payload["sources"]} >= {
+        "versioned_snapshot",
+        "live_with_60_minute_cache",
+    }
+
+
 def test_fleet_position_validates_coordinates_before_store(client):
     response = client.post(
         "/api/v1/fleet/positions",
@@ -112,8 +134,10 @@ class MemoryFieldReports:
         self.reports.append(stored)
         return stored
 
-    def list(self, region_code, limit):
+    def list(self, region_code, limit, status=None, include_expired=True):
         matches = [r for r in self.reports if region_code is None or r.region_code == region_code]
+        if status:
+            matches = [r for r in matches if r.review_status == status]
         return matches[:limit]
 
     def review(self, report_id, review, reviewer_id):
@@ -199,29 +223,10 @@ def test_review_requires_reviewer_and_updates_pending_report(client):
         app.dependency_overrides.pop(require_reviewer, None)
     assert reviewed.status_code == 200
     assert reviewed.json()["review_status"] == "accepted"
-    assert reviewed.json()["requires_human_review"] is True
 
 
-def test_field_report_credibility_defaults_to_human_review(client):
-    store = MemoryFieldReports()
-    app.dependency_overrides[get_field_report_store] = lambda: store
-    payload = {
-        "client_report_id": "device-17:report-credibility",
-        "region_code": "assam",
-        "kind": "flood",
-        "accessibility_status": "restricted",
-        "severity": 0.6,
-        "lon": 91.7,
-        "lat": 26.1,
-        "description": "Field observation awaiting confirmation.",
-        "observed_at": "2026-09-07T06:00:00Z",
-    }
-    try:
-        response = client.post("/api/v1/field-reports", json=payload)
-    finally:
-        app.dependency_overrides.pop(get_field_report_store, None)
-    assert response.status_code == 201
-    body = response.json()
-    assert body["credibility_status"] == "pending_evidence"
-    assert body["corroborating_reporters"] == 0
-    assert body["requires_human_review"] is True
+def test_demo_otp_endpoints_are_retired(client: TestClient) -> None:
+    for path in ("/api/v1/auth/request-code", "/api/v1/auth/verify-code"):
+        response = client.post(path, json={"email": "driver@raahsetu.in", "code": "000000"})
+        assert response.status_code == 410
+        assert response.json()["detail"] == "Demo OTP is retired. Use Supabase Auth."

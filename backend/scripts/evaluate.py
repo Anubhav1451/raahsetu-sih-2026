@@ -2,7 +2,12 @@
 
 import csv
 import json
+import sys
 from pathlib import Path
+
+BACKEND_DIR = Path(__file__).resolve().parents[1]
+if str(BACKEND_DIR) not in sys.path:
+    sys.path.insert(0, str(BACKEND_DIR))
 
 from app.main import load_graph
 from app.models import Endpoint, RouteRequest
@@ -47,9 +52,16 @@ def main():
     summary = {
         "dataset_id": graph.dataset.id,
         "dataset_version": graph.version,
+        "benchmark_type": "controlled_synthetic_benchmark",
+        "field_safety_claim": False,
         "journeys": len(rows),
         "synthetic": graph.dataset.is_synthetic,
-        "meaning": "Controlled route-cost experiment. Not a field safety study.",
+        "meaning": "Controlled in-silico routing-cost experiment over synthetic/curated graph scenarios. Not a field road safety claim.",
+        "disclaimer": (
+            "The 56-journey evaluation is an offline algorithmic Pareto trade-off benchmark. "
+            "It measures simulated exposure index reduction against transit delay in a controlled graph model. "
+            "It MUST NOT be represented as an empirical claim of real-world accident reduction or field safety improvement."
+        ),
         "available": sum(r["status"] == "available" for r in rows),
         "lower_exposure": sum(
             r.get("exposure_reduction_pct", 0) is not None

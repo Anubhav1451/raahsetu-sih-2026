@@ -1,0 +1,70 @@
+{
+  "generated_at": "2026-09-17",
+  "policy": "Public government records are review candidates only until exact segment and outcome are independently approved.",
+  "candidates": [
+    {
+      "candidate_id": "meghalaya-nh206-2026-08-09",
+      "region_code": "meghalaya",
+      "road_text": "Shillong-Dawki Road (NH-206), Laitlyngkot-Lynkyrdem, chainage km 24-37",
+      "source_url": "https://www.meghalaya.gov.in/press/content/51428",
+      "source_type": "state_government_press_release",
+      "published_at": "2026-08-09",
+      "reported_status": "reopened_with_night_closure",
+      "restriction_effective_at": "2026-08-10T22:00:00+05:30",
+      "reopening_effective_at": "2026-08-10T00:00:00+05:30",
+      "evidence_note": "Official source confirms the road, NH number, chainage and continuing night restriction. The source does not establish the original incident/closure start timestamp.",
+      "review_status": "pending",
+      "coordinates_verified": false
+    },
+    {
+      "candidate_id": "meghalaya-nh6-2024-06",
+      "region_code": "meghalaya",
+      "road_text": "NH-6 locations including Sonapyrdi, Kuliang and Pyrtakuna",
+      "source_url": "https://meghalaya.gov.in/sites/default/files/press_release/Press_Release_251.pdf",
+      "source_type": "state_disaster_management_press_release",
+      "published_at": "2024-07-04",
+      "reported_status": "landslide_and_restoration_reported",
+      "review_status": "pending",
+      "coordinates_verified": false
+    },
+    {
+      "candidate_id": "manipur-news-on-air-nh37-2026-06-24",
+      "region_code": "manipur",
+      "road_text": "Imphal-Jiribam Road (NH 37), Tamenglong district",
+      "source_url": "https://newsonair.gov.in/manipur-landslides-cut-off-vehicular-movements-on-imphal-jiribam-road/",
+      "source_type": "public_broadcaster_incident_report",
+      "published_at": "2026-06-24",
+      "reported_status": null,
+      "review_status": "pending",
+      "coordinates_verified": false,
+      "evidence_note": "Source reports landslide-related vehicular cutoff and an expected three-day diversion. It does not establish exact coordinates, incident start time, reopening time or a final confirmed road outcome. Manual verification is required.",
+      "review_note": ""
+    },
+    {
+      "candidate_id": "manipur-news-on-air-nh37-2023-08-16",
+      "region_code": "manipur",
+      "road_text": "Imphal-Jiribam Road (NH 37), between Irang and Khongsang Train Station, Tamenglong district",
+      "source_url": "https://newsonair.gov.in/manipur-due-to-incessant-rain-landslides-and-mudslides-reported-along-nh-37/",
+      "source_type": "public_broadcaster_incident_report",
+      "published_at": "2023-08-16T20:52:00+05:30",
+      "reported_status": null,
+      "review_status": "pending",
+      "coordinates_verified": false,
+      "evidence_note": "Source reports landslides/mudslides, traffic diversion and debris clearing. It does not establish exact coordinates, incident start time, reopening time or a final confirmed road outcome. Manual verification is required.",
+      "review_note": ""
+    },
+    {
+      "candidate_id": "tripura-info-nh8-flood-disruption-2026-07-14",
+      "region_code": "tripura",
+      "road_text": "Assam-Agartala National Highway (NH-8), Nabinchhara/Melaghar/Belonia and listed Tripura districts",
+      "source_url": "https://tripurainfo.com/EnglishNews.aspx?intnid=7353&title=Relentless-Rains-Batter-Tripura-Roads-Cut-Off-Schools-Shut-Relief-Camps-Open-as-Administration-Intensifies-Flood-Preparedness",
+      "source_type": "reported_district_ddma_incident",
+      "published_at": "2026-07-14",
+      "reported_status": "Traffic disrupted",
+      "review_status": "pending",
+      "coordinates_verified": false,
+      "evidence_note": "Reported source describes NH-8 disruption, an overturned truck and river-erosion risk across multiple locations. Host domain is not a government domain; primary DDMA confirmation, exact coordinates, incident time and restoration outcome are required.",
+      "review_note": ""
+    }
+  ]
+}

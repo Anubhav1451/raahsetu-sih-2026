@@ -1,0 +1,1084 @@
+{
+  "matched_at": "2026-09-15T05:38:05.290430+00:00",
+  "total_hazards_evaluated": 24,
+  "total_matches_generated": 24,
+  "methodology": "Geodesic perpendicular point-to-polyline snapping against real OSM highway networks",
+  "boundary_rule": "Candidate review edges are spatial candidates; unverified road closures are not asserted as facts.",
+  "state_breakdown": {
+    "Arunachal Pradesh": {
+      "hazards_count": 4,
+      "matched_count": 4,
+      "nearest_distance_m": 5.0,
+      "median_distance_m": 459.1
+    },
+    "Assam": {
+      "hazards_count": 7,
+      "matched_count": 7,
+      "nearest_distance_m": 34.8,
+      "median_distance_m": 137.3
+    },
+    "Manipur": {
+      "hazards_count": 2,
+      "matched_count": 2,
+      "nearest_distance_m": 7.9,
+      "median_distance_m": 5404.5
+    },
+    "Meghalaya": {
+      "hazards_count": 2,
+      "matched_count": 2,
+      "nearest_distance_m": 11.9,
+      "median_distance_m": 418.7
+    },
+    "Mizoram": {
+      "hazards_count": 3,
+      "matched_count": 3,
+      "nearest_distance_m": 4.7,
+      "median_distance_m": 1298.7
+    },
+    "Nagaland": {
+      "hazards_count": 2,
+      "matched_count": 2,
+      "nearest_distance_m": 7.2,
+      "median_distance_m": 14.7
+    },
+    "Sikkim": {
+      "hazards_count": 3,
+      "matched_count": 3,
+      "nearest_distance_m": 7.7,
+      "median_distance_m": 240.5
+    },
+    "Tripura": {
+      "hazards_count": 1,
+      "matched_count": 1,
+      "nearest_distance_m": 10.8,
+      "median_distance_m": 10.8
+    }
+  },
+  "matches": [
+    {
+      "source_record_id": "AR-BS-001",
+      "state": "Arunachal Pradesh",
+      "district": "Papum Pare",
+      "kind": "blackspot",
+      "severity": 0.76,
+      "coordinates": [
+        93.6053,
+        27.0844
+      ],
+      "corridor": "NH-415 Itanagar-Naharlagun Corridor",
+      "description": "Rapid hill descent with seasonal gravel accumulation and water crossing.",
+      "source": "MoRTH-Blackspot",
+      "evidence_url": "https://morth.nic.in/road-accident-blackspots",
+      "matched_edge_id": "5064215412>5064219825:0",
+      "matched_road_name": "NH415",
+      "distance_m": 5.0,
+      "review_status": "matched_candidate",
+      "proximity_classification": "direct_on_road",
+      "top_candidates": [
+        {
+          "edge_id": "5064215412>5064219825:0",
+          "road_name": "NH415",
+          "distance_m": 5.0,
+          "speed_kph": 52.35294117647059,
+          "length_m": 191.6
+        },
+        {
+          "edge_id": "5064219825>5064215412:0",
+          "road_name": "NH415",
+          "distance_m": 5.0,
+          "speed_kph": 52.35294117647059,
+          "length_m": 191.6
+        },
+        {
+          "edge_id": "5073329604>8519354527:0",
+          "road_name": "Unnamed road",
+          "distance_m": 29.3,
+          "speed_kph": 30.0,
+          "length_m": 124.4
+        }
+      ]
+    },
+    {
+      "source_record_id": "GSI-LS-001",
+      "state": "Arunachal Pradesh",
+      "district": "West Kameng",
+      "kind": "landslide",
+      "severity": 0.92,
+      "coordinates": [
+        92.091,
+        27.502
+      ],
+      "corridor": "NH-13 Sela Pass High Altitude Section",
+      "description": "Recurrent debris slide and frozen slush blocking high-altitude pass.",
+      "source": "GSI-Landslide",
+      "evidence_url": "https://bhukosh.gsi.gov.in/Landslide",
+      "matched_edge_id": "2883872793>11717021375:0",
+      "matched_road_name": "Sela Tunnel",
+      "distance_m": 205.1,
+      "review_status": "matched_candidate",
+      "proximity_classification": "corridor_proximity",
+      "top_candidates": [
+        {
+          "edge_id": "2883872793>11717021375:0",
+          "road_name": "Sela Tunnel",
+          "distance_m": 205.1,
+          "speed_kph": 52.35294117647059,
+          "length_m": 8941.8
+        },
+        {
+          "edge_id": "11717021375>2883872793:0",
+          "road_name": "Sela Tunnel",
+          "distance_m": 205.1,
+          "speed_kph": 52.35294117647059,
+          "length_m": 8941.8
+        },
+        {
+          "edge_id": "2883873380>8227697393:0",
+          "road_name": "Unnamed road",
+          "distance_m": 821.1,
+          "speed_kph": 23.571428571428573,
+          "length_m": 7070.9
+        }
+      ]
+    },
+    {
+      "source_record_id": "GSI-LS-002",
+      "state": "Arunachal Pradesh",
+      "district": "West Kameng",
+      "kind": "landslide",
+      "severity": 0.88,
+      "coordinates": [
+        92.234,
+        27.28
+      ],
+      "corridor": "NH-13 Bhalukpong-Tenga Gorge",
+      "description": "Fragile shale rockfall triggered by torrential pre-monsoon precipitation.",
+      "source": "GSI-Landslide",
+      "evidence_url": "https://bhukosh.gsi.gov.in/Landslide",
+      "matched_edge_id": "3018802280>3424109719:0",
+      "matched_road_name": "Unnamed road",
+      "distance_m": 459.1,
+      "review_status": "matched_candidate",
+      "proximity_classification": "corridor_proximity",
+      "top_candidates": [
+        {
+          "edge_id": "3018802280>3424109719:0",
+          "road_name": "Unnamed road",
+          "distance_m": 459.1,
+          "speed_kph": 23.571428571428573,
+          "length_m": 29446.5
+        },
+        {
+          "edge_id": "3424109719>3018802280:0",
+          "road_name": "Unnamed road",
+          "distance_m": 459.1,
+          "speed_kph": 23.571428571428573,
+          "length_m": 29446.5
+        },
+        {
+          "edge_id": "3018802280>3452273747:0",
+          "road_name": "Mandala Ridge",
+          "distance_m": 1802.7,
+          "speed_kph": 30.0,
+          "length_m": 19361.9
+        }
+      ]
+    },
+    {
+      "source_record_id": "PWD-BR-001",
+      "state": "Arunachal Pradesh",
+      "district": "West Kameng",
+      "kind": "road_damage",
+      "severity": 0.72,
+      "coordinates": [
+        92.05,
+        27.35
+      ],
+      "corridor": "Tenga River Bailey Bridge",
+      "description": "Structural 18T load ceiling; multi-axle freight barred from crossing.",
+      "source": "PWD-BridgeConstraint",
+      "evidence_url": "https://arunachalpwd.gov.in/",
+      "matched_edge_id": "3452203099>3452203239:0",
+      "matched_road_name": "Unnamed road",
+      "distance_m": 1348.4,
+      "review_status": "matched_candidate",
+      "proximity_classification": "catchment_area",
+      "top_candidates": [
+        {
+          "edge_id": "3452203099>3452203239:0",
+          "road_name": "Unnamed road",
+          "distance_m": 1348.4,
+          "speed_kph": 30.0,
+          "length_m": 5312.0
+        },
+        {
+          "edge_id": "3452203239>3452203099:0",
+          "road_name": "Unnamed road",
+          "distance_m": 1348.4,
+          "speed_kph": 30.0,
+          "length_m": 5312.0
+        },
+        {
+          "edge_id": "3452203105>3452203269:0",
+          "road_name": "Unnamed road",
+          "distance_m": 2269.9,
+          "speed_kph": 30.0,
+          "length_m": 96.0
+        }
+      ]
+    },
+    {
+      "source_record_id": "AS-BS-001",
+      "state": "Assam",
+      "district": "Kamrup Metropolitan",
+      "kind": "blackspot",
+      "severity": 0.85,
+      "coordinates": [
+        91.6625,
+        26.1512
+      ],
+      "corridor": "NH-27 Jalukbari Junction",
+      "description": "High-frequency collision blackspot at multi-modal highway confluence.",
+      "source": "MoRTH-Blackspot",
+      "evidence_url": "https://morth.nic.in/road-accident-blackspots",
+      "matched_edge_id": "11052540201>11052540202:0",
+      "matched_road_name": "Unnamed road",
+      "distance_m": 137.3,
+      "review_status": "matched_candidate",
+      "proximity_classification": "corridor_proximity",
+      "top_candidates": [
+        {
+          "edge_id": "11052540201>11052540202:0",
+          "road_name": "Unnamed road",
+          "distance_m": 137.3,
+          "speed_kph": 29.23326046511628,
+          "length_m": 112.0
+        },
+        {
+          "edge_id": "11052540202>11052540201:0",
+          "road_name": "Unnamed road",
+          "distance_m": 137.3,
+          "speed_kph": 29.23326046511628,
+          "length_m": 112.0
+        },
+        {
+          "edge_id": "4976868135>4976868138:0",
+          "road_name": "Unnamed road",
+          "distance_m": 154.5,
+          "speed_kph": 29.23326046511628,
+          "length_m": 64.8
+        }
+      ]
+    },
+    {
+      "source_record_id": "AS-BS-002",
+      "state": "Assam",
+      "district": "Kamrup Metropolitan",
+      "kind": "blackspot",
+      "severity": 0.78,
+      "coordinates": [
+        91.8962,
+        26.1044
+      ],
+      "corridor": "NH-27 Jorabat Hill Curve",
+      "description": "Sharp hill curvature with wet surface skid risk connecting Assam and Meghalaya.",
+      "source": "MoRTH-Blackspot",
+      "evidence_url": "https://pwdroads.assam.gov.in/portlets/road-safety",
+      "matched_edge_id": "10628342626>10628399390:0",
+      "matched_road_name": "Unnamed road",
+      "distance_m": 561.4,
+      "review_status": "matched_candidate",
+      "proximity_classification": "catchment_area",
+      "top_candidates": [
+        {
+          "edge_id": "10628342626>10628399390:0",
+          "road_name": "Unnamed road",
+          "distance_m": 561.4,
+          "speed_kph": 29.23326046511628,
+          "length_m": 105.0
+        },
+        {
+          "edge_id": "10628399390>10628342626:0",
+          "road_name": "Unnamed road",
+          "distance_m": 561.4,
+          "speed_kph": 29.23326046511628,
+          "length_m": 105.0
+        },
+        {
+          "edge_id": "10628342626>10628399391:0",
+          "road_name": "Unnamed road",
+          "distance_m": 638.7,
+          "speed_kph": 29.23326046511628,
+          "length_m": 67.5
+        }
+      ]
+    },
+    {
+      "source_record_id": "AS-BS-003",
+      "state": "Assam",
+      "district": "Golaghat",
+      "kind": "blackspot",
+      "severity": 0.72,
+      "coordinates": [
+        93.7312,
+        26.5841
+      ],
+      "corridor": "NH-129 Numaligarh T-Junction",
+      "description": "Commercial freight turning point with blind blind-spot overtaking hazard.",
+      "source": "MoRTH-Blackspot",
+      "evidence_url": "https://morth.nic.in/road-accident-blackspots",
+      "matched_edge_id": "567786444>6176771515:0",
+      "matched_road_name": "Unnamed road",
+      "distance_m": 115.8,
+      "review_status": "matched_candidate",
+      "proximity_classification": "corridor_proximity",
+      "top_candidates": [
+        {
+          "edge_id": "567786444>6176771515:0",
+          "road_name": "Unnamed road",
+          "distance_m": 115.8,
+          "speed_kph": 37.701492537313435,
+          "length_m": 2655.6
+        },
+        {
+          "edge_id": "6176771515>567786444:0",
+          "road_name": "Unnamed road",
+          "distance_m": 115.8,
+          "speed_kph": 37.701492537313435,
+          "length_m": 2655.6
+        },
+        {
+          "edge_id": "567786444>12090677165:0",
+          "road_name": "NH129",
+          "distance_m": 971.3,
+          "speed_kph": 50.0,
+          "length_m": 5807.5
+        }
+      ]
+    },
+    {
+      "source_record_id": "GSI-LS-006",
+      "state": "Assam",
+      "district": "Dima Hasao",
+      "kind": "landslide",
+      "severity": 0.84,
+      "coordinates": [
+        93.02,
+        25.18
+      ],
+      "corridor": "NH-27 Haflong Hill Highway",
+      "description": "Deep-seated soil slump across double carriageway following 120mm rainfall.",
+      "source": "GSI-Landslide",
+      "evidence_url": "https://bhukosh.gsi.gov.in/Landslide",
+      "matched_edge_id": "6240646975>6240646992:0",
+      "matched_road_name": "Unnamed road",
+      "distance_m": 35.9,
+      "review_status": "matched_candidate",
+      "proximity_classification": "corridor_proximity",
+      "top_candidates": [
+        {
+          "edge_id": "6240646975>6240646992:0",
+          "road_name": "Unnamed road",
+          "distance_m": 35.9,
+          "speed_kph": 44.125,
+          "length_m": 367.2
+        },
+        {
+          "edge_id": "6240646992>6240646975:0",
+          "road_name": "Unnamed road",
+          "distance_m": 35.9,
+          "speed_kph": 44.125,
+          "length_m": 367.2
+        },
+        {
+          "edge_id": "6240646992>6240646997:0",
+          "road_name": "Unnamed road",
+          "distance_m": 86.0,
+          "speed_kph": 44.125,
+          "length_m": 123.8
+        }
+      ]
+    },
+    {
+      "source_record_id": "CWC-FL-001",
+      "state": "Assam",
+      "district": "Nagaon",
+      "kind": "flood",
+      "severity": 0.88,
+      "coordinates": [
+        93.35,
+        26.6
+      ],
+      "corridor": "NH-715 Kaziranga Southern Corridor",
+      "description": "Brahmaputra overflow overtopping highway surface; restricted 20km/h animal corridor.",
+      "source": "CWC-Flood",
+      "evidence_url": "https://ffs.india-water.gov.in/",
+      "matched_edge_id": "10556734951>10556734996:0",
+      "matched_road_name": "Unnamed road",
+      "distance_m": 169.4,
+      "review_status": "matched_candidate",
+      "proximity_classification": "corridor_proximity",
+      "top_candidates": [
+        {
+          "edge_id": "10556734951>10556734996:0",
+          "road_name": "Unnamed road",
+          "distance_m": 169.4,
+          "speed_kph": 46.69769615384616,
+          "length_m": 1205.4
+        },
+        {
+          "edge_id": "10556734996>10556734951:0",
+          "road_name": "Unnamed road",
+          "distance_m": 169.4,
+          "speed_kph": 46.69769615384616,
+          "length_m": 1205.4
+        },
+        {
+          "edge_id": "10556734935>10556734951:0",
+          "road_name": "Unnamed road",
+          "distance_m": 1160.6,
+          "speed_kph": 46.69769615384616,
+          "length_m": 975.1
+        }
+      ]
+    },
+    {
+      "source_record_id": "CWC-FL-002",
+      "state": "Assam",
+      "district": "Goalpara",
+      "kind": "flood",
+      "severity": 0.82,
+      "coordinates": [
+        90.62,
+        26.17
+      ],
+      "corridor": "NH-17 Lower Assam Flood Plain",
+      "description": "River Jinjiram backwater flooding approach embankments.",
+      "source": "CWC-Flood",
+      "evidence_url": "https://ffs.india-water.gov.in/",
+      "matched_edge_id": "4904966134>8681121127:0",
+      "matched_road_name": "SH46",
+      "distance_m": 218.8,
+      "review_status": "matched_candidate",
+      "proximity_classification": "corridor_proximity",
+      "top_candidates": [
+        {
+          "edge_id": "4904966134>8681121127:0",
+          "road_name": "SH46",
+          "distance_m": 218.8,
+          "speed_kph": 57.21739130434783,
+          "length_m": 412.5
+        },
+        {
+          "edge_id": "8681121127>4904966134:0",
+          "road_name": "SH46",
+          "distance_m": 218.8,
+          "speed_kph": 57.21739130434783,
+          "length_m": 412.5
+        },
+        {
+          "edge_id": "4904966126>8681121127:0",
+          "road_name": "SH46",
+          "distance_m": 219.1,
+          "speed_kph": 57.21739130434783,
+          "length_m": 187.1
+        }
+      ]
+    },
+    {
+      "source_record_id": "CWC-FL-003",
+      "state": "Assam",
+      "district": "Cachar",
+      "kind": "flood",
+      "severity": 0.85,
+      "coordinates": [
+        92.8,
+        24.83
+      ],
+      "corridor": "NH-37 Silchar Barak River Crossing",
+      "description": "Severe waterlogging at bridge approach ramps isolating Cachar logistics hubs.",
+      "source": "CWC-Flood",
+      "evidence_url": "https://ffs.india-water.gov.in/",
+      "matched_edge_id": "2081914683>9726730189:0",
+      "matched_road_name": "Club Road",
+      "distance_m": 34.8,
+      "review_status": "matched_candidate",
+      "proximity_classification": "corridor_proximity",
+      "top_candidates": [
+        {
+          "edge_id": "2081914683>9726730189:0",
+          "road_name": "Club Road",
+          "distance_m": 34.8,
+          "speed_kph": 50.0,
+          "length_m": 143.5
+        },
+        {
+          "edge_id": "9726730189>2081914683:0",
+          "road_name": "Club Road",
+          "distance_m": 34.8,
+          "speed_kph": 50.0,
+          "length_m": 143.5
+        },
+        {
+          "edge_id": "567780322>9726730189:0",
+          "road_name": "Club Road",
+          "distance_m": 34.9,
+          "speed_kph": 50.0,
+          "length_m": 170.1
+        }
+      ]
+    },
+    {
+      "source_record_id": "MN-BS-001",
+      "state": "Manipur",
+      "district": "Imphal West",
+      "kind": "blackspot",
+      "severity": 0.8,
+      "coordinates": [
+        93.9368,
+        24.817
+      ],
+      "corridor": "NH-102 Imphal Ring Road Junction",
+      "description": "Urban-arterial freight merge with severe pedestrian and two-wheeler vulnerability.",
+      "source": "MoRTH-Blackspot",
+      "evidence_url": "https://morth.nic.in/road-accident-blackspots",
+      "matched_edge_id": "6228102295>9155434743:0",
+      "matched_road_name": "Unnamed road",
+      "distance_m": 7.9,
+      "review_status": "matched_candidate",
+      "proximity_classification": "direct_on_road",
+      "top_candidates": [
+        {
+          "edge_id": "6228102295>9155434743:0",
+          "road_name": "Unnamed road",
+          "distance_m": 7.9,
+          "speed_kph": 29.78448275862069,
+          "length_m": 86.3
+        },
+        {
+          "edge_id": "9155434743>6228102295:0",
+          "road_name": "Unnamed road",
+          "distance_m": 7.9,
+          "speed_kph": 29.78448275862069,
+          "length_m": 86.3
+        },
+        {
+          "edge_id": "6228102295>9155434733:0",
+          "road_name": "Unnamed road",
+          "distance_m": 38.0,
+          "speed_kph": 29.78448275862069,
+          "length_m": 107.3
+        }
+      ]
+    },
+    {
+      "source_record_id": "PWD-BR-003",
+      "state": "Manipur",
+      "district": "Senapati",
+      "kind": "road_damage",
+      "severity": 0.75,
+      "coordinates": [
+        93.88,
+        25.32
+      ],
+      "corridor": "Barak River Tributary Bridge",
+      "description": "Single-lane alternating crossing with 16T maximum axle limit.",
+      "source": "PWD-BridgeConstraint",
+      "evidence_url": "https://manipurnepwd.nic.in/",
+      "matched_edge_id": "3888962595>12967246290:0",
+      "matched_road_name": "Unnamed road",
+      "distance_m": 5404.5,
+      "review_status": "matched_candidate",
+      "proximity_classification": "regional_context",
+      "top_candidates": [
+        {
+          "edge_id": "3888962595>12967246290:0",
+          "road_name": "Unnamed road",
+          "distance_m": 5404.5,
+          "speed_kph": 39.23076923076923,
+          "length_m": 30353.2
+        },
+        {
+          "edge_id": "12967246290>3888962595:0",
+          "road_name": "Unnamed road",
+          "distance_m": 5404.5,
+          "speed_kph": 39.23076923076923,
+          "length_m": 30353.2
+        }
+      ]
+    },
+    {
+      "source_record_id": "ML-BS-001",
+      "state": "Meghalaya",
+      "district": "East Khasi Hills",
+      "kind": "blackspot",
+      "severity": 0.74,
+      "coordinates": [
+        91.8841,
+        25.5684
+      ],
+      "corridor": "NH-6 Mawryngkneng Bypass",
+      "description": "Heavy fog and mist sector with high rear-end collision probability.",
+      "source": "MoRTH-Blackspot",
+      "evidence_url": "https://morth.nic.in/road-accident-blackspots",
+      "matched_edge_id": "1365146330>1377433107:0",
+      "matched_road_name": "Unnamed road",
+      "distance_m": 11.9,
+      "review_status": "matched_candidate",
+      "proximity_classification": "direct_on_road",
+      "top_candidates": [
+        {
+          "edge_id": "1365146330>1377433107:0",
+          "road_name": "Unnamed road",
+          "distance_m": 11.9,
+          "speed_kph": 35.32258064516129,
+          "length_m": 68.5
+        },
+        {
+          "edge_id": "1377433107>1365146330:0",
+          "road_name": "Unnamed road",
+          "distance_m": 11.9,
+          "speed_kph": 35.32258064516129,
+          "length_m": 68.5
+        },
+        {
+          "edge_id": "1365146330>1365146339:0",
+          "road_name": "Unnamed road",
+          "distance_m": 33.4,
+          "speed_kph": 32.72727272727273,
+          "length_m": 110.9
+        }
+      ]
+    },
+    {
+      "source_record_id": "GSI-LS-003",
+      "state": "Meghalaya",
+      "district": "East Jaintia Hills",
+      "kind": "landslide",
+      "severity": 0.9,
+      "coordinates": [
+        92.361,
+        25.12
+      ],
+      "corridor": "NH-6 Sonapur Tunnel Approach",
+      "description": "Major mudslide and boulder rollout shutting down Barak Valley supply line.",
+      "source": "GSI-Landslide",
+      "evidence_url": "https://bhukosh.gsi.gov.in/Landslide",
+      "matched_edge_id": "6942546517>6942573517:0",
+      "matched_road_name": "Unnamed road",
+      "distance_m": 418.7,
+      "review_status": "matched_candidate",
+      "proximity_classification": "corridor_proximity",
+      "top_candidates": [
+        {
+          "edge_id": "6942546517>6942573517:0",
+          "road_name": "Unnamed road",
+          "distance_m": 418.7,
+          "speed_kph": 32.72727272727273,
+          "length_m": 20321.5
+        },
+        {
+          "edge_id": "6942573517>6942546517:0",
+          "road_name": "Unnamed road",
+          "distance_m": 418.7,
+          "speed_kph": 32.72727272727273,
+          "length_m": 20321.5
+        },
+        {
+          "edge_id": "6942546517>6960109721:0",
+          "road_name": "NH6",
+          "distance_m": 892.4,
+          "speed_kph": 30.0,
+          "length_m": 6680.6
+        }
+      ]
+    },
+    {
+      "source_record_id": "MZ-BS-001",
+      "state": "Mizoram",
+      "district": "Aizawl",
+      "kind": "blackspot",
+      "severity": 0.7,
+      "coordinates": [
+        92.7176,
+        23.7271
+      ],
+      "corridor": "NH-306 Sairang Approach",
+      "description": "Hairpin descent into river valley with restricted heavy vehicle clearance.",
+      "source": "MoRTH-Blackspot",
+      "evidence_url": "https://morth.nic.in/road-accident-blackspots",
+      "matched_edge_id": "4806409165>9857220078:0",
+      "matched_road_name": "Unnamed road",
+      "distance_m": 4.7,
+      "review_status": "matched_candidate",
+      "proximity_classification": "direct_on_road",
+      "top_candidates": [
+        {
+          "edge_id": "4806409165>9857220078:0",
+          "road_name": "Unnamed road",
+          "distance_m": 4.7,
+          "speed_kph": 30.0,
+          "length_m": 585.8
+        },
+        {
+          "edge_id": "9857220078>4806409165:0",
+          "road_name": "Unnamed road",
+          "distance_m": 4.7,
+          "speed_kph": 30.0,
+          "length_m": 585.8
+        },
+        {
+          "edge_id": "4806409165>1683573074:0",
+          "road_name": "Unnamed road",
+          "distance_m": 13.6,
+          "speed_kph": 30.0,
+          "length_m": 140.7
+        }
+      ]
+    },
+    {
+      "source_record_id": "GSI-LS-007",
+      "state": "Mizoram",
+      "district": "Kolasib",
+      "kind": "landslide",
+      "severity": 0.79,
+      "coordinates": [
+        92.74,
+        24.12
+      ],
+      "corridor": "NH-306 Kawnpui Sector",
+      "description": "Monsoon hill cut failure obstructing fuel tankers and food convoys.",
+      "source": "GSI-Landslide",
+      "evidence_url": "https://bhukosh.gsi.gov.in/Landslide",
+      "matched_edge_id": "2491833517>2491834289:0",
+      "matched_road_name": "NH6",
+      "distance_m": 4809.6,
+      "review_status": "matched_candidate",
+      "proximity_classification": "regional_context",
+      "top_candidates": [
+        {
+          "edge_id": "2491833517>2491834289:0",
+          "road_name": "NH6",
+          "distance_m": 4809.6,
+          "speed_kph": 50.0,
+          "length_m": 21502.3
+        },
+        {
+          "edge_id": "2491834289>2491833517:0",
+          "road_name": "NH6",
+          "distance_m": 4809.6,
+          "speed_kph": 50.0,
+          "length_m": 21502.3
+        },
+        {
+          "edge_id": "6208069696>6208156299:0",
+          "road_name": "Unnamed road",
+          "distance_m": 5513.5,
+          "speed_kph": 30.0,
+          "length_m": 62762.4
+        }
+      ]
+    },
+    {
+      "source_record_id": "PWD-BR-004",
+      "state": "Mizoram",
+      "district": "Kolasib",
+      "kind": "road_damage",
+      "severity": 0.65,
+      "coordinates": [
+        92.68,
+        23.85
+      ],
+      "corridor": "Chhimtuipui Feeder Bridge",
+      "description": "Scour damage to south pier; heavy commercial traffic diverted to bypass.",
+      "source": "PWD-BridgeConstraint",
+      "evidence_url": "https://pwd.mizoram.gov.in/",
+      "matched_edge_id": "9824108194>9832917632:0",
+      "matched_road_name": "Unnamed road",
+      "distance_m": 1298.7,
+      "review_status": "matched_candidate",
+      "proximity_classification": "catchment_area",
+      "top_candidates": [
+        {
+          "edge_id": "9824108194>9832917632:0",
+          "road_name": "Unnamed road",
+          "distance_m": 1298.7,
+          "speed_kph": 20.0,
+          "length_m": 9643.8
+        },
+        {
+          "edge_id": "9832917632>9824108194:0",
+          "road_name": "Unnamed road",
+          "distance_m": 1298.7,
+          "speed_kph": 20.0,
+          "length_m": 9643.8
+        },
+        {
+          "edge_id": "3884467599>7216824604:0",
+          "road_name": "Unnamed road",
+          "distance_m": 1537.8,
+          "speed_kph": 30.0,
+          "length_m": 4930.6
+        }
+      ]
+    },
+    {
+      "source_record_id": "NL-BS-001",
+      "state": "Nagaland",
+      "district": "Dimapur",
+      "kind": "blackspot",
+      "severity": 0.82,
+      "coordinates": [
+        93.7258,
+        25.9083
+      ],
+      "corridor": "NH-29 Chumukedima Hill Entry",
+      "description": "Steep slope gradient with heavy freight brake failure history.",
+      "source": "MoRTH-Blackspot",
+      "evidence_url": "https://morth.nic.in/road-accident-blackspots",
+      "matched_edge_id": "2559529951>2559529952:0",
+      "matched_road_name": "Unnamed road",
+      "distance_m": 14.7,
+      "review_status": "matched_candidate",
+      "proximity_classification": "direct_on_road",
+      "top_candidates": [
+        {
+          "edge_id": "2559529951>2559529952:0",
+          "road_name": "Unnamed road",
+          "distance_m": 14.7,
+          "speed_kph": 20.0,
+          "length_m": 91.2
+        },
+        {
+          "edge_id": "2559529952>2559529951:0",
+          "road_name": "Unnamed road",
+          "distance_m": 14.7,
+          "speed_kph": 20.0,
+          "length_m": 91.2
+        },
+        {
+          "edge_id": "2552400475>2559529954:0",
+          "road_name": "Unnamed road",
+          "distance_m": 24.3,
+          "speed_kph": 20.0,
+          "length_m": 92.8
+        }
+      ]
+    },
+    {
+      "source_record_id": "GSI-LS-004",
+      "state": "Nagaland",
+      "district": "Kohima",
+      "kind": "landslide",
+      "severity": 0.86,
+      "coordinates": [
+        94.1086,
+        25.6751
+      ],
+      "corridor": "NH-29 Phesama Sinking Zone",
+      "description": "Active tectonic subsidence causing road bed displacement and cliff slippage.",
+      "source": "GSI-Landslide",
+      "evidence_url": "https://bhukosh.gsi.gov.in/Landslide",
+      "matched_edge_id": "1431556157>1431556281:0",
+      "matched_road_name": "NH2",
+      "distance_m": 7.2,
+      "review_status": "matched_candidate",
+      "proximity_classification": "direct_on_road",
+      "top_candidates": [
+        {
+          "edge_id": "1431556157>1431556281:0",
+          "road_name": "NH2",
+          "distance_m": 7.2,
+          "speed_kph": 41.44736842105263,
+          "length_m": 593.9
+        },
+        {
+          "edge_id": "1431556281>1431556157:0",
+          "road_name": "NH2",
+          "distance_m": 7.2,
+          "speed_kph": 41.44736842105263,
+          "length_m": 593.9
+        },
+        {
+          "edge_id": "1431556157>6241245434:0",
+          "road_name": "NH2; NH29",
+          "distance_m": 7.7,
+          "speed_kph": 41.44736842105263,
+          "length_m": 72.1
+        }
+      ]
+    },
+    {
+      "source_record_id": "SK-BS-001",
+      "state": "Sikkim",
+      "district": "Pakyong",
+      "kind": "blackspot",
+      "severity": 0.75,
+      "coordinates": [
+        88.531,
+        27.177
+      ],
+      "corridor": "NH-10 Rangpo Border Gate",
+      "description": "Teesta gorge narrowing with tight radius turn and monsoon hydroplaning.",
+      "source": "MoRTH-Blackspot",
+      "evidence_url": "https://morth.nic.in/road-accident-blackspots",
+      "matched_edge_id": "2235251323>5658556408:0",
+      "matched_road_name": "Unnamed road",
+      "distance_m": 7.7,
+      "review_status": "matched_candidate",
+      "proximity_classification": "direct_on_road",
+      "top_candidates": [
+        {
+          "edge_id": "2235251323>5658556408:0",
+          "road_name": "Unnamed road",
+          "distance_m": 7.7,
+          "speed_kph": 30.0,
+          "length_m": 5406.9
+        },
+        {
+          "edge_id": "5658556408>2235251323:0",
+          "road_name": "Unnamed road",
+          "distance_m": 7.7,
+          "speed_kph": 30.0,
+          "length_m": 5406.9
+        },
+        {
+          "edge_id": "2235251323>2235251589:0",
+          "road_name": "Unnamed road",
+          "distance_m": 39.8,
+          "speed_kph": 46.0,
+          "length_m": 726.3
+        }
+      ]
+    },
+    {
+      "source_record_id": "GSI-LS-005",
+      "state": "Sikkim",
+      "district": "Mangan",
+      "kind": "landslide",
+      "severity": 0.89,
+      "coordinates": [
+        88.58,
+        27.6
+      ],
+      "corridor": "North Sikkim Highway Chungthang Lifeline",
+      "description": "Glacial lake outburst flood legacy with active slope failure into Teesta.",
+      "source": "GSI-Landslide",
+      "evidence_url": "https://bhukosh.gsi.gov.in/Landslide",
+      "matched_edge_id": "1328010557>1328010861:0",
+      "matched_road_name": "North Sikkim Highway",
+      "distance_m": 4409.7,
+      "review_status": "matched_candidate",
+      "proximity_classification": "regional_context",
+      "top_candidates": [
+        {
+          "edge_id": "1328010557>1328010861:0",
+          "road_name": "North Sikkim Highway",
+          "distance_m": 4409.7,
+          "speed_kph": 46.0,
+          "length_m": 2607.1
+        },
+        {
+          "edge_id": "1328010861>1328010557:0",
+          "road_name": "North Sikkim Highway",
+          "distance_m": 4409.7,
+          "speed_kph": 46.0,
+          "length_m": 2607.1
+        },
+        {
+          "edge_id": "1328010575>1328010937:0",
+          "road_name": "Unnamed road",
+          "distance_m": 4638.3,
+          "speed_kph": 25.0,
+          "length_m": 2848.3
+        }
+      ]
+    },
+    {
+      "source_record_id": "PWD-BR-002",
+      "state": "Sikkim",
+      "district": "North Sikkim",
+      "kind": "road_damage",
+      "severity": 0.68,
+      "coordinates": [
+        88.52,
+        27.48
+      ],
+      "corridor": "Dikchu River Steel Truss Bridge",
+      "description": "Height clearance restricted to 3.8m due to overhead reinforcement struts.",
+      "source": "PWD-BridgeConstraint",
+      "evidence_url": "https://sikkimpwd.gov.in/",
+      "matched_edge_id": "5702905010>5702907721:0",
+      "matched_road_name": "Unnamed road",
+      "distance_m": 240.5,
+      "review_status": "matched_candidate",
+      "proximity_classification": "corridor_proximity",
+      "top_candidates": [
+        {
+          "edge_id": "5702905010>5702907721:0",
+          "road_name": "Unnamed road",
+          "distance_m": 240.5,
+          "speed_kph": 46.0,
+          "length_m": 2512.5
+        },
+        {
+          "edge_id": "5702907721>5702905010:0",
+          "road_name": "Unnamed road",
+          "distance_m": 240.5,
+          "speed_kph": 46.0,
+          "length_m": 2512.5
+        },
+        {
+          "edge_id": "5702905744>5702907721:0",
+          "road_name": "Unnamed road",
+          "distance_m": 293.5,
+          "speed_kph": 46.0,
+          "length_m": 3913.3
+        }
+      ]
+    },
+    {
+      "source_record_id": "TR-BS-001",
+      "state": "Tripura",
+      "district": "West Tripura",
+      "kind": "blackspot",
+      "severity": 0.68,
+      "coordinates": [
+        91.2868,
+        23.8315
+      ],
+      "corridor": "NH-8 Amtali Bypass",
+      "description": "Interstate transit blackspot near Agartala logistics yard.",
+      "source": "MoRTH-Blackspot",
+      "evidence_url": "https://morth.nic.in/road-accident-blackspots",
+      "matched_edge_id": "9729738820>4324774723:0",
+      "matched_road_name": "Unnamed road",
+      "distance_m": 10.8,
+      "review_status": "matched_candidate",
+      "proximity_classification": "direct_on_road",
+      "top_candidates": [
+        {
+          "edge_id": "9729738820>4324774723:0",
+          "road_name": "Unnamed road",
+          "distance_m": 10.8,
+          "speed_kph": 30.0,
+          "length_m": 30.5
+        },
+        {
+          "edge_id": "9729738822>9729738820:0",
+          "road_name": "Unnamed road",
+          "distance_m": 11.2,
+          "speed_kph": 30.0,
+          "length_m": 7.5
+        },
+        {
+          "edge_id": "9729738823>9729738820:0",
+          "road_name": "Unnamed road",
+          "distance_m": 11.2,
+          "speed_kph": 29.09090909090909,
+          "length_m": 18.0
+        }
+      ]
+    }
+  ]
+}

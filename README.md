@@ -18,7 +18,8 @@ On a new teammate's computer, install Python 3.12, Node.js 24 and Git, then run:
 
 ```powershell
 .\scripts\setup.ps1
-.\scripts\start.ps1
+.\.venv\Scripts\python.exe scripts/prepare_runtime.py
+.\.venv\Scripts\python.exe backend/scripts/import_osm.py --xml datasets/processed/osm/guwahati-pilot-roads.osm --name guwahati
 ```
 
 Stop processes created by the helper with `scripts/stop.ps1`. The helper never stops unrelated processes.
@@ -46,8 +47,6 @@ npm.cmd run dev
   hazard observations, and geo-tagged field-report APIs.
 - Responsive field-official incident form with mapped origin coordinates, offline-safe
   client IDs, validation, pending moderation state and recent regional reports.
-- Nearby independent reports are counted in a 1 km / 6-hour evidence window; they remain
-  warnings until an assigned reviewer or admin confirms the incident and road edge.
 - Reviewer-approved accessibility events are exposed as active map markers; evidence
   storage is private and scoped to the submitting user's folder.
 - Reviewers explicitly match accepted incidents to nearby versioned road edges; accepted
@@ -58,14 +57,13 @@ npm.cmd run dev
 
 ## What the prototype does not claim
 
-The synthetic network has fictional roads and hazards. The real OSM network does not yet have reviewed blackspot/landslide matches, so it explicitly reports missing risk evidence. Weather controls simulate conditions. Travel time is estimated without live traffic. Risk exposure is an index, not an accident probability. The current scoring is rule-based, not a trained predictive ML model.
+The synthetic network has fictional roads and hazards. Eight real OSM state snapshots are available, but their risk and vehicle-restriction evidence remains incomplete and is reported as unknown. Travel time is estimated without live traffic. Risk exposure is an index, not an accident probability. Risk-A* uses documented policy weights. A separately trained weather-anomaly model uses 2021–2024 historical observations with a 2025 temporal holdout; it predicts unusual weather conditions, not landslides or road closures.
 
-The app is a hackathon prototype, not operational dispatch or navigation. A packaged
-field mobile client, push/SMS alert delivery, turn restrictions, sustained load testing
-and live government feeds remain backlog work. Authenticated browser GPS sharing,
-delivery status, reviewed alerts, installable PWA assets and an offline field-report queue
-are implemented. The team Supabase project is connected; VM/Kubernetes deployment still
-requires the team's cloud account.
+The app is a hackathon prototype, not operational dispatch or navigation. Authenticated
+AIS-140/mobile webhook ingestion, offline client sync and reviewed alerts are implemented.
+Authoritative restriction coverage, live government feeds, provider credentials and
+physical field-device validation remain deployment dependencies. VM/Kubernetes deployment
+is optional and requires the team's cloud account.
 
 ## Repository map
 
@@ -107,6 +105,16 @@ The corridor builder creates `osm-guwahati-corridor-reviewed-v1` from two 1 km a
 
 `datasets/processed/ne-coverage-catalog.json` is the explicit Northeast coverage manifest: all eight states, all eight capitals, OSM road extracts and facility files with counts.
 
+`prepare_runtime.py` converts every processed state road extract into a validated
+`backend/data/osm-<state>.json` snapshot. Use `--only assam` for an incremental rebuild.
+The API endpoint `/api/v1/data-status` reports whether regional snapshots are ready,
+how much source data has been verified, and which evidence gaps remain.
+
+`prepare_runtime.py` converts every processed state road extract into a validated
+`backend/data/osm-<state>.json` snapshot. Use `--only assam` for an incremental rebuild.
+The API endpoint `/api/v1/data-status` reports whether regional snapshots are ready,
+how much source data has been verified, and which evidence gaps remain.
+
 ## Verification
 
 ```powershell
@@ -133,6 +141,21 @@ The local `.env` contains the backend-only Supabase pooler connection. Use
 `scripts/setup_supabase.ps1` for a fresh environment and the commands in
 `docs/DEPLOYMENT.md` for controlled imports. No privileged database credential belongs in
 the frontend.
+
+### Google sign-in setup
+
+1. In Supabase, open **Authentication > Providers > Google** and enable Google.
+2. In Google Cloud Console, create a Web OAuth client.
+3. Set the authorized redirect URI to `https://<project-ref>.supabase.co/auth/v1/callback`.
+4. In Supabase **Authentication > URL Configuration**, set the site URL to
+  `http://127.0.0.1:5173/` for local development and add the deployed dashboard URL
+  to the additional redirect URLs.
+5. Put the Supabase URL and publishable key in the backend environment as
+  `SUPABASE_URL` and `SUPABASE_PUBLISHABLE_KEY`, then restart the API.
+
+The dashboard's **Sign in** button opens the shared account panel. Google returns to
+the dashboard, verifies the callback token through Supabase, stores the short-lived
+session locally, and uses the existing refresh and sign-out flow.
 
 Docker and Kubernetes definitions are prepared. Their runtime verification requires Docker/K8s, which were unavailable on the development machine. Read the deployment guide before exposing the app externally.
 

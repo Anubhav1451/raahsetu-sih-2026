@@ -1,0 +1,165 @@
+{
+  "generated_at": "2026-09-17",
+  "policy": "Public sources create review candidates only; no source is promoted to a closure or training label automatically.",
+  "sources": [
+    {
+      "source_id": "assam-asdma-flood-reports",
+      "region_code": "assam",
+      "source_type": "state_disaster_management_reports",
+      "url": "https://asdma.assam.gov.in/information-services/assam-flood-report",
+      "evidence_scope": "dated flood situation and district context",
+      "label_eligibility": "candidate_only",
+      "missing_for_label": ["exact road segment", "event timestamp", "road outcome", "reviewer identity"]
+    },
+    {
+      "source_id": "assam-pwd-road-safety",
+      "region_code": "assam",
+      "source_type": "state_pwd_road_safety",
+      "url": "https://pwdroads.assam.gov.in/portlets/road-safety",
+      "evidence_scope": "published blackspot road names and coordinates",
+      "label_eligibility": "candidate_only",
+      "missing_for_label": ["disruption event time", "open_or_closed outcome", "reviewer identity"]
+    },
+    {
+      "source_id": "assam-pwd-sdrf-restoration",
+      "region_code": "assam",
+      "source_type": "state_pwd_restoration_records",
+      "url": "https://pwdroads.assam.gov.in/schemes/state-disaster-response-fund-sdrf",
+      "evidence_scope": "flood-damaged road and bridge restoration categories",
+      "label_eligibility": "candidate_only",
+      "missing_for_label": ["exact segment", "closure start/end", "observed road outcome", "reviewer identity"]
+    },
+    {
+      "source_id": "assam-flood-memorandum-2024",
+      "region_code": "assam",
+      "source_type": "state_flood_memorandum",
+      "url": "https://asdma.assam.gov.in/sites/default/files/swf_utility_folder/departments/asdma_revenue_uneecopscloud_com_oid_70/menu/document/assam_flood_memorandum_2024_.pdf",
+      "evidence_scope": "aggregate flood periods and affected districts",
+      "label_eligibility": "context_only",
+      "missing_for_label": ["road-level event record", "segment", "timestamp", "outcome", "reviewer identity"]
+    },
+    {
+      "source_id": "arunachal-morth-disaster-management-plan",
+      "region_code": "arunachal-pradesh",
+      "source_type": "central_highway_disaster_case_studies",
+      "url": "https://www.morth.gov.in/sites/default/files/Disaster-Management-Plan-MoRTH.pdf",
+      "evidence_scope": "NH-13/West Kameng landslide case studies with affected chainages and event periods",
+      "label_eligibility": "candidate_only",
+      "missing_for_label": ["graph segment match", "reviewer identity", "verified road outcome interval"]
+    },
+    {
+      "source_id": "arunachal-apsac-silaas",
+      "region_code": "arunachal-pradesh",
+      "source_type": "state_landslide_inventory",
+      "url": "https://srsac.arunachal.gov.in/silaas.php",
+      "evidence_scope": "post-monsoon landslide inventory and GIS mapping",
+      "label_eligibility": "candidate_only",
+      "missing_for_label": ["road event timestamp", "open_or_closed outcome", "reviewer identity"]
+    },
+    {
+      "source_id": "sikkim-ipr-road-landslide-report",
+      "region_code": "sikkim",
+      "source_type": "state_official_incident_report",
+      "url": "https://www.ipr.sikkim.gov.in/Home/PressReleases?slug=press-report-from-72nd-bn-ssb-hq-gyalshing-landslide-disrupts-road-connectivity-to-72nd-battalion-ssb-headquarters-in-gyalshing-sikkim",
+      "evidence_scope": "dated landslide, route, approximate incident time and traffic disruption",
+      "label_eligibility": "candidate_only",
+      "missing_for_label": ["exact graph coordinates", "restoration timestamp", "reviewer identity"]
+    },
+    {
+      "source_id": "sikkim-mangan-chungthang-flood-cutoff",
+      "region_code": "sikkim",
+      "source_type": "state_government_road_advisory",
+      "url": "https://www.sikkim.gov.in/media/news-announcement/news-info?name=Mangan-Chungthang+road+temporarily+cut+off+at+Meyong+Khola+due+to+rise+in+water+level",
+      "evidence_scope": "temporary route cutoff, diversion instruction and administration monitoring",
+      "label_eligibility": "candidate_only",
+      "missing_for_label": ["exact segment coordinates", "reopening timestamp", "reviewer identity"]
+    },
+    {
+      "source_id": "nagaland-dipr-nh702a-landslide",
+      "region_code": "nagaland",
+      "source_type": "state_official_incident_report",
+      "url": "https://ipr.nagaland.gov.in/index.php/node/21887",
+      "evidence_scope": "NH-702A landslide and vehicular movement disruption",
+      "label_eligibility": "candidate_only",
+      "missing_for_label": ["exact graph coordinates", "restoration timestamp", "reviewer identity"]
+    },
+    {
+      "source_id": "mizoram-dipr-daily-incident-report-2025-05-31",
+      "region_code": "mizoram",
+      "source_type": "state_daily_incident_report",
+      "url": "https://dipr.mizoram.gov.in/uploads/attachments/2025/05/adf3af0cbd6f264767c6de1790928c20/updated-daily-incident-report-may-31052025-130-pm-1.pdf",
+      "evidence_scope": "DDMA-reported landslide and road incident entries",
+      "label_eligibility": "candidate_only",
+      "missing_for_label": ["exact graph segment", "road outcome interval", "reviewer identity"]
+    },
+    {
+      "source_id": "manipur-news-on-air-nh37-2026-06-24",
+      "region_code": "manipur",
+      "source_type": "public_broadcaster_incident_report",
+      "url": "https://newsonair.gov.in/manipur-landslides-cut-off-vehicular-movements-on-imphal-jiribam-road/",
+      "published_on": "2026-06-24",
+      "evidence_scope": "NH-37 Imphal-Jiribam landslide disruption in Tamenglong; diversion expected",
+      "label_eligibility": "candidate_only",
+      "missing_for_label": ["coordinates_or_chainage", "confirmed restoration time", "reviewer identity"]
+    },
+    {
+      "source_id": "manipur-news-on-air-nh37-2023-08-16",
+      "region_code": "manipur",
+      "source_type": "public_broadcaster_incident_report",
+      "url": "https://newsonair.gov.in/manipur-due-to-incessant-rain-landslides-and-mudslides-reported-along-nh-37/",
+      "published_on": "2023-08-16T20:52:00+05:30",
+      "evidence_scope": "NH-37 landslides/mudslides between Irang and Khongsang; traffic diversion and debris clearing",
+      "label_eligibility": "candidate_only",
+      "missing_for_label": ["coordinates_or_chainage", "confirmed restoration time", "reviewer identity"]
+    },
+    {
+      "source_id": "tripura-info-nh8-flood-disruption-2026-07-14",
+      "region_code": "tripura",
+      "source_type": "reported_district_ddma_incident",
+      "url": "https://tripurainfo.com/EnglishNews.aspx?intnid=7353&title=Relentless-Rains-Batter-Tripura-Roads-Cut-Off-Schools-Shut-Relief-Camps-Open-as-Administration-Intensifies-Flood-Preparedness",
+      "published_on": "2026-07-14",
+      "evidence_scope": "Reported NH-8 flood/traffic disruption across listed Tripura locations",
+      "label_eligibility": "candidate_only",
+      "provenance_caution": "Host domain is not a Tripura government domain; independently verify the cited DDMA attribution before approval.",
+      "missing_for_label": ["government-hosted primary document", "coordinates_or_chainage", "confirmed restoration time", "reviewer identity"]
+    },
+    {
+      "source_id": "gsi-nlsm-10k",
+      "region_code": "northeast",
+      "source_type": "national_landslide_susceptibility_maps",
+      "url": "https://bhusanket.gsi.gov.in/NLSM_10K_Map.html",
+      "evidence_scope": "GSI susceptibility and management maps; use as spatial risk features, not incident labels",
+      "label_eligibility": "feature_only",
+      "missing_for_label": ["event timestamp", "road outcome", "reviewer identity"]
+    },
+    {
+      "source_id": "gsi-bhusanket-bulletins",
+      "region_code": "northeast",
+      "source_type": "landslide_forecast_and_inventory_bulletins",
+      "url": "https://bhusanket.gsi.gov.in/viewBulletin.html",
+      "evidence_scope": "dated landslide inventory/forecast bulletins where published",
+      "label_eligibility": "candidate_only",
+      "missing_for_label": ["exact road segment", "confirmed road outcome", "reviewer identity"]
+    },
+    {
+      "source_id": "imd-current-weather-api",
+      "region_code": "northeast",
+      "source_type": "official_weather_api",
+      "url": "https://api.imd.gov.in/public/api_reference.html",
+      "evidence_scope": "current weather, humidity, wind, 24-hour rainfall and warning endpoints",
+      "label_eligibility": "feature_only",
+      "missing_for_label": ["road incident evidence", "road outcome", "reviewer identity"],
+      "requires_credentials_or_access": true
+    },
+    {
+      "source_id": "cwc-flood-forecast-adapter",
+      "region_code": "northeast",
+      "source_type": "central_water_commission_flood_forecast",
+      "url": "https://ffs.india-water.gov.in/",
+      "evidence_scope": "river gauge/flood forecast source; road impact requires state road evidence and spatial matching",
+      "label_eligibility": "candidate_only",
+      "missing_for_label": ["road segment", "road outcome", "reviewer identity"],
+      "requires_credentials_or_access": true
+    }
+  ]
+}

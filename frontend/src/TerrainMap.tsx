@@ -1,6 +1,6 @@
-import { Component, useEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from "react";
+import { Component, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { Html, OrbitControls } from "@react-three/drei";
+import { Html, Line, OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
 import type {
   Comparison,
@@ -103,8 +103,8 @@ function Ground({ heightAt }: { heightAt: (x: number, z: number) => number }) {
     geo.rotateX(-Math.PI / 2);
     const vertices = geo.attributes.position;
     const colors = [];
-    const low = new THREE.Color("#233d36");
-    const high = new THREE.Color("#778772");
+    const low = new THREE.Color("#173735");
+    const high = new THREE.Color("#3c5750");
     for (let i = 0; i < vertices.count; i++) {
       const h = heightAt(vertices.getX(i), vertices.getZ(i));
       vertices.setY(i, h);
@@ -116,17 +116,10 @@ function Ground({ heightAt }: { heightAt: (x: number, z: number) => number }) {
     return geo;
   }, [heightAt]);
   useEffect(() => () => geometry.dispose(), [geometry]);
-  const terrainMaterial = useMemo(() => new THREE.ShaderMaterial({
-    vertexColors: true,
-    uniforms: { uLight: { value: new THREE.Vector3(-0.35, 0.8, 0.45).normalize() } },
-    vertexShader: `varying vec3 vColor; varying vec3 vNormal; void main(){ vColor=color; vNormal=normalize(normalMatrix*normal); gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0); }`,
-    fragmentShader: `uniform vec3 uLight; varying vec3 vColor; varying vec3 vNormal; void main(){ float shade=0.62+0.38*max(dot(normalize(vNormal),uLight),0.0); vec3 contour=mix(vColor,vec3(0.88,0.96,0.86),smoothstep(0.72,1.0,vColor.g)); gl_FragColor=vec4(contour*shade,1.0); }`,
-  }), []);
-  useEffect(() => () => terrainMaterial.dispose(), [terrainMaterial]);
   return (
     <group>
       <mesh geometry={geometry}>
-        <primitive object={terrainMaterial} attach="material" />
+        <meshStandardMaterial vertexColors roughness={1} metalness={0} />
       </mesh>
       <mesh geometry={geometry} position={[0, 0.045, 0]}>
         <meshBasicMaterial
@@ -140,38 +133,21 @@ function Ground({ heightAt }: { heightAt: (x: number, z: number) => number }) {
         args={[200, 25, "#284044", "#192f34"]}
         position={[0, -0.6, 0]}
       />
-      <mesh position={[0, -3, 0]}>
-        <boxGeometry args={[184, 4, 136]} />
-        <meshStandardMaterial color="#182b28" roughness={0.6} metalness={0.25} />
-      </mesh>
-      <mesh position={[0, -5.5, 0]}>
-        <boxGeometry args={[188, 1, 140]} />
-        <meshStandardMaterial color="#6c8a75" roughness={0.45} metalness={0.4} />
-      </mesh>
     </group>
   );
 }
 
 function CameraRig({ mode, reset }: Pick<Props, "mode" | "reset">) {
   const { camera } = useThree();
-  const goal = useRef(new THREE.Vector3());
-  const transitioning = useRef(true);
-  const reducedMotion = useMemo(() => window.matchMedia("(prefers-reduced-motion: reduce)").matches, []);
   useEffect(() => {
-    goal.current.set(
+    camera.position.set(
       0,
-      mode === "flat" ? 200 : 155,
-      mode === "flat" ? 0.01 : 145,
+      mode === "flat" ? 155 : 101,
+      mode === "flat" ? 0.01 : 95,
     );
-    transitioning.current = true;
-  }, [mode, reset]);
-  useFrame(() => {
-    if (!transitioning.current) return;
-    camera.position.lerp(goal.current, reducedMotion ? 1 : 0.075);
     camera.lookAt(0, 0, 0);
     camera.updateProjectionMatrix();
-    if (camera.position.distanceTo(goal.current) < 0.08) transitioning.current = false;
-  });
+  }, [camera, mode, reset]);
   return (
     <OrbitControls
       key={`${mode}-${reset}`}
@@ -189,13 +165,9 @@ function CameraRig({ mode, reset }: Pick<Props, "mode" | "reset">) {
 
 function SceneMotion() {
   const beacon = useRef<THREE.Group>(null);
-  const reducedMotion = useMemo(
-    () => window.matchMedia("(prefers-reduced-motion: reduce)").matches,
-    [],
-  );
   useFrame(({ clock }) => {
     if (!beacon.current) return;
-    if (reducedMotion) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const t = clock.getElapsedTime();
     beacon.current.rotation.y = t * 0.08;
     beacon.current.position.y = Math.sin(t * 0.7) * 0.18;
@@ -212,42 +184,6 @@ function SceneMotion() {
       </mesh>
     </group>
   );
-}
-
-function RouteTube({ points, color, selected, pulse }: { points: Point[]; color: string; selected: boolean; pulse: boolean }) {
-  const reducedMotion = useMemo(
-    () => window.matchMedia("(prefers-reduced-motion: reduce)").matches,
-    [],
-  );
-  const material = useMemo(() => new THREE.ShaderMaterial({
-    transparent: true,
-    depthWrite: false,
-    uniforms: { uTime: { value: 0 }, uColor: { value: new THREE.Color(color) }, uPulse: { value: pulse ? 1 : 0 } },
-    vertexShader: `varying vec2 vUv; void main(){ vUv=uv; gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0); }`,
-    fragmentShader: `uniform float uTime; uniform vec3 uColor; uniform float uPulse; varying vec2 vUv; void main(){ float beam=0.72+0.28*sin(vUv.x*45.0-uTime*3.2); float highlight=1.0+uPulse*0.55*smoothstep(0.94,1.0,sin(vUv.x*6.283-uTime*1.6)*0.5+0.5); gl_FragColor=vec4(uColor*beam*highlight,${selected ? 0.96 : 0.56}); }`,
-  }), [color, pulse, selected]);
-  useFrame(({ clock }) => {
-    if (!reducedMotion) material.uniforms.uTime.value = clock.getElapsedTime();
-  });
-  useEffect(() => () => material.dispose(), [material]);
-  const geometry = useMemo(() => {
-    const curve = new THREE.CatmullRomCurve3(points.map(([x, y, z]) => new THREE.Vector3(x, y, z)), false, 'centripetal', 0.45);
-    return new THREE.TubeGeometry(curve, Math.min(96, Math.max(12, points.length * 2)), selected ? 0.48 : 0.28, 8, false);
-  }, [points, selected]);
-  useEffect(() => () => geometry.dispose(), [geometry]);
-  return <mesh geometry={geometry} material={material} />;
-}
-
-function HazardMarker({ point, kind }: { point: Point; kind: string }) {
-  const color = kind.includes('flood') ? '#38bdf8' : kind.includes('closure') || kind.includes('blocked') ? '#ef4444' : '#f97316';
-  const glyph = kind.includes('flood') ? '≈' : kind.includes('closure') || kind.includes('blocked') ? '×' : '!';
-  return <group position={point}>
-    <mesh rotation={[-Math.PI / 2, 0, 0]}><ringGeometry args={[1, 1.5, 24]} /><meshBasicMaterial color={color} transparent opacity={0.68} side={THREE.DoubleSide} /></mesh>
-    <mesh position={[0, 1.2, 0]}><octahedronGeometry args={[0.55]} /><meshBasicMaterial color={color} /></mesh>
-    <Html position={[0, 2.6, 0]} center distanceFactor={38} style={{ pointerEvents: 'none' }}>
-      <div className="hazard-pin" style={{ '--hazard-color': color } as CSSProperties}><b>{glyph}</b><span>{kind.replaceAll('_', ' ')}</span></div>
-    </Html>
-  </group>;
 }
 
 function MapScene(props: Props) {
@@ -368,8 +304,8 @@ function MapScene(props: Props) {
   );
   return (
     <>
-      <color attach="background" args={["#101b1c"]} />
-      <fog attach="fog" args={["#101b1c", 200, 380]} />
+      <color attach="background" args={["#102229"]} />
+      <fog attach="fog" args={["#102229", 160, 330]} />
       <ambientLight intensity={1.5} />
       <directionalLight
         position={[-40, 90, 20]}
@@ -385,15 +321,19 @@ function MapScene(props: Props) {
         (route) =>
           route.status === "available" &&
           route.edge_ids.length > 0 && (
-            <RouteTube
+            <Line
               key={route.id}
               points={densify(
                 route.geometry.coordinates,
                 route.id === "risk_aware" ? 1.3 : 1.05,
               )}
-              color={route.id === "risk_aware" ? "#10B981" : "#F97316"}
-              selected={selected === route.id}
-              pulse={route.id === "risk_aware"}
+              color={route.id === "risk_aware" ? "#8af4cb" : "#b7bcc7"}
+              lineWidth={selected === route.id ? 4 : 2.4}
+              transparent
+              opacity={selected === route.id ? 1 : 0.58}
+              dashed={route.id === "fastest"}
+              dashSize={1}
+              gapSize={0.6}
             />
           ),
       )}
@@ -421,7 +361,6 @@ function MapScene(props: Props) {
             </group>
           );
         })}
-      {showRisk && props.events.slice(0, 18).map((event) => <HazardMarker key={`event-${event.id}`} point={project([event.lon, event.lat], 1.9)} kind={event.kind} />)}
       {locations.map((location) => {
         const endpoint = location.id === origin || location.id === destination;
         return (
@@ -480,8 +419,15 @@ class MapBoundary extends Component<
 export default function TerrainMap(props: Props) {
   const container = useRef<HTMLDivElement>(null);
   const [animate, setAnimate] = useState(false);
+  const [lowPower, setLowPower] = useState(false);
   useEffect(() => {
     const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const deviceMemory = (navigator as Navigator & { deviceMemory?: number }).deviceMemory;
+    setLowPower(
+      preference.matches ||
+      (typeof navigator.hardwareConcurrency === "number" && navigator.hardwareConcurrency <= 4) ||
+      (typeof deviceMemory === "number" && deviceMemory <= 4),
+    );
     let visible = true;
     const update = () => setAnimate(visible && !document.hidden && !preference.matches);
     const observer = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; update(); });
@@ -495,6 +441,7 @@ export default function TerrainMap(props: Props) {
       document.removeEventListener("visibilitychange", update);
     };
   }, []);
+  if (props.mode === "flat" || lowPower) return <FallbackMap {...props} />;
   return (
     <div ref={container} style={{ width: "100%", height: "100%" }}>
     <MapBoundary {...props}>

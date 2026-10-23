@@ -1,14 +1,18 @@
 {
-  "name": "RaahSetu Logistics Intelligence",
+  "name": "RaahSetu - Explainable Northeast Logistics",
   "short_name": "RaahSetu",
-  "description": "Offline-ready Northeast logistics route and accessibility workspace.",
+  "description": "Risk-aware, explainable routing and fleet navigation for Northeast India corridors",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0c171d",
-  "theme_color": "#0c171d",
-  "lang": "en-IN",
+  "background_color": "#090d16",
+  "theme_color": "#0f172a",
   "icons": [
-    { "src": "/pwa-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
-    { "src": "/pwa-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
-  ]
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["logistics", "navigation", "government", "utilities"]
 }

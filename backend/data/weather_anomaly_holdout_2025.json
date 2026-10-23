@@ -1,0 +1,73 @@
+{
+  "model_version": "weather-anomaly-v2-24e82a1bd0",
+  "holdout_window": {
+    "start": "2025-01-01",
+    "end": "2025-12-31"
+  },
+  "states": {
+    "arunachal-pradesh": {
+      "days": 365,
+      "mean_score": 0.3473,
+      "max_score": 0.9149,
+      "flagged_score_days": 18,
+      "flag_rate_pct": 4.93,
+      "evaluation_type": "2025 temporal holdout; anomaly stability only, no disruption labels"
+    },
+    "assam": {
+      "days": 365,
+      "mean_score": 0.3092,
+      "max_score": 0.999,
+      "flagged_score_days": 13,
+      "flag_rate_pct": 3.56,
+      "evaluation_type": "2025 temporal holdout; anomaly stability only, no disruption labels"
+    },
+    "manipur": {
+      "days": 365,
+      "mean_score": 0.2929,
+      "max_score": 0.9312,
+      "flagged_score_days": 21,
+      "flag_rate_pct": 5.75,
+      "evaluation_type": "2025 temporal holdout; anomaly stability only, no disruption labels"
+    },
+    "meghalaya": {
+      "days": 365,
+      "mean_score": 0.3141,
+      "max_score": 0.9932,
+      "flagged_score_days": 24,
+      "flag_rate_pct": 6.58,
+      "evaluation_type": "2025 temporal holdout; anomaly stability only, no disruption labels"
+    },
+    "mizoram": {
+      "days": 365,
+      "mean_score": 0.3131,
+      "max_score": 0.965,
+      "flagged_score_days": 18,
+      "flag_rate_pct": 4.93,
+      "evaluation_type": "2025 temporal holdout; anomaly stability only, no disruption labels"
+    },
+    "nagaland": {
+      "days": 365,
+      "mean_score": 0.3443,
+      "max_score": 0.8664,
+      "flagged_score_days": 40,
+      "flag_rate_pct": 10.96,
+      "evaluation_type": "2025 temporal holdout; anomaly stability only, no disruption labels"
+    },
+    "sikkim": {
+      "days": 365,
+      "mean_score": 0.3343,
+      "max_score": 0.8438,
+      "flagged_score_days": 32,
+      "flag_rate_pct": 8.77,
+      "evaluation_type": "2025 temporal holdout; anomaly stability only, no disruption labels"
+    },
+    "tripura": {
+      "days": 365,
+      "mean_score": 0.2959,
+      "max_score": 0.889,
+      "flagged_score_days": 21,
+      "flag_rate_pct": 5.75,
+      "evaluation_type": "2025 temporal holdout; anomaly stability only, no disruption labels"
+    }
+  }
+}

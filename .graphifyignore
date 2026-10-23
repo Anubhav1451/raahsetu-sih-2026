@@ -1,0 +1,25 @@
+# Never index credentials or local runtime state.
+.env
+.env.*
+Supabasecred.txt
+**/*cred*.txt
+**/*secret*
+
+# Skip generated/build and dependency trees.
+.venv/
+node_modules/
+frontend/dist/
+graphify-out/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+
+# Skip large raw/processed datasets and graph snapshots; keep manifests/docs.
+datasets/raw/
+datasets/processed/
+backend/data/osm-*.json
+backend/data/cache/
+*.hgt.gz
+*.pbf
+*.sqlite
+*.db
